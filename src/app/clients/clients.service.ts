@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Authdata } from '../auth/auth-data.model';
 import { map } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,9 @@ export class ClientsService {
   private usersUpdated = new Subject<{ users: Authdata[], userCount: number }>()
 
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
+
+
 
   getUsers(usersPerPage: number, currentPage: number) {
     const queryParams = `?pagesize=${usersPerPage}&page=${currentPage}`;
@@ -39,12 +42,12 @@ export class ClientsService {
       });
   }
 
-  updateUser(id: string, firstName: string, lastName: string, role: string, email: string, password: string) {
-    const user: Authdata = { id: id, firstName: firstName, lastName: lastName, email: email, password: password };
+  updateUser(id: string) {
+    const user = this.users
     this.http.put("http://localhost:3000/api/user/" + id, user)
       .subscribe(response => {
 
-        // this.router.navigate(["/"])
+        this.router.navigate(["/clients"])
 
       })
   }

@@ -2,7 +2,7 @@
   <mat-spinner *ngIf="isLoading"></mat-spinner>
   <form (submit)="onSignup(signupForm)" #signupForm="ngForm" *ngIf="!isLoading">
 
-    <mat-form-field>
+    <!-- <mat-form-field>
       <input matInput name="firstName" ngModel #firstNameInput="ngModel" type="text" required placeholder="First Name">
       <mat-error *ngIf="firstNameInput.invalid"> Please enter First Name. </mat-error>
     </mat-form-field>
@@ -10,7 +10,7 @@
     <mat-form-field>
       <input matInput name="lastName" ngModel #lastNameInput="ngModel" type="text" required placeholder="Last Name">
       <mat-error *ngIf="lastNameInput.invalid"> Please enter Last Name </mat-error>
-    </mat-form-field>
+    </mat-form-field> -->
 
     <mat-form-field>
       <input matInput name="email" ngModel #emailInput="ngModel" type="email" required email placeholder="Email">

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Authdata } from './auth-data.model';
 import { Subject } from 'rxjs';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Injectable({ providedIn: "root" })
 export class AuthService {
@@ -27,17 +27,18 @@ export class AuthService {
     return this.userId
   }
 
-  createUser(firstName: string, lastName: string, email: string, password: string, id: string) {
-    const authData: Authdata = {firstName: firstName, lastName: lastName, email: email, password: password , id: id}
+  createUser(email: string, password: string) {
+    const authData: Authdata = { email: email, password: password }
     this.http.post("http://localhost:3000/api/user/signup", authData)
       .subscribe(response => {
         console.error(response)
+        this.router.navigate(['/'])
         this.token
       });
   };
 
   logIn(email: string, password: string) {
-    const authData = { email: email, password: password }
+    const authData: Authdata = { email: email, password: password }
     this.http.post<{ token: string, expiresIn: number, userId: string }>("http://localhost:3000/api/user/login", authData)
       .subscribe(response => {
         const token = response.token;

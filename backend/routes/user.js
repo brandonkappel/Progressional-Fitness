@@ -13,8 +13,6 @@ const router = express.Router();
 router.post("/signup", (req, res, next) => {
   bcrypt.hash(req.body.password, 10).then((hash) => {
     const user = new User({
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
       email: req.body.email,
       password: hash,
     });
@@ -101,9 +99,6 @@ router.put(
     console.error(req)
   const user = new User({
 
-    _id: req.body.id,
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
     email: req.body.email,
     role: req.body.role
   });
