@@ -1,0 +1,18 @@
+<mat-toolbar color="primary">
+<span> <a routerLink="/"> Progressional Fitness</a></span>
+<span class="spacer"></span>
+ <ul>
+   <li *ngIf="userIsAuthenticated">
+     <a mat-raised-button color="primary" routerLink="/create" routerLinkActive="mat-accent">New Post</a>
+   </li>
+   <li *ngIf="!userIsAuthenticated">
+    <a mat-raised-button color="primary" routerLink="/login" routerLinkActive="mat-accent">Login</a>
+  </li>
+  <li *ngIf="!userIsAuthenticated">
+    <a mat-raised-button color="primary" routerLink="/signup" routerLinkActive="mat-accent">Sign Up</a>
+  </li>
+  <li *ngIf="userIsAuthenticated">
+    <button (click)="onLogout()" mat-button >Logout</button>
+  </li>
+ </ul>
+</mat-toolbar>
