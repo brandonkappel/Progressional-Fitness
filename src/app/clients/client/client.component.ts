@@ -73,7 +73,7 @@ export class ClientComponent implements OnInit {
     });
   }
 
-  onSavePost(this) {
+  onSavePost() {
     if (this.form.invalid) {
       console.error(this.form)
       return
@@ -82,9 +82,11 @@ export class ClientComponent implements OnInit {
     this.isLoading = true;
     console.error(this.isLoading)
 
-   this.clientService.updateUser(this.userId, this.form.value.firstName, this.form.value.lastName, this.form.value.email, this.form.value.email, this.form.value.password)
+   this.clientService.updateUser(this.userId)
 
     this.clientService.getUser(this.user)
+
+
 
 
 

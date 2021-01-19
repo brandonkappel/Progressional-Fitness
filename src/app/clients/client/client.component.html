@@ -1,14 +1,49 @@
+<!-- <mat-card>
+  <mat-form-field>
+    <mat-label matInput
+    [(ngModel)]="user.firstName"
+    value="{{user.firstName}}"
+    >
+
+    </mat-label>
+  </mat-form-field>
+
+</mat-card> -->
+
+
+
 <mat-card>
   <mat-spinner *ngIf="isLoading"></mat-spinner>
   <form *ngIf="!isLoading" [formGroup]="form" (submit)="onSavePost()" >
     <mat-form-field>
       <input matInput
+
+      formControlName="firstName"
        type="text"
-       formControlName="firstName"
        placeholder="First Name">
        <mat-error *ngIf="form.get('firstName').invalid" > Please enter a first name. </mat-error>
     </mat-form-field>
     <mat-form-field>
+      <input matInput
+
+      formControlName="lastName"
+
+       type="text"
+       placeholder="last Name ">
+       <mat-error *ngIf="form.get('lastName').invalid" > Please enter a first name. </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput
+      formControlName="email"
+       type="text"
+       placeholder="Email">
+       <mat-error *ngIf="form.get('email').invalid" > Please enter a first name. </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+     <mat-slide-toggle formControlName='role'></mat-slide-toggle>
+
+    </mat-form-field>
+    <!-- <mat-form-field>
       <input
       matInput
       type="text"
@@ -31,11 +66,11 @@
        formControlName="role"
        placeholder="Role">
        <mat-error *ngIf="form.get('role').invalid" > Please enter email. </mat-error>
-    </mat-form-field>
-    <h2>Create a Post!</h2>
+    </mat-form-field> -->
+    <h2>Update Client!</h2>
     <button mat-raised-button
     color="accent"
-    type="submit">Save Post</button>
+    type="submit">Save Client</button>
   </form>
 
 </mat-card>
