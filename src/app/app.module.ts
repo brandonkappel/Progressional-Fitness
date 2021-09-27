@@ -12,6 +12,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatExpansionModule } from "@angular/material/expansion";
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatDialogModule} from '@angular/material/dialog';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -27,6 +28,8 @@ import { HomeComponent } from './main/home/home.component';
 import { MainComponent } from './main/main/main.component';
 import { ClientsComponent } from './clients/clients.component';
 import { ClientComponent } from './clients/client/client.component';
+import { ErrorInterceptor } from './error-interceptor';
+import { ErrorComponent } from './error/error.component';
 
 
 @NgModule({
@@ -42,6 +45,7 @@ import { ClientComponent } from './clients/client/client.component';
     MainComponent,
     ClientsComponent,
     ClientComponent,
+    ErrorComponent,
 
 
   ],
@@ -62,12 +66,16 @@ import { ClientComponent } from './clients/client/client.component';
     MatProgressSpinnerModule,
     MatPaginatorModule,
     HttpClientModule,
+    MatDialogModule
 
   ],
   providers: [
-    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
+
   ],
   bootstrap: [AppComponent],
+  entryComponents: [ErrorComponent],
 
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
