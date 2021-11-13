@@ -49,9 +49,11 @@ export class PostsService {
     postData.append("title", title)
     postData.append("content", content)
     // postData.append("image", image, title)
+    console.error(postData)
 
     this.http.post<{ message: string, postId: any }>('http://localhost:3000/api/posts', postData)
       .subscribe((responseData) => {
+        console.error(responseData)
         this.router.navigate(["/"])
       });
 

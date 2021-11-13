@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Authdata } from '../auth/auth-data.model';
-import { map } from 'rxjs/operators';
+import { Client,  } from './clients.model';
+import { last, map } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 
@@ -10,8 +10,8 @@ import { Router } from '@angular/router';
 })
 export class ClientsService {
 
-  private users: Authdata[] = []
-  private usersUpdated = new Subject<{ users: Authdata[], userCount: number }>()
+  private users: Client[] = []
+  private usersUpdated = new Subject<{ users: Client[], userCount: number }>()
 
 
   constructor(private http: HttpClient, private router: Router) { }
@@ -42,14 +42,27 @@ export class ClientsService {
       });
   }
 
-  updateUser(id: string) {
-    const user = this.users
+  updateUser(id: string, firstName: string, lastName: string, email: string, role: string) {
+    const user: Client = {id: id, firstName: firstName, lastName: lastName, email: email, role: role }
+    console.error(user)
     this.http.put("http://localhost:3000/api/user/" + id, user)
       .subscribe(response => {
-
+        console.error(response)
         this.router.navigate(["/clients"])
 
       })
+  }
+
+  addClient(firstName: string, lastName: string, email: string) {
+
+    const clientData = {firstName: firstName, lastName: lastName, email:email}
+
+    this.http.post<{ message: string, userId: any }>('http://localhost:3000/api/user/newUser', clientData)
+      .subscribe((responseData) => {
+        console.error(responseData)
+        this.router.navigate(["/"])
+      });
+
   }
 
   getPostUpdatedListener() {

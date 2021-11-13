@@ -1,9 +1,8 @@
-export interface Clientdata {
-
+export interface Client {
+  id: string
   firstName: string,
   lastName: string,
   email: string,
-  sex: string,
   role: string,
 
 

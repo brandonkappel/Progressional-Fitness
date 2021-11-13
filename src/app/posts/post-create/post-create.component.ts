@@ -87,12 +87,9 @@ export class PostCreateComponent implements OnInit {
   onSavePost() {
     if (this.form.invalid) {
       console.error(this.form)
-      return
-
+      return;
     }
-    console.error(this.form)
     this.isLoading = true;
-    console.error(this.isLoading)
     if (this.mode === 'create') {
       this.postsService.addPost(this.form.value.title, this.form.value.content);
       this.snackBar.open("Successfully Created Post", "", { duration: 2000, verticalPosition: "top" })

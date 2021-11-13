@@ -94,15 +94,33 @@ router.get("", (req, res, next) => {
     });
 });
 
+router.post("/newUser", (req, res, next) => {
+    const user = new User({
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      email: req.body.email
+    });
+
+    user.save().then((createdUser) => {
+      res.status(201).json({
+        message: "User Added Successfully",
+        postId: createdUser._id,
+      });
+    });
+  }
+);
+
 //Update
 router.put(
   "/:id",
   (req, res, next) => {
     console.error(req)
   const user = new User({
-
+    _id: req.body.id,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
     email: req.body.email,
-    role: req.body.role
+    // role: req.body.role
   });
   User.updateOne({ _id: req.params.id }, user).then((result) => {
     console.error(result)

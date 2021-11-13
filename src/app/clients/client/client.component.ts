@@ -5,6 +5,7 @@ import { ClientsService } from '../clients.service';
 import { Subscription } from 'rxjs';
 
 import { Authdata } from 'src/app/auth/auth-data.model';
+import { Client } from '../clients.model';
 
 @Component({
   selector: 'app-client',
@@ -16,7 +17,8 @@ export class ClientComponent implements OnInit {
   private userId: string;
   form: FormGroup;
   isLoading = false;
-  user: any;
+  user: Client;
+  private mode = 'create';
 
 
 
@@ -38,26 +40,26 @@ export class ClientComponent implements OnInit {
       "email": new FormControl(null, {
         validators: [Validators.required]
       }),
-      "role": new FormControl(null, {
-        validators: [Validators.required]
-      }),
+      // "role": new FormControl(null, {
+      //   validators: [Validators.required]
+      // }),
 
     });
     this.route.paramMap.subscribe((ParamMap: ParamMap) => {
       if (ParamMap.has('userId')) {
-
+        this.mode = 'edit';
         this.userId = ParamMap.get('userId')
         this.isLoading = true
         this.clientService.getUser(this.userId).subscribe(userData => {
           this.isLoading = false
-          this.user = userData
-          // this.user = {
-          //   id: userData._id,
-          //   firstName: userData.firstName,
-          //   lastName: userData.lastName,
-          //   email: userData.email
+          this.user = {
+            id: userData._id,
+            firstName: userData.firstName,
+            lastName: userData.lastName,
+            email: userData.email,
+            role: userData.role
 
-          // };
+          };
           console.error(this.user)
           this.form.setValue({
             'firstName': this.user.firstName,
@@ -67,7 +69,7 @@ export class ClientComponent implements OnInit {
           });
         })
       } else {
-        // this.mode = 'create';
+        this.mode = 'create';
         this.userId = null
       }
     });
@@ -78,13 +80,14 @@ export class ClientComponent implements OnInit {
       console.error(this.form)
       return
     }
-    console.error(this.form)
     this.isLoading = true;
-    console.error(this.isLoading)
+if (this.mode === 'create') {
+  this.clientService.addClient(this.form.value.firstName, this.form.value.lastName, this.form.value.email)
 
-   this.clientService.updateUser(this.userId)
-
-    this.clientService.getUser(this.user)
+}else {
+   this.clientService.updateUser(this.userId, this.form.value.firstName, this.form.value.lastName, this.form.value.email, this.form.value.role)
+}
+    // this.clientService.getUser(this.user)
 
 
 
