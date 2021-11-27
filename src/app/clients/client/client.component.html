@@ -39,6 +39,17 @@
        placeholder="Email">
        <mat-error *ngIf="form.get('email').invalid" > Please enter a first name. </mat-error>
     </mat-form-field>
+    <mat-form-field >
+      <mat-label>Role</mat-label>
+      <mat-select
+      formControlName="role">
+        <mat-option value="client">Client</mat-option>
+        <mat-option value="admin">Admin</mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('role').invalid" > Please select a Role </mat-error>
+
+    </mat-form-field>
+
 
     <!-- <mat-form-field>
       <input

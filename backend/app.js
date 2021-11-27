@@ -10,7 +10,7 @@ const app = express();
 mongoose
   .connect(
     "mongodb+srv://Brandon:kXUeDiNh3tl6zi6P@cluster0.titlm.mongodb.net/node-angular?retryWrites=true&w=majority"
-  )
+  , {useNewUrlParser: true, useUnifiedTopology: true})
   .then(() => {
     console.log("Connected to Database");
   })
@@ -18,8 +18,8 @@ mongoose
     console.log("Connection failed");
   });
 // kXUeDiNh3tl6zi6P
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");

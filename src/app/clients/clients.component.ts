@@ -4,6 +4,7 @@ import { ClientsService } from './clients.service';
 import { Authdata } from '../auth/auth-data.model';
 import { Subscription } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
+import { Client } from './clients.model';
 
 
 @Component({
@@ -13,7 +14,7 @@ import { PageEvent } from '@angular/material/paginator';
 })
 export class ClientsComponent implements OnInit {
 
-  users: Authdata[] = [];
+  users: Client[] = [];
 
   isLoading = false
   totalUsers = 0
@@ -21,24 +22,32 @@ export class ClientsComponent implements OnInit {
   currentPage = 1;
   pageSizeOptions = [1, 2, 5, 10]
   public userIsAuthenticated = false
+  public userIsAdmin = false
   private usersSub: Subscription;
+  private authStatusSub: Subscription
+
 
   userId: string
 
 
 
-  constructor(private authService: AuthService, private clientService: ClientsService) { }
+  constructor(public authService: AuthService, private clientService: ClientsService) { }
 
   ngOnInit(): void {
     this.isLoading = true
     this.clientService.getUsers(this.usersPerPage, this.currentPage)
-    this.usersSub = this.clientService.getPostUpdatedListener()
-      .subscribe((userData: { users: Authdata[], userCount: number }) => {
+    this.usersSub = this.clientService.getUserUpdatedListener()
+      .subscribe((userData: { users: Client[], userCount: number }) => {
         this.isLoading = false
         this.totalUsers = userData.userCount
         this.users = userData.users;
         console.error(this.users)
-
+      });
+      this.userIsAuthenticated = this.authService.getIsAuth()
+      this.authStatusSub = this.authService.getAuthStatusListener().subscribe(isAuthenticated =>{
+        console.error(isAuthenticated)
+        this.userIsAuthenticated = isAuthenticated;
+        this.userId = this.authService.getUserId()
       });
   }
 

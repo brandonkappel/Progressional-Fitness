@@ -53,9 +53,9 @@ export class ClientsService {
       })
   }
 
-  addClient(firstName: string, lastName: string, email: string) {
+  addClient(firstName: string, lastName: string, email: string, role: string) {
 
-    const clientData = {firstName: firstName, lastName: lastName, email:email}
+    const clientData = {firstName: firstName, lastName: lastName, email:email, role: role}
 
     this.http.post<{ message: string, userId: any }>('http://localhost:3000/api/user/newUser', clientData)
       .subscribe((responseData) => {
@@ -65,7 +65,7 @@ export class ClientsService {
 
   }
 
-  getPostUpdatedListener() {
+  getUserUpdatedListener() {
     return this.usersUpdated.asObservable();
   }
   getUser(id: string) {

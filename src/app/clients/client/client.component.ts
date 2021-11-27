@@ -40,9 +40,9 @@ export class ClientComponent implements OnInit {
       "email": new FormControl(null, {
         validators: [Validators.required]
       }),
-      // "role": new FormControl(null, {
-      //   validators: [Validators.required]
-      // }),
+      "role": new FormControl(null, {
+        validators: [Validators.required]
+      }),
 
     });
     this.route.paramMap.subscribe((ParamMap: ParamMap) => {
@@ -82,7 +82,7 @@ export class ClientComponent implements OnInit {
     }
     this.isLoading = true;
 if (this.mode === 'create') {
-  this.clientService.addClient(this.form.value.firstName, this.form.value.lastName, this.form.value.email)
+  this.clientService.addClient(this.form.value.firstName, this.form.value.lastName, this.form.value.email, this.form.value.role)
 
 }else {
    this.clientService.updateUser(this.userId, this.form.value.firstName, this.form.value.lastName, this.form.value.email, this.form.value.role)

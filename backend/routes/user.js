@@ -1,11 +1,10 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const checkAuth = require("../middleware/check-auth")
+const {authUser, authRole} = require("../middleware/check-auth")
 
 
 const User = require("../models/user");
-const user = require("../models/user");
 
 const router = express.Router();
 
@@ -94,11 +93,12 @@ router.get("", (req, res, next) => {
     });
 });
 
-router.post("/newUser", (req, res, next) => {
+router.post("/newUser", authUser, (req, res, next) => {
     const user = new User({
       firstName: req.body.firstName,
       lastName: req.body.lastName,
-      email: req.body.email
+      email: req.body.email,
+      role: req.body.role
     });
 
     user.save().then((createdUser) => {
@@ -112,7 +112,7 @@ router.post("/newUser", (req, res, next) => {
 
 //Update
 router.put(
-  "/:id",
+  "/:id", authUser, authRole(),
   (req, res, next) => {
     console.error(req)
   const user = new User({
@@ -120,7 +120,7 @@ router.put(
     firstName: req.body.firstName,
     lastName: req.body.lastName,
     email: req.body.email,
-    // role: req.body.role
+    role: req.body.role
   });
   User.updateOne({ _id: req.params.id }, user).then((result) => {
     console.error(result)
