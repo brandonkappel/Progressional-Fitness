@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/auth/auth.service';
+import { Client } from 'src/app/clients/clients.model';
 
 @Component({
   selector: 'app-home',
@@ -8,10 +9,28 @@ import { AuthService } from 'src/app/auth/auth.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private authService: AuthService) { }
+  user: Client
+  userId: string;
+
+  constructor(private authService: AuthService) {
+
+
+  }
 
   ngOnInit(): void {
+    this.userId = this.authService.getUserId()
+    console.error(this.userId)
+    this.authService.getUser(this.userId).subscribe(user => {
+      this.user = {
+        id: user._id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        role: user.role
+      }
+      console.error(this.user)
 
+    })
   }
 
 }

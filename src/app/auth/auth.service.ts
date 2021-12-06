@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Authdata } from './auth-data.model';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
+import { Client } from '../clients/clients.model';
 
 @Injectable({ providedIn: "root" })
 export class AuthService {
@@ -12,6 +13,7 @@ export class AuthService {
   private tokenTimer: any;
   private authStatusListener = new Subject<boolean>();
   private userId: string;
+  user: Client;
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -55,12 +57,33 @@ export class AuthService {
           const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
           console.error(expirationDate);
           this.saveAuthData(token, expirationDate, this.userId)
+          // this.getUser()
           this.router.navigate(['/'])
         }
       }, error=>{
         this.authStatusListener.next(false)
       });
   };
+
+  // getUser() {
+  //   this.http.get<{ _id: string, firstName: string, lastName: string, email: string, role: string }>("http://localhost:3000/api/user/" + this.userId).subscribe(user => {
+  //    this.user = {
+  //       id: user._id,
+  //       firstName: user.firstName,
+  //       lastName: user.lastName,
+  //       email: user.email,
+  //       role: user.role
+  //     }
+  //     console.error(this.user)
+
+  //   })
+  // }
+
+  getUser(id: string) {
+  return  this.http.get<{ _id: string, firstName: string, lastName: string, email: string, role: string }>("http://localhost:3000/api/user/" + id)
+
+  }
+
 
   autoAuthUser() {
     const authInformation = this.getAuthData();

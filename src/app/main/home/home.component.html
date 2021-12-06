@@ -1,18 +1,19 @@
+<div *ngIf="user">
+  <h2>Hello {{user.firstName}} {{user.lastName}} </h2>
+  <button routerLink="/posts"> Posts</button>
+  <button routerLink="/clients"> Clients</button>
 
-<button routerLink="/posts"> Posts</button>
-<button routerLink="/clients"> Clients</button>
+  <div class="container">
+    <div class="row">
+      <div *ngIf="user.role == 'admin'" class="col ">
+        <h2>Clients</h2>
+        <app-clients></app-clients>
+      </div>
+      <div class="col">
+        <h2>Posts</h2>
+        <app-post-list></app-post-list>
+      </div>
 
-<div class="container">
-  <div class="row">
-    <div class="col ">
-      <h2>Clients</h2>
-      <app-clients></app-clients>
     </div>
-    <div class="col">
-      <h2>Posts</h2>
-     <app-post-list></app-post-list>
-    </div>
-
   </div>
 </div>
-

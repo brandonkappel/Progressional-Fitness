@@ -41,11 +41,9 @@ export class ClientsComponent implements OnInit {
         this.isLoading = false
         this.totalUsers = userData.userCount
         this.users = userData.users;
-        console.error(this.users)
       });
       this.userIsAuthenticated = this.authService.getIsAuth()
       this.authStatusSub = this.authService.getAuthStatusListener().subscribe(isAuthenticated =>{
-        console.error(isAuthenticated)
         this.userIsAuthenticated = isAuthenticated;
         this.userId = this.authService.getUserId()
       });
