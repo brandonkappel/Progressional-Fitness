@@ -56,8 +56,8 @@ router.get("", (req, res, next) => {
     .then((count) => {
       res.status(200).json({
         message: "Workouts fetched successfully!",
-        posts: fetchedWorkouts,
-        maxPosts: count,
+        workouts: fetchedWorkouts,
+        maxWorkouts: count,
       });
     });
 });

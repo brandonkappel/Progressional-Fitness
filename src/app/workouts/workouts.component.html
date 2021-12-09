@@ -1,1 +1,23 @@
-<p>workouts works!</p>
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<button mat-raised-button color="primary" routerLink="/client" routerLinkActive="mat-accent"> Create Client</button>
+<mat-accordion multi="true" *ngIf="workouts.length > 0 && !isLoading">
+  <mat-expansion-panel *ngFor="let workout of workouts">
+    <mat-expansion-panel-header>
+      {{workout.name}}
+    </mat-expansion-panel-header>
+    <div>
+     <strong> Creator: </strong> {{workout.creator}}
+    </div>
+
+
+
+    <mat-action-row>
+      <a mat-button color="primary" [routerLink]="['/editWorkout', workout['id']]">EDIT</a>
+      <button mat-button color="warn" (click)="onDelete(workout['id'])">DELETE</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+</mat-accordion>
+<mat-paginator [length]="totalWorkouts" [pageSize]="workoutsPerPage" [pageSizeOptions]="pageSizeOptions"
+  (page)="onChangedPage($event)" *ngIf="workouts.length > 0 "></mat-paginator>
+<p class="info-text mat-body-1" *ngIf="workouts.length <= 0 && !isLoading">No Posts Added Yet</p>
+

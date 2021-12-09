@@ -4,6 +4,7 @@ import { Workout,  } from './workout.model';
 import { last, map } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
+import { workerData } from 'worker_threads';
 
 @Injectable({
   providedIn: 'root'
@@ -21,19 +22,16 @@ export class WorkoutsService {
   getWorkouts(workoutsPerPage: number, currentPage: number) {
     const queryParams = `?pagesize=${workoutsPerPage}&page=${currentPage}`;
     this.http.get<{ message: string, workouts: any, maxWorkouts: number }>(
-      'http://localhost:3000/api/workout' + queryParams)
-      .pipe(map((WorkoutData) => {
+      'http://localhost:3000/api/workouts' + queryParams)
+      .pipe(map((workoutData) => {
         return {
-          workouts: WorkoutData.workouts.map(user => {
+          workouts: workoutData.workouts.map(workout => {
             return {
-              firstName: user.firstName,
-              lastName: user.lastName,
-              role: user.role,
-              email: user.email,
-              id: user._id,
-              creator: user.creator
+              name: workout.name,
+              date: workout.date,
+              creator: workout.creator
             };
-          }), maxWorkouts: WorkoutData.maxWorkouts
+          }), maxWorkouts: workoutData.maxWorkouts
         };
       }))
       .subscribe((transformedWorkoutData) => {
@@ -45,7 +43,7 @@ export class WorkoutsService {
   updateUser(id: string, ) {
     const workout = this.workouts
     console.error(workout)
-    this.http.put("http://localhost:3000/api/user/" + id, workout)
+    this.http.put("http://localhost:3000/api/workouts/" + id, workout)
       .subscribe(response => {
         console.error(response)
         this.router.navigate(["/clients"])
@@ -69,11 +67,11 @@ export class WorkoutsService {
     return this.workoutsUpdated.asObservable();
   }
   getWorkout(id: string) {
-    return this.http.get("http://localhost:3000/api/user/" + id);
+    return this.http.get("http://localhost:3000/api/workouts/" + id);
   }
 
-  deletePost(userId: string) {
-    return this.http.delete("http://localhost:3000/api/user/" + userId)
+  deleteWorkout(workoutId: string) {
+    return this.http.delete("http://localhost:3000/api/workouts/" + workoutId)
 
   }
 
