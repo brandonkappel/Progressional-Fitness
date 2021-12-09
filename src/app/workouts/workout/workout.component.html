@@ -1,0 +1,49 @@
+
+
+<mat-card>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <form *ngIf="!isLoading" [formGroup]="form" (submit)="onSavePost()" >
+    <mat-form-field>
+      <input matInput
+
+      formControlName="name"
+       type="text"
+       placeholder="Workout Name">
+       <mat-error *ngIf="form.get('name').invalid" > Please enter a workout name. </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput
+
+      formControlName="date"
+
+       type="text"
+       placeholder="Date ">
+       <mat-error *ngIf="form.get('date').invalid" > Please enter a date. </mat-error>
+    </mat-form-field>
+    <!-- <mat-form-field>
+      <input matInput
+      formControlName="client"
+       type="text"
+       placeholder="Client">
+       <mat-error *ngIf="form.get('client').invalid" > Please enter a Client. </mat-error>
+    </mat-form-field> -->
+    <!-- <mat-form-field >
+      <mat-label>Role</mat-label>
+      <mat-select
+      formControlName="role">
+        <mat-option value="client">Client</mat-option>
+        <mat-option value="admin">Admin</mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('client').invalid" > Please select a Role </mat-error>
+
+    </mat-form-field> -->
+
+
+
+    <h2>Update Client!</h2>
+    <button mat-raised-button
+    color="accent"
+    type="submit">Save Client</button>
+  </form>
+
+</mat-card>

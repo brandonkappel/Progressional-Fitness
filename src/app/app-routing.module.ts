@@ -8,12 +8,16 @@ import { AuthGuard } from './auth/auth.guard';
 import { HomeComponent } from './main/home/home.component';
 import { ClientsComponent } from './clients/clients.component';
 import { ClientComponent } from './clients/client/client.component';
+import { WorkoutsComponent } from './workouts/workouts.component';
+import { WorkoutComponent } from './workouts/workout/workout.component';
 
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'clients', component: ClientsComponent},
   {path: 'posts', component: PostListComponent},
+  {path: 'workouts', component: WorkoutsComponent},
+  {path: 'workout', component: WorkoutComponent},
   {path: 'create', component: PostCreateComponent, canActivate: [AuthGuard]},
   {path: 'editClient/:userId', component: ClientComponent},
   {path: 'client', component: ClientComponent, canActivate: [AuthGuard] },

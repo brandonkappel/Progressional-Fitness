@@ -22,7 +22,7 @@ export class ClientComponent implements OnInit {
 
 
 
-  constructor( public route: ActivatedRoute, private clientService: ClientsService) { }
+  constructor(public route: ActivatedRoute, private clientService: ClientsService) { }
 
   ngOnInit(): void {
     this.form = new FormGroup({
@@ -81,20 +81,13 @@ export class ClientComponent implements OnInit {
       return
     }
     this.isLoading = true;
-if (this.mode === 'create') {
-  this.clientService.addClient(this.form.value.firstName, this.form.value.lastName, this.form.value.email, this.form.value.role)
+    if (this.mode === 'create') {
+      this.clientService.addClient(this.form.value.firstName, this.form.value.lastName, this.form.value.email, this.form.value.role)
 
-}else {
-   this.clientService.updateUser(this.userId, this.form.value.firstName, this.form.value.lastName, this.form.value.email, this.form.value.role)
-}
-    // this.clientService.getUser(this.user)
+    } else {
+      this.clientService.updateUser(this.userId, this.form.value.firstName, this.form.value.lastName, this.form.value.email, this.form.value.role)
+    }
 
-
-
-
-
-    // this.router.navigateByUrl('')
-    // this.form.reset();
   }
 
 }

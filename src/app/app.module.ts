@@ -32,6 +32,8 @@ import { ClientsComponent } from './clients/clients.component';
 import { ClientComponent } from './clients/client/client.component';
 import { ErrorInterceptor } from './error-interceptor';
 import { ErrorComponent } from './error/error.component';
+import { WorkoutsComponent } from './workouts/workouts.component';
+import { WorkoutComponent } from './workouts/workout/workout.component';
 
 
 
@@ -49,6 +51,8 @@ import { ErrorComponent } from './error/error.component';
     ClientsComponent,
     ClientComponent,
     ErrorComponent,
+    WorkoutsComponent,
+    WorkoutComponent,
 
 
   ],

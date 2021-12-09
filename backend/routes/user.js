@@ -104,7 +104,7 @@ router.post("/newUser", authUser, (req, res, next) => {
     user.save().then((createdUser) => {
       res.status(201).json({
         message: "User Added Successfully",
-        postId: createdUser._id,
+        userId: createdUser._id,
       });
     });
   }
