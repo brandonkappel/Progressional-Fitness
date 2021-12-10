@@ -4,6 +4,7 @@ const {authUser} = require("../middleware/check-auth")
 const router = express.Router();
 
 const Workout = require("../models/workout");
+const WorkoutItem = require("../models/workoutItem")
 
 router.post("",authUser,(req, res, next) => {
   console.error(req)
