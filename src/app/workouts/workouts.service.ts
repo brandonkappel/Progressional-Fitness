@@ -4,7 +4,7 @@ import { Workout,  } from './workout.model';
 import { last, map } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
-import { workerData } from 'worker_threads';
+import { WorkoutItem } from './workoutitem.model';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +13,7 @@ export class WorkoutsService {
 
   private workouts: Workout[] = []
   private workoutsUpdated = new Subject<{ workouts: Workout[], workoutCount: number }>()
+  private workoutItems: WorkoutItem[]=[];
 
 
   constructor(private http: HttpClient, private router: Router) { }
@@ -40,7 +41,24 @@ export class WorkoutsService {
       });
   }
 
-  updateUser(id: string, ) {
+  getWorkoutItems(){
+    this.http.get<{message: string, workoutItem: any}>( 'http://localhost:3000/api/workoutItems')
+    .pipe(map((itemData)=> {
+      return {
+        workoutItems: itemData.workoutItem.map(item => {
+          return {
+            name: item.name,
+            description: item.description,
+            comments: item.comments,
+          }
+        })
+      }
+    })). subscribe((transformedItemData)=> {
+      this.workoutItems = transformedItemData.workoutItems;
+    })
+  }
+
+  updateWorkout(id: string, ) {
     const workout = this.workouts
     console.error(workout)
     this.http.put("http://localhost:3000/api/workouts/" + id, workout)
@@ -54,18 +72,27 @@ export class WorkoutsService {
   addWorkout(name: string, date: Date, ) {
     // console.error(workout)
     const workoutData = {name: name, date: date}
-
+    // console.error(workoutData)
     this.http.post<{ message: string, workoutId: any }>('http://localhost:3000/api/workouts', workoutData)
       .subscribe((responseData) => {
-        console.error(responseData)
-        this.router.navigate(["/"])
+        console.error('Workout:',responseData)
+        // this.router.navigate(["/"])
       });
+  }
 
+  addWorkoutItem (name: string, description: string, comments: string ){
+    const itemData = {name: name, description: description, comments: comments}
+    console.error(itemData)
+    this.http.post<{message: string, workoutItemId: any}>('http://localhost:3000/api/workoutItems', itemData)
+    .subscribe((response)=> {
+      console.error('workout Item:',response)
+    })
   }
 
   getWorkoutUpdatedListener() {
     return this.workoutsUpdated.asObservable();
   }
+
   getWorkout(id: string) {
     return this.http.get("http://localhost:3000/api/workouts/" + id);
   }

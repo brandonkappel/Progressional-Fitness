@@ -1,6 +1,6 @@
-export interface WorkoutItems {
+export interface WorkoutItem {
   id: string;
-  workoutId: string;
   name: string;
   description: string;
+  comments: string;
 }

@@ -45,7 +45,7 @@ router.get("", (req, res, next) => {
    if(item){
      res.status(200).json({
        message: "Programs found",
-       workoutItem: item
+       workoutItems: item
      })
    }
  })
