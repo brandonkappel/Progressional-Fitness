@@ -1,5 +1,5 @@
 <mat-spinner *ngIf="isLoading"></mat-spinner>
-<button mat-raised-button color="primary" routerLink="/client" routerLinkActive="mat-accent"> Create Client</button>
+<button mat-raised-button color="primary" routerLink="/workout" routerLinkActive="mat-accent"> Create Client</button>
 <mat-accordion multi="true" *ngIf="workouts.length > 0 && !isLoading">
   <mat-expansion-panel *ngFor="let workout of workouts">
     <mat-expansion-panel-header>

@@ -14,6 +14,7 @@ import {MatExpansionModule } from "@angular/material/expansion";
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatSelectModule} from '@angular/material/select';
+import {MatStepperModule} from '@angular/material/stepper';
 
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
@@ -34,6 +35,8 @@ import { ErrorInterceptor } from './error-interceptor';
 import { ErrorComponent } from './error/error.component';
 import { WorkoutsComponent } from './workouts/workouts.component';
 import { WorkoutComponent } from './workouts/workout/workout.component';
+import { ProgramsComponent } from './programs/programs.component';
+import { ProgramComponent } from './programs/program/program.component';
 
 
 
@@ -53,6 +56,8 @@ import { WorkoutComponent } from './workouts/workout/workout.component';
     ErrorComponent,
     WorkoutsComponent,
     WorkoutComponent,
+    ProgramsComponent,
+    ProgramComponent,
 
 
   ],
@@ -74,7 +79,8 @@ import { WorkoutComponent } from './workouts/workout/workout.component';
     MatPaginatorModule,
     HttpClientModule,
     MatDialogModule,
-    MatSelectModule
+    MatSelectModule,
+    MatStepperModule
 
   ],
   providers: [

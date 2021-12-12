@@ -1,89 +1,78 @@
-<!-- <mat-card>
+<mat-card>
   <mat-spinner *ngIf="isLoading"></mat-spinner>
-  <form *ngIf="!isLoading" [formGroup]="form" (submit)="onSavePost()">
+  <form *ngIf="!isLoading" [formGroup]="workoutForm" (submit)="onSavePost()">
     <mat-form-field>
       <input matInput formControlName="workoutName" type="text" placeholder="Workout Name">
-      <mat-error *ngIf="form.get('workoutName').invalid"> Please enter a workout name. </mat-error>
+      <mat-error *ngIf="workoutForm.get('workoutName').invalid"> Please enter a workout name. </mat-error>
     </mat-form-field>
     <mat-form-field>
       <input matInput formControlName="date" type="text" placeholder="Date ">
-      <mat-error *ngIf="form.get('date').invalid"> Please enter a date. </mat-error>
-    </mat-form-field> -->
+      <mat-error *ngIf="workoutForm.get('date').invalid"> Please enter a date. </mat-error>
+    </mat-form-field>
     <!-- <mat-form-field>
-      <input matInput
-      formControlName="client"
-       type="text"
-       placeholder="Client">
-       <mat-error *ngIf="form.get('client').invalid" > Please enter a Client. </mat-error>
-    </mat-form-field> -->
-    <!-- <mat-form-field >
-      <mat-label>Role</mat-label>
-      <mat-select
-      formControlName="role">
-        <mat-option value="client">Client</mat-option>
-        <mat-option value="admin">Admin</mat-option>
-      </mat-select>
-      <mat-error *ngIf="form.get('client').invalid" > Please select a Role </mat-error>
-
-    </mat-form-field> -->
-
-    <!-- <button (click)="addItem()">Add</button> -->
-
-    <!-- <div formArrayName="items" *ngFor="let item of getItem(); let i = index"> -->
-    <!-- <div [formGroupName]="i"> -->
-    <!-- <hr>
-    <mat-form-field>
-      <input matInput formControlName="name" type="text" placeholder=" Name">
-      <mat-error *ngIf="form.get('name').invalid"> Please enter a workout name. </mat-error>
-    </mat-form-field>
-
-    <mat-form-field>
-      <input matInput formControlName="description" type="text" placeholder="Description">
-      <mat-error *ngIf="form.get('description').invalid"> Please enter a workout name. </mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput formControlName="comments" type="text" placeholder="Comments">
-      <mat-error *ngIf="form.get('description').invalid"> Please enter a workout name. </mat-error>
+      <input matInput formControlName="client" type="text" placeholder="Client">
+      <mat-error *ngIf="form.get('client').invalid"> Please enter a Client. </mat-error>
     </mat-form-field> -->
 
 
 
 
-
-    <!-- <h2>Update Workout!</h2>
+    <h2>Update Workout!</h2>
     <button mat-raised-button color="accent" type="submit">Save Client</button>
   </form>
 
-</mat-card> -->
-
-<mat-stepper orientation="vertical">
-  <mat-step>
-    <form [formGroup]="workoutForm">
-      <ng-template matStepLabel>Create Workout</ng-template>
-      <mat-form-field appearance="fill">
-        <mat-label>Workout Name</mat-label>
-        <input matInput formControlName="workoutName" placeholder="Workout Name" required>
-      </mat-form-field>
-      <div>
-        <button mat-button matStepperNext (click)="addItemSection()" >Next</button>
-      </div>
-    </form>
-  </mat-step>
-  <form [formGroup]="itemForm" *ngIf="sectionAdded == true">
-    <mat-vertical-stepper formArrayName="item">
-    <mat-step [formGroupName]="i" *ngFor="let item of getItem(); let i = index" >
-      <ng-template matStepLabel>Part {{i + 1}}</ng-template>
-      <mat-form-field appearance="fill">
-        <mat-label>Name</mat-label>
-        <input matInput formControlName="name" placeholder="Workout">
-      </mat-form-field>
-      <div>
-        <button mat-button matStepperNext (click)="addItem()">Next</button>
-        <button mat-button matStepperNext (click)="removeItem(i)">remove</button>
+</mat-card>
 
 
-      </div>
+<!-- <mat-stepper orientation="vertical">
+    <mat-step>
+      <form [formGroup]="workoutForm">
+        <ng-template matStepLabel>Create Workout</ng-template>
+        <mat-form-field appearance="fill">
+          <mat-label>Workout Name</mat-label>
+          <input matInput formControlName="workoutName" placeholder="Workout Name" required>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperNext (click)="addItemSection()">Next</button>
+        </div>
+      </form>
     </mat-step>
-  </mat-vertical-stepper>
-  </form>
-</mat-stepper>
+    <form [formGroup]="itemForm" *ngIf="sectionAdded == true">
+      <mat-vertical-stepper formArrayName="item">
+        <mat-step [formGroupName]="i" *ngFor="let item of getItem(); let i = index">
+          <ng-template matStepLabel>Part {{i + 1}}</ng-template>
+          <mat-form-field appearance="fill">
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name" placeholder="Workout">
+          </mat-form-field>
+          <div>
+            <button mat-button matStepperNext (click)="addItem()">Next</button>
+            <button mat-button matStepperNext (click)="removeItem(i)">remove</button>
+          </div>
+        </mat-step>
+      </mat-vertical-stepper>
+    </form>
+  </mat-stepper> -->
+
+<!-- <mat-stepper orientation="vertical">
+  <mat-step>
+    <ng-template matStepLabel>Step 1</ng-template>
+    <ng-template matStepContent>
+      <p>This content was rendered lazily</p>
+      <button mat-button matStepperNext>Next</button>
+    </ng-template>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Step 2</ng-template>
+    <ng-template matStepContent>
+      <p>This content was also rendered lazily</p>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button matStepperNext>Next</button>
+    </ng-template>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Step 3</ng-template>
+    <p>This content was rendered eagerly</p>
+    <button mat-button matStepperPrevious>Back</button>
+  </mat-step>
+</mat-stepper> -->

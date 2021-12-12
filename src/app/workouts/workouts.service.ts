@@ -30,7 +30,8 @@ export class WorkoutsService {
             return {
               name: workout.name,
               date: workout.date,
-              creator: workout.creator
+              creator: workout.creator,
+              id: workout._id
             };
           }), maxWorkouts: workoutData.maxWorkouts
         };
@@ -76,7 +77,7 @@ export class WorkoutsService {
     this.http.post<{ message: string, workoutId: any }>('http://localhost:3000/api/workouts', workoutData)
       .subscribe((responseData) => {
         console.error('Workout:',responseData)
-        // this.router.navigate(["/"])
+        this.router.navigate(["/"])
       });
   }
 

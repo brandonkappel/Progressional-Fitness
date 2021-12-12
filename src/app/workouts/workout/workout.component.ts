@@ -30,10 +30,10 @@ export class WorkoutComponent implements OnInit {
       date: [''],
     })
 
-    this.itemForm = this.formbuilder.group({
-      item: this.formbuilder.array([this.newItem()])
-    })
-    this.workoutService.addWorkout(this.form.value.workoutName, this.form.value.date)
+    // this.itemForm = this.formbuilder.group({
+    //   item: this.formbuilder.array([this.newItem()])
+    // })
+    // this.workoutService.addWorkout(this.workoutForm.value.workoutName, this.workoutForm.value.date)
 
 
   }
@@ -55,6 +55,9 @@ export class WorkoutComponent implements OnInit {
   }
 
   addItemSection(){
+    if (this.workoutForm.invalid){
+      return;
+    }
     this.sectionAdded = true
   }
 
@@ -71,15 +74,15 @@ export class WorkoutComponent implements OnInit {
 
 
   onSavePost() {
-    console.error('form:', this.form.value)
-    if (this.form.invalid) {
-      console.error(this.form)
+    console.error('form:', this.workoutForm.value)
+    if (this.workoutForm.invalid) {
+      console.error(this.workoutForm)
       return
     }
     this.isLoading = true;
     if (this.mode === 'create') {
-      // this.workoutService.addWorkout(this.form.value.workoutName, this.form.value.date)
-      this.workoutService.addWorkoutItem(this.form.value.name, this.form.value.description, this.form.value.comments)
+      this.workoutService.addWorkout(this.workoutForm.value.workoutName, this.workoutForm.value.date)
+      // this.workoutService.addWorkoutItem(this.form.value.name, this.form.value.description, this.form.value.comments)
       this.snackBar.open("Successfully Created Post", "", { duration: 2000, verticalPosition: "top" })
 
     }

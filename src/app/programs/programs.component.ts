@@ -1,0 +1,60 @@
+import { Component, OnInit } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
+import { Subscription } from 'rxjs';
+import { AuthService } from '../auth/auth.service';
+import {  Program } from './program.model';
+import {  ProgramsService } from './programs.service';
+
+@Component({
+  selector: 'app-programs',
+  templateUrl: './programs.component.html',
+  styleUrls: ['./programs.component.css']
+})
+export class ProgramsComponent implements OnInit {
+
+  programs: Program[]=[]
+
+  isLoading = false;
+  private programSub: Subscription;
+  public userIsAuthenticated = false
+  private authStatusSub: Subscription
+  userId: string;
+
+
+
+
+
+  constructor(private programService: ProgramsService, public authService: AuthService) { }
+
+  ngOnInit(): void {
+    this.isLoading = true
+    this.programService.getPrograms()
+    this.programSub = this.programService.getProgramUpdatedListener()
+      .subscribe((programData: { programs: Program[]}) => {
+        this.isLoading = false
+        this.programs = programData.programs;
+        console.error(this.programs)
+      });
+      this.userIsAuthenticated = this.authService.getIsAuth()
+      this.authStatusSub = this.authService.getAuthStatusListener().subscribe(isAuthenticated =>{
+        this.userIsAuthenticated = isAuthenticated;
+        this.userId = this.authService.getUserId()
+      });
+  }
+
+  // onChangedPage(pageData: PageEvent) {
+  //   this.isLoading = true
+  //   this.currentPage = pageData.pageIndex + 1;
+  //   this.workoutsPerPage = pageData.pageSize;
+  //   this.programService.getWorkouts(this.workoutsPerPage, this.currentPage);
+  // }
+
+  onDelete(programId: string) {
+    this.isLoading = true
+
+    this.programService.deleteProgram(programId).subscribe(()=>{
+      this.programService.getPrograms();
+    });
+  }
+
+}
