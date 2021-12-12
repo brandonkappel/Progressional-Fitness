@@ -5,20 +5,34 @@
       <input matInput formControlName="workoutName" type="text" placeholder="Workout Name">
       <mat-error *ngIf="workoutForm.get('workoutName').invalid"> Please enter a workout name. </mat-error>
     </mat-form-field>
-    <mat-form-field>
-      <input matInput formControlName="date" type="text" placeholder="Date ">
-      <mat-error *ngIf="workoutForm.get('date').invalid"> Please enter a date. </mat-error>
+    <mat-form-field appearance="">
+      <mat-label>Workout date</mat-label>
+      <input matInput [matDatepicker]="picker3"  [value]="date.value">
+      <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+      <mat-datepicker #picker3></mat-datepicker>
     </mat-form-field>
-    <!-- <mat-form-field>
-      <input matInput formControlName="client" type="text" placeholder="Client">
-      <mat-error *ngIf="form.get('client').invalid"> Please enter a Client. </mat-error>
-    </mat-form-field> -->
+    <mat-form-field appearance="fill">
+      <mat-label>Clients</mat-label>
+      <mat-select formControlName="user">
+        <mat-option *ngFor="let user of users" [value]="user.id">
+          {{user.firstName}} {{user.lastName}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Programs</mat-label>
+      <mat-select formControlName="program">
+        <mat-option *ngFor="let program of programs" [value]="program.id">
+          {{program.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
 
 
 
 
     <h2>Update Workout!</h2>
-    <button mat-raised-button color="accent" type="submit">Save Client</button>
+    <button mat-raised-button color="accent" type="submit">Save Workout</button>
   </form>
 
 </mat-card>

@@ -5,7 +5,7 @@ const workoutSchema = mongoose.Schema({
   name: {type: String, },
   creator: {type: mongoose.Schema.Types.ObjectId, ref: "User"},
   // workoutItems: {type: mongoose.Schema.Types.ObjectId, ref: "WorkoutItem"}
-  // client: {type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  client: {type: mongoose.Schema.Types.ObjectId, ref: "User" },
 });
 
 module.exports = mongoose.model('Workout', workoutSchema);

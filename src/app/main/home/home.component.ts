@@ -19,7 +19,6 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.userId = this.authService.getUserId()
-    console.error(this.userId)
     this.authService.getUser(this.userId).subscribe(user => {
       this.user = {
         id: user._id,
@@ -28,7 +27,7 @@ export class HomeComponent implements OnInit {
         email: user.email,
         role: user.role
       }
-      console.error(this.user)
+      console.error('My User:',this.user)
 
     })
   }

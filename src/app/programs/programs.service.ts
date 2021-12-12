@@ -28,7 +28,8 @@ export class ProgramsService {
             return {
               name: program.name,
               description: program.description,
-              id: program._id
+              id: program._id,
+              creator: program.creator
             };
           }),
         };
@@ -38,6 +39,10 @@ export class ProgramsService {
         this.programsUpdated.next({ programs: [...this.programs] });
       });
   }
+
+  // getPrograms(){
+  //   return this.http.get('http://localhost:3000/api/programs')
+  // }
 
   updateProgram(id: string, ) {
     const program = this.programs

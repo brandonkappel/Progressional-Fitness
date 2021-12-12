@@ -15,6 +15,7 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatSelectModule} from '@angular/material/select';
 import {MatStepperModule} from '@angular/material/stepper';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
@@ -37,6 +38,8 @@ import { WorkoutsComponent } from './workouts/workouts.component';
 import { WorkoutComponent } from './workouts/workout/workout.component';
 import { ProgramsComponent } from './programs/programs.component';
 import { ProgramComponent } from './programs/program/program.component';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MyworkoutsComponent } from './workouts/myworkouts/myworkouts.component';
 
 
 
@@ -58,6 +61,7 @@ import { ProgramComponent } from './programs/program/program.component';
     WorkoutComponent,
     ProgramsComponent,
     ProgramComponent,
+    MyworkoutsComponent,
 
 
   ],
@@ -80,7 +84,11 @@ import { ProgramComponent } from './programs/program/program.component';
     HttpClientModule,
     MatDialogModule,
     MatSelectModule,
-    MatStepperModule
+    MatStepperModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+
+
 
   ],
   providers: [

@@ -31,6 +31,7 @@ export class WorkoutsService {
               name: workout.name,
               date: workout.date,
               creator: workout.creator,
+              client: workout.client,
               id: workout._id
             };
           }), maxWorkouts: workoutData.maxWorkouts
@@ -65,19 +66,19 @@ export class WorkoutsService {
     this.http.put("http://localhost:3000/api/workouts/" + id, workout)
       .subscribe(response => {
         console.error(response)
-        this.router.navigate(["/clients"])
+        this.router.navigate(["/workouts"])
 
       })
   }
 
-  addWorkout(name: string, date: Date, ) {
+  addWorkout(name: string, date: Date, user: string ) {
     // console.error(workout)
-    const workoutData = {name: name, date: date}
+    const workoutData = {name: name, date: date, user: user}
     // console.error(workoutData)
     this.http.post<{ message: string, workoutId: any }>('http://localhost:3000/api/workouts', workoutData)
       .subscribe((responseData) => {
         console.error('Workout:',responseData)
-        this.router.navigate(["/"])
+        this.router.navigate(["/workouts"])
       });
   }
 
@@ -96,6 +97,10 @@ export class WorkoutsService {
 
   getWorkout(id: string) {
     return this.http.get("http://localhost:3000/api/workouts/" + id);
+  }
+
+  getMyWorkouts(id: string) {
+    return this.http.get("http://localhost:3000/api/workouts/myWorkouts/" + id);
   }
 
   deleteWorkout(workoutId: string) {

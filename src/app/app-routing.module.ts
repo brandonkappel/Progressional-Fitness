@@ -12,6 +12,7 @@ import { WorkoutsComponent } from './workouts/workouts.component';
 import { WorkoutComponent } from './workouts/workout/workout.component';
 import { ProgramComponent } from './programs/program/program.component';
 import { ProgramsComponent } from './programs/programs.component';
+import { MyworkoutsComponent } from './workouts/myworkouts/myworkouts.component';
 
 
 const routes: Routes = [
@@ -20,6 +21,7 @@ const routes: Routes = [
   {path: 'posts', component: PostListComponent},
   {path: 'workouts', component: WorkoutsComponent},
   {path: 'workout', component: WorkoutComponent},
+  {path: 'myworkouts', component: MyworkoutsComponent},
   {path: 'program', component: ProgramComponent},
   {path: 'programs', component: ProgramsComponent},
 
