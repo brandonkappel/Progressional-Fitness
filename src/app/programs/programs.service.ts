@@ -72,7 +72,7 @@ export class ProgramsService {
   }
 
   getProgram(id: string) {
-    return this.http.get("http://localhost:3000/api/programs/" + id);
+    return this.http.get<{_id: string, name: string, description: string, creator: string}>("http://localhost:3000/api/programs/" + id);
   }
 
   deleteProgram(programId: string) {

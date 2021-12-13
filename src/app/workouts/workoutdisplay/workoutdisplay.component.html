@@ -1,0 +1,8 @@
+
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<div *ngIf="!isLoading">
+  <mat-card>
+    <mat-card-title> {{workout.name}} </mat-card-title>
+    <mat-card-subtitle>{{workout.date|date: 'EEEE, MMMM, d, y'}} </mat-card-subtitle>
+  </mat-card>
+</div>

@@ -32,6 +32,7 @@ export class WorkoutsService {
               date: workout.date,
               creator: workout.creator,
               client: workout.client,
+              program: workout.program,
               id: workout._id
             };
           }), maxWorkouts: workoutData.maxWorkouts
@@ -71,9 +72,9 @@ export class WorkoutsService {
       })
   }
 
-  addWorkout(name: string, date: Date, user: string ) {
+  addWorkout(name: string, date: Date, user: string, program: string ) {
     // console.error(workout)
-    const workoutData = {name: name, date: date, user: user}
+    const workoutData = {name: name, date: date, user: user, program: program}
     // console.error(workoutData)
     this.http.post<{ message: string, workoutId: any }>('http://localhost:3000/api/workouts', workoutData)
       .subscribe((responseData) => {
@@ -96,11 +97,21 @@ export class WorkoutsService {
   }
 
   getWorkout(id: string) {
-    return this.http.get("http://localhost:3000/api/workouts/" + id);
+    return this.http.get<{
+      _id: string;
+      name: string
+      date: Date;
+      creator: string;
+      client: string;}>("http://localhost:3000/api/workouts/" + id);
   }
 
   getMyWorkouts(id: string) {
     return this.http.get("http://localhost:3000/api/workouts/myWorkouts/" + id);
+  }
+
+  getProgramWorkouts(id: string) {
+    console.error('program id:', id)
+    return this.http.get("http://localhost:3000/api/workouts/programWorkouts/" + id);
   }
 
   deleteWorkout(workoutId: string) {

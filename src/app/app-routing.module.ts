@@ -13,6 +13,9 @@ import { WorkoutComponent } from './workouts/workout/workout.component';
 import { ProgramComponent } from './programs/program/program.component';
 import { ProgramsComponent } from './programs/programs.component';
 import { MyworkoutsComponent } from './workouts/myworkouts/myworkouts.component';
+import { ProgramworkoutsComponent } from './programs/programworkouts/programworkouts.component';
+import { ProgramsService } from './programs/programs.service';
+import { WorkoutdisplayComponent } from './workouts/workoutdisplay/workoutdisplay.component';
 
 
 const routes: Routes = [
@@ -22,9 +25,11 @@ const routes: Routes = [
   {path: 'workouts', component: WorkoutsComponent},
   {path: 'workout', component: WorkoutComponent},
   {path: 'myworkouts', component: MyworkoutsComponent},
+  {path: 'workoutDisplay/:workoutId', component: WorkoutdisplayComponent},
+
   {path: 'program', component: ProgramComponent},
   {path: 'programs', component: ProgramsComponent},
-
+  {path: 'programWorkout/:programId', component: ProgramworkoutsComponent},
   {path: 'create', component: PostCreateComponent, canActivate: [AuthGuard]},
   {path: 'client', component: ClientComponent, canActivate: [AuthGuard] },
   {path: 'edit/:postId', component: PostCreateComponent, canActivate: [AuthGuard]},

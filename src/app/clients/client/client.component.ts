@@ -46,6 +46,7 @@ export class ClientComponent implements OnInit {
 
     });
     this.route.paramMap.subscribe((ParamMap: ParamMap) => {
+      console.error(ParamMap)
       if (ParamMap.has('userId')) {
         this.mode = 'edit';
         this.userId = ParamMap.get('userId')

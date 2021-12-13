@@ -117,7 +117,7 @@ export class WorkoutComponent implements OnInit {
     }
     this.isLoading = true;
     if (this.mode === 'create') {
-      this.workoutService.addWorkout(this.workoutForm.value.workoutName, this.date.value, this.workoutForm.value.user)
+      this.workoutService.addWorkout(this.workoutForm.value.workoutName, this.date.value, this.workoutForm.value.user, this.workoutForm.value.program)
       // this.workoutService.addWorkoutItem(this.form.value.name, this.form.value.description, this.form.value.comments)
       this.snackBar.open("Successfully Created Post", "", { duration: 2000, verticalPosition: "top" })
 

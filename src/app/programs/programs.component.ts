@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
+import { WorkoutsService } from '../workouts/workouts.service';
 import {  Program } from './program.model';
 import {  ProgramsService } from './programs.service';
 
@@ -24,7 +26,11 @@ export class ProgramsComponent implements OnInit {
 
 
 
-  constructor(private programService: ProgramsService, public authService: AuthService) { }
+  constructor(
+    private programService: ProgramsService,
+    public authService: AuthService,
+    private workoutService: WorkoutsService,
+    protected router: Router,) { }
 
   ngOnInit(): void {
     this.isLoading = true
@@ -48,6 +54,8 @@ export class ProgramsComponent implements OnInit {
   //   this.workoutsPerPage = pageData.pageSize;
   //   this.programService.getWorkouts(this.workoutsPerPage, this.currentPage);
   // }
+
+
 
   onDelete(programId: string) {
     this.isLoading = true

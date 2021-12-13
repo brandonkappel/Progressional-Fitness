@@ -12,7 +12,8 @@ router.post("",authUser,(req, res, next) => {
       date: req.body.date,
       name: req.body.name,
       creator: req.userData.userId,
-      client: req.body.user
+      client: req.body.user,
+      program: req.body.program
     });
 
     workout.save().then((createdWorkout) => {
@@ -30,7 +31,8 @@ router.put("/:id",authUser,(req, res, next) => {
     date: req.body.date,
     name: req.body.name,
     creator: req.userData.userId,
-    client: req.body.user
+    client: req.body.user,
+    program: req.body.program
   });
   Workout.updateOne({ _id: req.params.id, creator: req.userData.userId }, workout).then((result) => {
     if(result.nModified > 0) {
@@ -77,6 +79,17 @@ router.get("/:id", (req, res, next) => {
 router.get("/myWorkouts/:id", (req, res, next) => {
   console.error(req.params)
   Workout.find({client: req.params.id }).then((workout) => {
+    if (workout) {
+      res.status(200).json(workout);
+    } else {
+      res.status(404).json({ message: "workout not found" });
+    }
+  });
+});
+
+router.get("/programWorkouts/:id", (req, res, next) => {
+  console.error(req.params)
+  Workout.find({program: req.params.id }).then((workout) => {
     if (workout) {
       res.status(200).json(workout);
     } else {

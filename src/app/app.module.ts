@@ -40,6 +40,8 @@ import { ProgramsComponent } from './programs/programs.component';
 import { ProgramComponent } from './programs/program/program.component';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MyworkoutsComponent } from './workouts/myworkouts/myworkouts.component';
+import { ProgramworkoutsComponent } from './programs/programworkouts/programworkouts.component';
+import { WorkoutdisplayComponent } from './workouts/workoutdisplay/workoutdisplay.component';
 
 
 
@@ -62,6 +64,8 @@ import { MyworkoutsComponent } from './workouts/myworkouts/myworkouts.component'
     ProgramsComponent,
     ProgramComponent,
     MyworkoutsComponent,
+    ProgramworkoutsComponent,
+    WorkoutdisplayComponent,
 
 
   ],
