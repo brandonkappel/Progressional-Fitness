@@ -13,8 +13,10 @@ import { WorkoutsService } from '../workouts.service';
 export class MyworkoutsComponent implements OnInit {
 
   userId: string;
-  workouts: Workout[]=[];
+  workouts: any;
   workoutSub: Subscription;
+
+  isLoading = false;
 
   constructor(private authService: AuthService, private workoutService: WorkoutsService) {
     this.userId = this.authService.getUserId()
@@ -23,9 +25,11 @@ export class MyworkoutsComponent implements OnInit {
 
   ngOnInit(): void {
 
-
+    this.isLoading = true
     this.workoutService.getMyWorkouts(this.userId).subscribe(workouts => {
-      console.error('My Workouts:',workouts)
+      this.workouts = workouts
+      this.isLoading = false
+      console.error(workouts)
     })
 
   }

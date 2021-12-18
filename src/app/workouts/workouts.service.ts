@@ -106,7 +106,12 @@ export class WorkoutsService {
   }
 
   getMyWorkouts(id: string) {
-    return this.http.get("http://localhost:3000/api/workouts/myWorkouts/" + id);
+    return this.http.get<{
+      _id: string;
+      name: string
+      date: Date;
+      creator: string;
+      client: string;}>("http://localhost:3000/api/workouts/myWorkouts/" + id);
   }
 
   getProgramWorkouts(id: string) {

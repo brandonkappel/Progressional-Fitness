@@ -16,6 +16,8 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatSelectModule} from '@angular/material/select';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatListModule} from '@angular/material/list';
 
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
@@ -42,6 +44,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MyworkoutsComponent } from './workouts/myworkouts/myworkouts.component';
 import { ProgramworkoutsComponent } from './programs/programworkouts/programworkouts.component';
 import { WorkoutdisplayComponent } from './workouts/workoutdisplay/workoutdisplay.component';
+import { MatIconModule } from '@angular/material/icon';
+import { PublicComponent } from './public/public.component';
 
 
 
@@ -66,6 +70,7 @@ import { WorkoutdisplayComponent } from './workouts/workoutdisplay/workoutdispla
     MyworkoutsComponent,
     ProgramworkoutsComponent,
     WorkoutdisplayComponent,
+    PublicComponent,
 
 
   ],
@@ -91,10 +96,13 @@ import { WorkoutdisplayComponent } from './workouts/workoutdisplay/workoutdispla
     MatStepperModule,
     MatDatepickerModule,
     MatNativeDateModule,
-
-
-
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule,
   ],
+
+
+
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}

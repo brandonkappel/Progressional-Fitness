@@ -45,6 +45,7 @@ export class AuthService {
     const authData= { email: email, password: password }
     this.http.post<{ token: string, expiresIn: number, userId: string }>("http://localhost:3000/api/user/login", authData)
       .subscribe(response => {
+        console.error('Log In:', response)
         const token = response.token;
         this.token = token;
         if (token) {
@@ -55,10 +56,9 @@ export class AuthService {
           this.authStatusListener.next(true);
           const now = new Date()
           const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
-          console.error(expirationDate);
           this.saveAuthData(token, expirationDate, this.userId)
           // this.getUser()
-          this.router.navigate(['/'])
+          this.router.navigate(['fitness'])
         }
       }, error=>{
         this.authStatusListener.next(false)

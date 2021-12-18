@@ -1,1 +1,15 @@
-<p>myworkouts works!</p>
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<div *ngIf="workouts && !isLoading">
+  <mat-card class="m-3" *ngFor="let workout of workouts" [routerLink]="['/programWorkout', workout['id']]">
+    <!-- <a mat-button color="primary" [routerLink]="['/editClient', program['id']]">EDIT</a> -->
+
+    <mat-card-title-group>
+      <mat-card-title> {{workout.date |date:'EEEE,MMMM,d,y '}} </mat-card-title>
+      <mat-card-subtitle> {{workout.name}} </mat-card-subtitle>
+
+    </mat-card-title-group>
+    <mat-card-content>
+      {{workout.description}}
+    </mat-card-content>
+  </mat-card>
+</div>
