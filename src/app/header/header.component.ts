@@ -13,11 +13,14 @@ import { Client } from '../clients/clients.model';
 export class HeaderComponent implements OnInit, OnDestroy {
   userIsAuthenticated = false
   private authListenerSubs: Subscription;
+  private adminListenerSub: Subscription;
+  userIsAdmin = false;
 
   @ViewChild('sidenav') sidenav: MatSidenav;
   isExpanded = true;
-  showSubmenu: boolean = false;
+  showSubmenu: boolean = true;
   isShowing = false;
+  isLoading = false ;
   showSubSubMenu: boolean = false;
   userId: string;
   user: Client
@@ -28,19 +31,29 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.userIsAuthenticated = this.authService.getIsAuth();
     this.authListenerSubs = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
       this.userIsAuthenticated = isAuthenticated;
+      console.error(this.userIsAuthenticated)
     })
+    this.userIsAdmin = this.authService.getIsAdmin()
+    this.adminListenerSub = this.authService.getAdminStatusListener().subscribe(isAdmin => {
+      this.userIsAdmin = isAdmin;
+      console.error('ADMIN?',this.userIsAdmin)
+    })
+    console.error('is Auth?', this.userIsAuthenticated)
+    console.error('ADMIN?',this.userIsAdmin)
+
 
     this.userId = this.authService.getUserId()
-    this.authService.getUser(this.userId).subscribe(user => {
-      this.user = {
-        id: user._id,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        role: user.role
-      }
-      console.error('My User:',this.user)
-    })
+    // this.authService.getUser(this.userId).subscribe(user => {
+    //   this.user = {
+    //     id: user._id,
+    //     firstName: user.firstName,
+    //     lastName: user.lastName,
+    //     email: user.email,
+    //     role: user.role
+    //   }
+    //   console.error('My User:',this.user)
+    // })
+
   }
 
   onLogout(){

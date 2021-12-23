@@ -1,6 +1,6 @@
 <mat-spinner *ngIf="isLoading"></mat-spinner>
 <div *ngIf="workouts && !isLoading">
-  <mat-card class="m-3" *ngFor="let workout of workouts" [routerLink]="['/programWorkout', workout['id']]">
+  <mat-card class="m-3" *ngFor="let workout of workouts" [routerLink]="['/workoutDisplay', workout['_id']]">
     <!-- <a mat-button color="primary" [routerLink]="['/editClient', program['id']]">EDIT</a> -->
 
     <mat-card-title-group>

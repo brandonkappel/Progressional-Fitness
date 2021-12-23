@@ -1,5 +1,5 @@
 <mat-toolbar color="primary">
-  <button  mat-icon-button (click)="isExpanded = !isExpanded"><mat-icon>menu</mat-icon></button>
+  <button *ngIf="userIsAuthenticated"  mat-icon-button (click)="isExpanded = !isExpanded"><mat-icon>menu</mat-icon></button>
 <span> <a routerLink="/"> Progressional Fitness</a></span>
 <span class="spacer"></span>
  <ul>
@@ -20,28 +20,21 @@
   </li>
  </ul>
 </mat-toolbar>
-<mat-sidenav-container *ngIf="user"  class="example-container" >
-	<mat-sidenav #sidenav class="example-sidenav" mode="side" opened="true" (mouseenter)="mouseenter()" (mouseleave)="mouseleave()">
+<!-- <mat-sidenav-container *ngIf="userIsAuthenticated"  class="example-container" >
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+	<mat-sidenav *ngIf="!isLoading"  #sidenav class="example-sidenav" mode="side" opened="true" (mouseenter)="mouseenter()" (mouseleave)="mouseleave()">
 		<mat-nav-list>
-			<mat-list-item (click)="showSubmenu = !showSubmenu" class="parent">
+			<mat-list-item  class="parent">
 				<span class="full-width" *ngIf="isExpanded || isShowing">Menu</span>
 				<mat-icon mat-list-icon>home</mat-icon>
-				<mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}" *ngIf="isExpanded || isShowing">expand_more</mat-icon>
 			</mat-list-item>
 			<div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">
 				<a mat-list-item routerLink="/posts">Posts</a>
-				<a *ngIf="user.role == 'admin'" mat-list-item routerLink="/clients">Clients</a>
+				<a *ngIf="userIsAdmin"  mat-list-item routerLink="/clients">Clients</a>
 				<a mat-list-item routerLink="/myworkouts">My Workouts</a>
 				<a mat-list-item routerLink="/workouts">Workouts</a>
 				<a mat-list-item routerLink="/programs">Programs</a>
-				<!-- <mat-list-item (click)="showSubSubMenu = !showSubSubMenu" class="parent">
-					<span class="full-width" *ngIf="isExpanded || isShowing">Nested Menu</span>
-					<mat-icon class="menu-button" [ngClass]="{'rotated' : showSubSubMenu}" *ngIf="isExpanded || isShowing">expand_more</mat-icon>
-				</mat-list-item>
-				<div class="submenu" [ngClass]="{'expanded' : showSubSubMenu}" *ngIf="isShowing || isExpanded">
-					<mat-list-item>SubSubmenu Item 1</mat-list-item>
-					<mat-list-item>SubSubmenu Item 2</mat-list-item>
-				</div> -->
+
 			</div>
 		</mat-nav-list>
     <mat-nav-list>
@@ -49,9 +42,11 @@
 	</mat-sidenav>
 
 	<div class="example-sidenav-content">
-  <router-outlet></router-outlet>
-
+<router-outlet></router-outlet>
 	</div>
 
 
-</mat-sidenav-container>
+</mat-sidenav-container> -->
+
+
+<!-- <router-outlet *ngIf="!userIsAuthenticated" ></router-outlet> -->

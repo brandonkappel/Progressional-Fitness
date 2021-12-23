@@ -9,9 +9,11 @@ import { Client } from '../clients/clients.model';
 export class AuthService {
 
   private isAuthenticated = false;
+  private isAdmin = false;
   private token: string;
   private tokenTimer: any;
   private authStatusListener = new Subject<boolean>();
+  private adminStatusListener = new Subject<boolean>();
   private userId: string;
   user: Client;
 
@@ -29,6 +31,10 @@ export class AuthService {
     return this.userId
   }
 
+  getIsAdmin(){
+    return this.isAdmin
+  }
+
   createUser(firstName: string, lastName: string, email: string, password: string) {
     const authData: Authdata = {firstName:firstName, lastName: lastName, email: email, password: password }
     return this.http.post("http://localhost:3000/api/user/signup", authData)
@@ -43,20 +49,27 @@ export class AuthService {
 
   logIn(email: string, password: string) {
     const authData= { email: email, password: password }
-    this.http.post<{ token: string, expiresIn: number, userId: string }>("http://localhost:3000/api/user/login", authData)
+    this.http.post<{ token: string, expiresIn: number, userId: string, role: string }>("http://localhost:3000/api/user/login", authData)
       .subscribe(response => {
         console.error('Log In:', response)
         const token = response.token;
         this.token = token;
         if (token) {
           const expiresInDuration = response.expiresIn;
+          const role = response.role
           this.setAuthTimer(expiresInDuration)
           this.isAuthenticated = true;
           this.userId = response.userId
+          if(role == 'admin'){
+            console.error('ADMIN')
+            this.isAdmin = true
+        this.adminStatusListener.next(true)
+          }
+          console.error('AFTER ADMIN ')
           this.authStatusListener.next(true);
           const now = new Date()
           const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
-          this.saveAuthData(token, expirationDate, this.userId)
+          this.saveAuthData(token, expirationDate, this.userId,role )
           // this.getUser()
           this.router.navigate(['fitness'])
         }
@@ -65,24 +78,28 @@ export class AuthService {
       });
   };
 
-  // getUser() {
-  //   this.http.get<{ _id: string, firstName: string, lastName: string, email: string, role: string }>("http://localhost:3000/api/user/" + this.userId).subscribe(user => {
-  //    this.user = {
-  //       id: user._id,
-  //       firstName: user.firstName,
-  //       lastName: user.lastName,
-  //       email: user.email,
-  //       role: user.role
-  //     }
-  //     console.error(this.user)
+  getUser() {
+    this.http.get<{ _id: string, firstName: string, lastName: string, email: string, role: string }>("http://localhost:3000/api/user/" + this.userId).subscribe(user => {
+     this.user = {
+        id: user._id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        role: user.role
+      }
+      if(user.role == 'admin'){
+        console.error('ADMIN')
+        this.isAdmin = true;
+        this.adminStatusListener.next(true)
+      }
 
-  //   })
-  // }
-
-  getUser(id: string) {
-  return  this.http.get<{ _id: string, firstName: string, lastName: string, email: string, role: string }>("http://localhost:3000/api/user/" + id)
-
+    })
   }
+
+  // getUser(id: string) {
+  // return  this.http.get<{ _id: string, firstName: string, lastName: string, email: string, role: string }>("http://localhost:3000/api/user/" + id)
+
+  // }
 
 
   autoAuthUser() {
@@ -92,11 +109,15 @@ export class AuthService {
     }
     const now = new Date();
     const expiresIn = authInformation.expirationDate.getTime() - now.getTime();
-    console.error(authInformation, expiresIn)
     if (expiresIn > 0) {
       this.token = authInformation.token;
       this.isAuthenticated = true
       this.userId = authInformation.userId;
+      if(authInformation.userRole == 'admin'){
+        console.error('ADMIN')
+        this.isAdmin = true
+        this.adminStatusListener.next(true)
+      }
       this.setAuthTimer(expiresIn / 1000)
       this.authStatusListener.next(true)
     }
@@ -105,7 +126,9 @@ export class AuthService {
   logout() {
     this.token = null;
     this.isAuthenticated = false;
+    this.isAdmin = false;
     this.authStatusListener.next(false)
+    this.adminStatusListener.next(false)
     clearTimeout(this.tokenTimer)
     this.clearAuthData
     this.userId = null;
@@ -120,16 +143,19 @@ export class AuthService {
     }, duration * 1000);
   }
 
-  private saveAuthData(token: string, expirationDate: Date, userId: string) {
+  private saveAuthData(token: string, expirationDate: Date, userId: string, role: string) {
     localStorage.setItem('token', token);
     localStorage.setItem('expiration', expirationDate.toISOString());
     localStorage.setItem('userId', userId)
+    localStorage.setItem('userRole', role)
   }
 
   private clearAuthData() {
     localStorage.removeItem('token');
     localStorage.removeItem('expiration');
     localStorage.removeItem('userId')
+    localStorage.removeItem('userRole')
+
 
   }
 
@@ -137,19 +163,26 @@ export class AuthService {
     const token = localStorage.getItem('token');
     const expirationDate = localStorage.getItem('expiration');
     const userId = localStorage.getItem('userId');
+    const userRole = localStorage.getItem('userRole');
+
     if (!token || !expirationDate) {
       return;
     }
     return {
       token: token,
       expirationDate: new Date(expirationDate),
-      userId: userId
+      userId: userId,
+      userRole: userRole
     }
   }
 
 
   getAuthStatusListener() {
     return this.authStatusListener.asObservable();
+  }
+
+  getAdminStatusListener(){
+    return this.adminStatusListener.asObservable();
   }
 
 }

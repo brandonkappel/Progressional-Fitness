@@ -19,6 +19,7 @@ export class WorkoutdisplayComponent implements OnInit {
   ngOnInit(): void {
 
     this.route.paramMap.subscribe((ParamMap: ParamMap)=> {
+      console.error(ParamMap)
       if (ParamMap.has('workoutId')){
         this.isLoading = true
         let workoutId = ParamMap.get('workoutId')

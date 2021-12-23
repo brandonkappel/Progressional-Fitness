@@ -19,17 +19,17 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.userId = this.authService.getUserId()
-    this.authService.getUser(this.userId).subscribe(user => {
-      this.user = {
-        id: user._id,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        role: user.role
-      }
-      console.error('My User:',this.user)
+    // this.authService.getUser(this.userId).subscribe(user => {
+    //   this.user = {
+    //     id: user._id,
+    //     firstName: user.firstName,
+    //     lastName: user.lastName,
+    //     email: user.email,
+    //     role: user.role
+    //   }
+    //   console.error('My User:',this.user)
 
-    })
+    // })
   }
 
 }
