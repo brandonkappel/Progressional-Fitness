@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Authdata } from './auth-data.model';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
-import { Client } from '../clients/clients.model';
+import { Client } from '../private/clients/clients.model';
 
 @Injectable({ providedIn: "root" })
 export class AuthService {

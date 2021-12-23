@@ -32,8 +32,8 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { AuthInterceptor } from './auth/auth-interceptor';
 import { HomeComponent } from './main/home/home.component';
 import { MainComponent } from './main/main/main.component';
-import { ClientsComponent } from './clients/clients.component';
-import { ClientComponent } from './clients/client/client.component';
+import { ClientsComponent } from './private/clients/clients.component';
+import { ClientComponent } from './private/clients/client/client.component';
 import { ErrorInterceptor } from './error-interceptor';
 import { ErrorComponent } from './error/error.component';
 import { WorkoutsComponent } from './workouts/workouts.component';
@@ -46,6 +46,7 @@ import { ProgramworkoutsComponent } from './programs/programworkouts/programwork
 import { WorkoutdisplayComponent } from './workouts/workoutdisplay/workoutdisplay.component';
 import { MatIconModule } from '@angular/material/icon';
 import { PublicComponent } from './public/public.component';
+import { PrivateComponent } from './private/private.component';
 
 
 
@@ -71,6 +72,7 @@ import { PublicComponent } from './public/public.component';
     ProgramworkoutsComponent,
     WorkoutdisplayComponent,
     PublicComponent,
+    PrivateComponent,
 
 
   ],

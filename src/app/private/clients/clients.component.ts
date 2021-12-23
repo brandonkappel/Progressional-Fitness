@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth/auth.service';
 import { ClientsService } from './clients.service';
-import { Authdata } from '../auth/auth-data.model';
 import { Subscription } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
 import { Client } from './clients.model';
+import { AuthService } from 'src/app/auth/auth.service';
 
 
 @Component({

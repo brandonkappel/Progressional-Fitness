@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
-import { Client } from 'src/app/clients/clients.model';
 import { Workout } from '../workout.model';
 import { WorkoutsService } from '../workouts.service';
 

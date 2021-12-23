@@ -6,8 +6,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { AuthGuard } from './auth/auth.guard';
 import { HomeComponent } from './main/home/home.component';
-import { ClientsComponent } from './clients/clients.component';
-import { ClientComponent } from './clients/client/client.component';
+
 import { WorkoutsComponent } from './workouts/workouts.component';
 import { WorkoutComponent } from './workouts/workout/workout.component';
 import { ProgramComponent } from './programs/program/program.component';
@@ -17,6 +16,8 @@ import { ProgramworkoutsComponent } from './programs/programworkouts/programwork
 import { ProgramsService } from './programs/programs.service';
 import { WorkoutdisplayComponent } from './workouts/workoutdisplay/workoutdisplay.component';
 import { PublicComponent } from './public/public.component';
+import { ClientsComponent } from './private/clients/clients.component';
+import { ClientComponent } from './private/clients/client/client.component';
 
 
 const routes: Routes = [

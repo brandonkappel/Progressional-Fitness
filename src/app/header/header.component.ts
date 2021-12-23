@@ -3,7 +3,7 @@ import { AuthService } from '../auth/auth.service';
 import { Subscription } from 'rxjs';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
-import { Client } from '../clients/clients.model';
+import { Client } from '../private/clients/clients.model';
 
 @Component({
   selector: 'app-header',

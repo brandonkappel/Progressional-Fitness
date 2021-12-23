@@ -3,8 +3,9 @@ import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Valida
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
 import { subscribeOn } from 'rxjs/operators';
-import { Client } from 'src/app/clients/clients.model';
-import { ClientsService } from 'src/app/clients/clients.service';
+import { Client } from 'src/app/private/clients/clients.model';
+import { ClientsService } from 'src/app/private/clients/clients.service';
+
 import { Program } from 'src/app/programs/program.model';
 import { ProgramsService } from 'src/app/programs/programs.service';
 import { WorkoutsService } from '../workouts.service';
