@@ -1,15 +1,18 @@
 <mat-spinner *ngIf="isLoading"></mat-spinner>
-<button mat-raised-button color="primary" routerLink="/workout" routerLinkActive="mat-accent"> Create Client</button>
+<div class="d-flex justify-content-between m-2">
+  <button [routerLink]="['/fitness']" mat-raised-button color="warn">Back</button>
+  <button mat-raised-button color="primary" routerLink="/workout" routerLinkActive="mat-accent"> Create Workout</button>
+</div>
 <mat-accordion multi="true" *ngIf="workouts.length > 0 && !isLoading">
   <mat-expansion-panel *ngFor="let workout of workouts">
     <mat-expansion-panel-header>
       {{workout.name}}
     </mat-expansion-panel-header>
     <div>
-     <strong> Creator: </strong> {{workout.creator}}
-     <strong> Date: </strong> {{workout.date | date:'EEEE, MMMM d, y'}}
-     <strong> Client: </strong> {{workout.client}}
-     <strong> Program: </strong> {{workout.program}}
+      <strong> Creator: </strong> {{workout.creator}}
+      <strong> Date: </strong> {{workout.date | date:'EEEE, MMMM d, y'}}
+      <strong> Client: </strong> {{workout.client}}
+      <strong> Program: </strong> {{workout.program}}
 
 
 
@@ -26,4 +29,3 @@
 <mat-paginator [length]="totalWorkouts" [pageSize]="workoutsPerPage" [pageSizeOptions]="pageSizeOptions"
   (page)="onChangedPage($event)" *ngIf="workouts.length > 0 "></mat-paginator>
 <p class="info-text mat-body-1" *ngIf="workouts.length <= 0 && !isLoading">No Posts Added Yet</p>
-

@@ -1,6 +1,7 @@
 
 <mat-spinner *ngIf="isLoading"></mat-spinner>
 <div *ngIf="!isLoading">
+  <button class="m-2" mat-raised-button color="warn" routerLink="/myworkouts">Back</button>
   <mat-card>
     <mat-card-title> {{workout.name}} </mat-card-title>
     <mat-card-subtitle>{{workout.date|date: 'EEEE, MMMM, d, y'}} </mat-card-subtitle>

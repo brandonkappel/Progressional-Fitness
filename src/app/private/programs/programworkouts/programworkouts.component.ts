@@ -1,6 +1,6 @@
 import { Component, OnInit, QueryList } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { WorkoutsService } from 'src/app/workouts/workouts.service';
+import { WorkoutsService } from '../../workouts/workouts.service';
 import { Program } from '../program.model';
 import { ProgramsService } from '../programs.service';
 
@@ -31,11 +31,11 @@ export class ProgramworkoutsComponent implements OnInit {
         let programId = ParamMap.get('programId')
         this.isLoading = true
         this.workoutService.getProgramWorkouts(programId).subscribe(workoutData => {
-          console.error(workoutData)
+          // console.error(workoutData)
           this.workouts = workoutData
         })
         this.programService.getProgram(programId).subscribe(programData => {
-          console.error(programData)
+          // console.error(programData)
           this.program = {
             name: programData.name,
             id: programData._id,

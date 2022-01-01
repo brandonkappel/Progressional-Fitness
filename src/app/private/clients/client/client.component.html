@@ -14,6 +14,8 @@
 
 <mat-card>
   <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <button [routerLink]="['/clients']" class="m-2" mat-raised-button color="warn">Back</button>
+
   <form *ngIf="!isLoading" [formGroup]="form" (submit)="onSavePost()" >
     <mat-form-field>
       <input matInput

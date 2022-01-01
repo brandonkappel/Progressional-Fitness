@@ -15,6 +15,21 @@ a{
   flex: 1 1 auto;
 }
 
+.toolBar{
+  background-color: black;
+}
+
+.navLinks{
+font-size: 1rem;
+}
+.navLinks:hover{
+
+}
+.navLinkHolder:hover{
+  text-decoration: underline solid white 5px;
+
+}
+
 .example-container {
 height: 100%;
 }

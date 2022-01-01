@@ -36,17 +36,19 @@ import { ClientsComponent } from './private/clients/clients.component';
 import { ClientComponent } from './private/clients/client/client.component';
 import { ErrorInterceptor } from './error-interceptor';
 import { ErrorComponent } from './error/error.component';
-import { WorkoutsComponent } from './workouts/workouts.component';
-import { WorkoutComponent } from './workouts/workout/workout.component';
-import { ProgramsComponent } from './programs/programs.component';
-import { ProgramComponent } from './programs/program/program.component';
+
 import { MatNativeDateModule } from '@angular/material/core';
-import { MyworkoutsComponent } from './workouts/myworkouts/myworkouts.component';
-import { ProgramworkoutsComponent } from './programs/programworkouts/programworkouts.component';
-import { WorkoutdisplayComponent } from './workouts/workoutdisplay/workoutdisplay.component';
+
 import { MatIconModule } from '@angular/material/icon';
 import { PublicComponent } from './public/public.component';
 import { PrivateComponent } from './private/private.component';
+import { ProgramComponent } from './private/programs/program/program.component';
+import { ProgramsComponent } from './private/programs/programs.component';
+import { ProgramworkoutsComponent } from './private/programs/programworkouts/programworkouts.component';
+import { MyworkoutsComponent } from './private/workouts/myworkouts/myworkouts.component';
+import { WorkoutComponent } from './private/workouts/workout/workout.component';
+import { WorkoutdisplayComponent } from './private/workouts/workoutdisplay/workoutdisplay.component';
+import { WorkoutsComponent } from './private/workouts/workouts.component';
 
 
 
@@ -72,7 +74,6 @@ import { PrivateComponent } from './private/private.component';
     ProgramworkoutsComponent,
     WorkoutdisplayComponent,
     PublicComponent,
-    PrivateComponent,
 
 
   ],

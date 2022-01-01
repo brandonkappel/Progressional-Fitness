@@ -1,12 +1,16 @@
 <mat-spinner *ngIf="isLoading"></mat-spinner>
-<button mat-raised-button color="primary" routerLink="/client" routerLinkActive="mat-accent"> Create Client</button>
+<div class=" d-flex justify-content-between m-2">
+  <button [routerLink]="['/fitness']" mat-raised-button color="warn">Back</button>
+
+  <button mat-raised-button color="primary" routerLink="/client" routerLinkActive="mat-accent"> Create Client</button>
+</div>
 <mat-accordion multi="true" *ngIf="users.length > 0 && !isLoading">
   <mat-expansion-panel *ngFor="let user of users">
     <mat-expansion-panel-header>
       {{user.firstName}} {{user.lastName}}
     </mat-expansion-panel-header>
     <div>
-     <strong> Email: </strong> {{user.email}}
+      <strong> Email: </strong> {{user.email}}
     </div>
     <div>
       <strong>Role:</strong> {{user.role}}
@@ -23,4 +27,3 @@
 <mat-paginator [length]="totalUsers" [pageSize]="usersPerPage" [pageSizeOptions]="pageSizeOptions"
   (page)="onChangedPage($event)" *ngIf="users.length > 0 "></mat-paginator>
 <p class="info-text mat-body-1" *ngIf="users.length <= 0 && !isLoading">No Posts Added Yet</p>
-

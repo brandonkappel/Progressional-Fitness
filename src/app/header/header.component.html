@@ -1,24 +1,44 @@
 <mat-toolbar color="primary">
-  <button *ngIf="userIsAuthenticated"  mat-icon-button (click)="isExpanded = !isExpanded"><mat-icon>menu</mat-icon></button>
-<span> <a routerLink="/"> Progressional Fitness</a></span>
-<span class="spacer"></span>
- <ul>
-   <li *ngIf="userIsAuthenticated">
+  <!-- <button *ngIf="userIsAuthenticated"  mat-icon-button (click)="isExpanded = !isExpanded"><mat-icon>menu</mat-icon></button> -->
+  <span> <a routerLink="/"> Progressional Fitness</a></span>
+  <span class="spacer"></span>
+  <ul>
+    <!-- <li *ngIf="userIsAuthenticated">
      <a mat-raised-button color="primary" routerLink="/create" routerLinkActive="mat-accent">New Post</a>
-   </li>
-   <li *ngIf="!userIsAuthenticated">
-    <a mat-raised-button color="primary" routerLink="/login" routerLinkActive="mat-accent">Login</a>
-  </li>
-  <li *ngIf="userIsAuthenticated && router.url !='/fitness' ">
-    <a mat-raised-button color="primary" routerLink="/fitness" routerLinkActive="mat-accent">My Account</a>
-  </li>
-  <li *ngIf="!userIsAuthenticated">
-    <a mat-raised-button color="primary" routerLink="/signup" routerLinkActive="mat-accent">Sign Up</a>
-  </li>
-  <li *ngIf="userIsAuthenticated">
-    <button (click)="onLogout()" routerLink="/" mat-button >Logout</button>
-  </li>
- </ul>
+   </li> -->
+    <li *ngIf="!userIsAuthenticated">
+      <a mat-raised-button color="primary" routerLink="/login" routerLinkActive="mat-accent">Login</a>
+    </li>
+    <li *ngIf="userIsAuthenticated && router.url !='/fitness' ">
+      <a mat-raised-button color="primary" routerLink="/fitness" routerLinkActive="mat-accent">My Account</a>
+    </li>
+    <li *ngIf="!userIsAuthenticated">
+      <a mat-raised-button color="primary" routerLink="/signup" routerLinkActive="mat-accent">Sign Up</a>
+    </li>
+    <li *ngIf="userIsAuthenticated">
+      <button (click)="onLogout()" routerLink="/" mat-button>Logout</button>
+    </li>
+  </ul>
+</mat-toolbar>
+<mat-toolbar class="toolBar d-flex justify-content-around">
+  <!-- <button *ngIf="userIsAuthenticated"  mat-icon-button (click)="isExpanded = !isExpanded"><mat-icon>menu</mat-icon></button> -->
+  <div class="navLinkHolder p-3">
+    <a class="navLinks">Info</a>
+  </div>
+  <div class="navLinkHolder p-3">
+    <a class="navLinks"> Membership</a>
+  </div>
+
+  <span> <a routerLink="/"> Progressional Fitness</a></span>
+  <div class="navLinkHolder p-3">
+    <a class="navLinks"> Login</a>
+  </div>
+  <div class="navLinkHolder p-2">
+    <a class="navLinks"> Sign Up</a>
+  </div>
+
+
+
 </mat-toolbar>
 <!-- <mat-sidenav-container *ngIf="userIsAuthenticated"  class="example-container" >
   <mat-spinner *ngIf="isLoading"></mat-spinner>

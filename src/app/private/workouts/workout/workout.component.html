@@ -1,5 +1,7 @@
 <mat-card>
   <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <button [routerLink]="['/fitness']" class="m-2" mat-raised-button color="warn">Back</button>
+
   <form *ngIf="!isLoading" [formGroup]="workoutForm" (submit)="onSavePost()">
     <mat-form-field>
       <input matInput formControlName="workoutName" type="text" placeholder="Workout Name">
@@ -7,7 +9,7 @@
     </mat-form-field>
     <mat-form-field appearance="">
       <mat-label>Workout date</mat-label>
-      <input matInput [matDatepicker]="picker3"  [value]="date.value">
+      <input matInput [matDatepicker]="picker3" [value]="date.value">
       <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
       <mat-datepicker #picker3></mat-datepicker>
     </mat-form-field>

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from 'src/app/auth/auth.service';
 import { WorkoutsService } from '../workouts/workouts.service';
 import {  Program } from './program.model';
 import {  ProgramsService } from './programs.service';
@@ -29,7 +29,6 @@ export class ProgramsComponent implements OnInit {
   constructor(
     private programService: ProgramsService,
     public authService: AuthService,
-    private workoutService: WorkoutsService,
     protected router: Router,) { }
 
   ngOnInit(): void {
@@ -39,7 +38,7 @@ export class ProgramsComponent implements OnInit {
       .subscribe((programData: { programs: Program[]}) => {
         this.isLoading = false
         this.programs = programData.programs;
-        console.error(this.programs)
+        // console.error(this.programs)
       });
       this.userIsAuthenticated = this.authService.getIsAuth()
       this.authStatusSub = this.authService.getAuthStatusListener().subscribe(isAuthenticated =>{
