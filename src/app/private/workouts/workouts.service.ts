@@ -73,21 +73,33 @@ export class WorkoutsService {
       .subscribe(response => {
         console.error(response)
         console.error(workoutItem)
-        let item = []
-        // workoutItem.push({
-        //   id: item.id
-        //   name: item
-        //   description:
-        //   comments:
-        //   workout:
-        // })
+        let wItem = []
+        if (workoutItem && workoutItem[0].id != ''){
+        workoutItem.forEach(item => {
+          wItem.push({
+            id: item.id,
+            name: item.name,
+            description: item.description,
+            comments: item.comments,
+            workout: id
+          })
+        })
+        console.error('wItem', wItem)
+      
+        // this.updateWorkoutItem(wItem)
+      }
+
+        
         // this.router.navigate(["/workouts"])
 
       })
   }
 
   updateWorkoutItem(item){
-    this.http.put( 'http://localhost:3000/api/workoutItems/'  + item.id, item)
+    console.error(item)
+    this.http.put('http://localhost:3000/api/workoutItems/', item).subscribe(response =>{
+      console.error('ITEM UPDATED', response)
+    })
   }
 
   addWorkout(workout, workoutItem ) {
@@ -100,7 +112,7 @@ export class WorkoutsService {
         let wItem = []
         workoutItem.forEach(item => {
           wItem.push({
-            name: item.workoutItemName,
+            name: item.name,
             description: item.description,
             comments: item.comments,
             workout: responseData.workoutId
