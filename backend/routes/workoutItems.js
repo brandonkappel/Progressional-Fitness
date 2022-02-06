@@ -6,20 +6,26 @@ const router = express.Router();
 const WorkoutItem = require("../models/workoutItem");
 
 router.post("",authUser,(req, res, next) => {
-    const workoutItem = new WorkoutItem({
-      name: req.body.name,
-      description: req.body.description,
-      comments: req.body.comments,
-      // workouts:
-      // client: req.userData.userId
-    });
+  // console.error(req.body)
+  let items = req.body
+WorkoutItem.insertMany(items).then((createdWorkoutItem) => {
+  res.status(201).json(createdWorkoutItem);
+});
 
-    workoutItem.save().then((createdWorkoutItem) => {
-      res.status(201).json({
-        message: "Workout Item Added Successfully",
-        workoutItemId: createdWorkoutItem._id,
-      });
-    });
+    // const workoutItem = new WorkoutItem({
+    //   name: req.body.name,
+    //   description: req.body.description,
+    //   comments: req.body.comments,
+    //   workout: req.body.workout,
+    //   // client: req.userData.userId
+    // });
+
+    // workoutItem.save().then((createdWorkoutItem) => {
+    //   res.status(201).json({
+    //     message: "Workout Item Added Successfully",
+    //     workoutItemId: createdWorkoutItem._id,
+    //   });
+    // });
   }
 );
 
@@ -53,7 +59,9 @@ router.get("", (req, res, next) => {
 });
 
 router.get("/:id", (req, res, next) => {
-  WorkoutItem.findById(req.params.id).then((item) => {
+  console.error(req.params.id)
+  let workoutId = req.params.id
+  WorkoutItem.find({workout: workoutId}).then((item) => {
     if (item) {
       res.status(200).json(item);
     } else {

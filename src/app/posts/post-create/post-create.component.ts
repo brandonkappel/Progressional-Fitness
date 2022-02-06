@@ -51,7 +51,7 @@ export class PostCreateComponent implements OnInit {
           this.isLoading = false
           this.post = {
             id: postData._id,
-            title: postData.title,
+            title: postData.title, 
             content: postData.content,
             creator: postData.creator
           };
@@ -85,13 +85,14 @@ export class PostCreateComponent implements OnInit {
   }
 
   onSavePost() {
+    console.error('form', this.form)
     if (this.form.invalid) {
       console.error(this.form)
       return;
     }
     this.isLoading = true;
     if (this.mode === 'create') {
-      this.postsService.addPost(this.form.value.title, this.form.value.content);
+      this.postsService.addPost(this.form.value);
       this.snackBar.open("Successfully Created Post", "", { duration: 2000, verticalPosition: "top" })
 
     } else {

@@ -28,23 +28,52 @@ const storage = multer.diskStorage({
   },
 });
 
-router.post(
-  "",
-  authUser,
-  multer({ storage: storage }).single("image"),
-  (req, res, next) => {
-    const post = new Post({
-      title: req.body.title,
-      content: req.body.content,
-      creator: req.userData.userId
-    });
+// router.post(
+//   "",
+//   authUser,
+//   multer({ storage: storage }).single("image"),
+//   (req, res, next) => {
+//     const post = new Post({
+//       title: req.body.title,
+//       content: req.body.content,
+//       creator: req.userData.userId
+//     });
 
-    post.save().then((createdPost) => {
+//     post.save().then((createdPost) => {
+//       res.status(201).json({
+//         message: "Post Added Successfully",
+//         postId: createdPost._id,
+//       });
+//     });
+//   }
+// );
+
+router.post("",authUser,(req, res, next) => {
+  console.error(req)
+    // const post = new Post({
+    //   title: req.body.title,
+    //   content: req.body.content,
+    //   creator: req.userData.userId
+    // });
+    Post.create(req.body, (err,post) => {
+      if (err) return next(err);
       res.status(201).json({
-        message: "Post Added Successfully",
-        postId: createdPost._id,
-      });
-    });
+        message: "Post successfully Added",
+        post: post
+      })
+    })
+
+    // Post.save(req.body, (err,post)=> {
+    //   if (err) return next(err);
+    //   res.json(post)
+    // })
+
+    // post.save().then((createdPost) => {
+    //   res.status(201).json({
+    //     message: "Post Added Successfully",
+    //     postId: createdPost._id,
+    //   });
+    // });
   }
 );
 

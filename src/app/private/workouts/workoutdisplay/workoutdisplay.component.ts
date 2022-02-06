@@ -31,6 +31,7 @@ export class WorkoutdisplayComponent implements OnInit {
             creator: workout.creator,
             client: workout.client,
             date: workout.date,
+            program: workout.program
           }
           this.isLoading = false
           console.error(this.workout)

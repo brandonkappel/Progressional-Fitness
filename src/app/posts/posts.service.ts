@@ -43,17 +43,22 @@ export class PostsService {
     return this.http.get<{ _id: string, title: string, content: string, creator: string }>("http://localhost:3000/api/posts/" + id);
   }
 
-  addPost(title: string, content: string,) {
+  addPost(post) {
+    console.error(post)
+    // console.error(title, content)
     //need to fix adding image, reference lectur 77-79
     const postData = new FormData();
-    postData.append("title", title)
-    postData.append("content", content)
+    // postData.append("title", title)
+    // postData.append("content", content)
     // postData.append("image", image, title)
+    // const post ={title: title, content: content}
+    console.error(post)
     console.error(postData)
+    
 
-    this.http.post<{ message: string, postId: any }>('http://localhost:3000/api/posts', postData)
+    this.http.post<{ message: string, postId: any }>('http://localhost:3000/api/posts', post)
       .subscribe((responseData) => {
-        console.error(responseData)
+        console.error('POST:', responseData)
         this.router.navigate(["/"])
       });
 

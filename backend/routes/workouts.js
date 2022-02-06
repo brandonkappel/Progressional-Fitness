@@ -4,16 +4,16 @@ const {authUser} = require("../middleware/check-auth")
 const router = express.Router();
 
 const Workout = require("../models/workout");
+const user = require("../models/user")
 const WorkoutItem = require("../models/workoutItem")
 
 router.post("",authUser,(req, res, next) => {
-  console.error(req)
     const workout = new Workout({
       date: req.body.date,
       name: req.body.name,
       creator: req.userData.userId,
-      client: req.body.user,
-      program: req.body.program
+      client: req.body.user? req.body.user: null ,
+      program: req.body.program ? req.body.program : null,
     });
 
     workout.save().then((createdWorkout) => {
@@ -25,16 +25,21 @@ router.post("",authUser,(req, res, next) => {
   }
 );
 
+
+
 router.put("/:id",authUser,(req, res, next) => {
+  console.error(req.body)
+
   const workout = new Workout({
     _id: req.body.id,
     date: req.body.date,
     name: req.body.name,
-    creator: req.userData.userId,
-    client: req.body.user,
-    program: req.body.program
+    creator: req.userData.userId ? req.userData.userId : null,
+    client: req.body.user? req.body.user: null,
+    program: req.body.program ? req.body.program : null
   });
-  Workout.updateOne({ _id: req.params.id, creator: req.userData.userId }, workout).then((result) => {
+  Workout.updateOne({ _id: req.params.id}, workout).then((result) => {
+    console.error(result)
     if(result.nModified > 0) {
     res.status(200).json({ message: "Update Successful" });
     } else {
@@ -68,6 +73,7 @@ router.get("", (req, res, next) => {
 
 router.get("/:id", (req, res, next) => {
   Workout.findById(req.params.id).then((workout) => {
+    console.error(workout)
     if (workout) {
       res.status(200).json(workout);
     } else {

@@ -4,6 +4,7 @@ export interface Workout {
   date: Date;
   creator: string;
   client: string;
+  program: string;
 
 
 }

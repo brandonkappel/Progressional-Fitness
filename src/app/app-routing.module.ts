@@ -26,6 +26,7 @@ const routes: Routes = [
   {path: 'clients', component: ClientsComponent, canActivate: [AuthGuard]},
   {path: 'posts', component: PostListComponent, canActivate: [AuthGuard]},
   {path: 'workouts', component: WorkoutsComponent, canActivate: [AuthGuard]},
+  {path: 'editWorkout/:id', component: WorkoutComponent, canActivate: [AuthGuard]},
   {path: 'workout', component: WorkoutComponent},
   {path: 'myworkouts', component: MyworkoutsComponent, canActivate: [AuthGuard] },
   {path: 'workoutDisplay/:workoutId', component: WorkoutdisplayComponent},

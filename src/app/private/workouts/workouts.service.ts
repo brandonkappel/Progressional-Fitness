@@ -5,6 +5,8 @@ import { last, map } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { WorkoutItem } from './workoutitem.model';
+import { identifierModuleUrl } from '@angular/compiler';
+import { SELECT_ITEM_HEIGHT_EM } from '@angular/material/select';
 
 @Injectable({
   providedIn: 'root'
@@ -44,8 +46,8 @@ export class WorkoutsService {
       });
   }
 
-  getWorkoutItems(){
-    this.http.get<{message: string, workoutItem: any}>( 'http://localhost:3000/api/workoutItems')
+  getWorkoutItems(id: string){
+   return this.http.get<{message: string, workoutItem: any}>( 'http://localhost:3000/api/workoutItems' + id)
     .pipe(map((itemData)=> {
       return {
         workoutItems: itemData.workoutItem.map(item => {
@@ -61,34 +63,63 @@ export class WorkoutsService {
     })
   }
 
-  updateWorkout(id: string, ) {
-    const workout = this.workouts
-    console.error(workout)
-    this.http.put("http://localhost:3000/api/workouts/" + id, workout)
+  getWorkoutI(id: string){
+    return this.http.get( 'http://localhost:3000/api/workoutItems/' + id)
+  }
+
+  updateWorkout(id,workout, workoutItem ) {
+    const w: Workout = {id: id , name: workout.name, date: workout.date, creator: null, client: null, program: null}
+    this.http.put("http://localhost:3000/api/workouts/" + id, w)
       .subscribe(response => {
         console.error(response)
-        this.router.navigate(["/workouts"])
+        console.error(workoutItem)
+        let item = []
+        // workoutItem.push({
+        //   id: item.id
+        //   name: item
+        //   description:
+        //   comments:
+        //   workout:
+        // })
+        // this.router.navigate(["/workouts"])
 
       })
   }
 
-  addWorkout(name: string, date: Date, user: string, program: string ) {
-    // console.error(workout)
-    const workoutData = {name: name, date: date, user: user, program: program}
+  updateWorkoutItem(item){
+    this.http.put( 'http://localhost:3000/api/workoutItems/'  + item.id, item)
+  }
+
+  addWorkout(workout, workoutItem ) {
+    console.error(workout)
+    // const workoutData = {name: name, date: date, user: user, program: program}
     // console.error(workoutData)
-    this.http.post<{ message: string, workoutId: any }>('http://localhost:3000/api/workouts', workoutData)
+    this.http.post<{ message: string, workoutId: any }>('http://localhost:3000/api/workouts', workout)
       .subscribe((responseData) => {
         console.error('Workout:',responseData)
-        this.router.navigate(["/workouts"])
+        let wItem = []
+        workoutItem.forEach(item => {
+          wItem.push({
+            name: item.workoutItemName,
+            description: item.description,
+            comments: item.comments,
+            workout: responseData.workoutId
+          })
+        })
+        console.error('wItem', wItem)
+        this.addWorkoutItem(wItem)
+
+        // this.router.navigate(["/workouts"])
       });
   }
 
-  addWorkoutItem (name: string, description: string, comments: string ){
-    const itemData = {name: name, description: description, comments: comments}
-    console.error(itemData)
-    this.http.post<{message: string, workoutItemId: any}>('http://localhost:3000/api/workoutItems', itemData)
+  addWorkoutItem (workoutItem){
+    console.error('ADDED WORKOUT ITEM :', workoutItem)
+    // const itemData = {name: name, description: description, comments: comments, workout: workout}
+    // console.error(itemData)
+    this.http.post<{message: string, workoutItemId: any}>('http://localhost:3000/api/workoutItems', workoutItem)
     .subscribe((response)=> {
-      console.error('workout Item:',response)
+      console.error('workout Item RETURN:',response)
     })
   }
 
@@ -102,7 +133,8 @@ export class WorkoutsService {
       name: string
       date: Date;
       creator: string;
-      client: string;}>("http://localhost:3000/api/workouts/" + id);
+      client: string;
+      program: string}>("http://localhost:3000/api/workouts/" + id);
   }
 
   getMyWorkouts(id: string) {

@@ -35,6 +35,7 @@ router.post("/signup", (req, res, next) => {
 
 
 router.post("/login", (req, res, next) => {
+  console.error('hello')
   let fetchedUser;
   User.findOne({ email: req.body.email })
     .then((user) => {

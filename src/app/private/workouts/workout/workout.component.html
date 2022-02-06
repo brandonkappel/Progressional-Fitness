@@ -9,7 +9,7 @@
     </mat-form-field>
     <mat-form-field appearance="">
       <mat-label>Workout date</mat-label>
-      <input matInput [matDatepicker]="picker3" [value]="date.value">
+      <input matInput formControlName="date" [matDatepicker]="picker3" [value]="date.value">
       <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
       <mat-datepicker #picker3></mat-datepicker>
     </mat-form-field>
@@ -29,66 +29,36 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
+    <br>
+
+    <div formArrayName="workoutItem">
+      <div *ngFor="let workout of workoutItems.controls; let i = index" [formGroupName]="i">
+        <mat-form-field>
+          <input matInput formControlName="name" type="text" placeholder="Workout Item Name">
+          <!-- <mat-error *ngIf="workoutForm.get('workoutItemName').invalid"> Please enter a workout Item name.
+          </mat-error> -->
+        </mat-form-field>
+        <mat-form-field>
+          <textarea matInput formControlName="description" type="text" placeholder="description"> </textarea>
+            <!-- <mat-error *ngIf="workoutForm.get('description').invalid"> Please enter a description. </mat-error> -->
+        </mat-form-field>
+              <mat-form-field>
+            <textarea matInput formControlName="comments" type="text" placeholder="comments"> </textarea>
+              <!-- <mat-error *ngIf="workoutForm.get('comments').invalid"> Please enter comments. </mat-error> -->
+        </mat-form-field>
+        <button (click)="removeWorkoutItem(i)" mat-button>
+          Remove Item
+        </button>
+
+      </div>
+
+    </div>
+  </form>
+  <button (click)="addItem()">Add Item</button>
 
 
 
 
     <h2>Update Workout!</h2>
-    <button mat-raised-button color="accent" type="submit">Save Workout</button>
-  </form>
-
+    <button mat-raised-button color="accent" (click)="onSavePost()">Save Workout</button>
 </mat-card>
-
-
-<!-- <mat-stepper orientation="vertical">
-    <mat-step>
-      <form [formGroup]="workoutForm">
-        <ng-template matStepLabel>Create Workout</ng-template>
-        <mat-form-field appearance="fill">
-          <mat-label>Workout Name</mat-label>
-          <input matInput formControlName="workoutName" placeholder="Workout Name" required>
-        </mat-form-field>
-        <div>
-          <button mat-button matStepperNext (click)="addItemSection()">Next</button>
-        </div>
-      </form>
-    </mat-step>
-    <form [formGroup]="itemForm" *ngIf="sectionAdded == true">
-      <mat-vertical-stepper formArrayName="item">
-        <mat-step [formGroupName]="i" *ngFor="let item of getItem(); let i = index">
-          <ng-template matStepLabel>Part {{i + 1}}</ng-template>
-          <mat-form-field appearance="fill">
-            <mat-label>Name</mat-label>
-            <input matInput formControlName="name" placeholder="Workout">
-          </mat-form-field>
-          <div>
-            <button mat-button matStepperNext (click)="addItem()">Next</button>
-            <button mat-button matStepperNext (click)="removeItem(i)">remove</button>
-          </div>
-        </mat-step>
-      </mat-vertical-stepper>
-    </form>
-  </mat-stepper> -->
-
-<!-- <mat-stepper orientation="vertical">
-  <mat-step>
-    <ng-template matStepLabel>Step 1</ng-template>
-    <ng-template matStepContent>
-      <p>This content was rendered lazily</p>
-      <button mat-button matStepperNext>Next</button>
-    </ng-template>
-  </mat-step>
-  <mat-step>
-    <ng-template matStepLabel>Step 2</ng-template>
-    <ng-template matStepContent>
-      <p>This content was also rendered lazily</p>
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-button matStepperNext>Next</button>
-    </ng-template>
-  </mat-step>
-  <mat-step>
-    <ng-template matStepLabel>Step 3</ng-template>
-    <p>This content was rendered eagerly</p>
-    <button mat-button matStepperPrevious>Back</button>
-  </mat-step>
-</mat-stepper> -->
