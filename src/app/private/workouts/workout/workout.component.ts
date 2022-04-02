@@ -110,7 +110,7 @@ export class WorkoutComponent implements OnInit {
             // this.setWorkoutItems()
             let workoutItemControl = <FormArray>this.workoutForm.controls.workoutItem;
             this.workoutI.forEach(item => {
-              workoutItemControl.push(this.formbuilder.group({id: item._id, name: item.name, description: item.description, comments: item.comments}))
+              workoutItemControl.push(this.formbuilder.group({_id: item._id, name: item.name, description: item.description, comments: item.comments}))
             })
 
           })
@@ -138,7 +138,7 @@ export class WorkoutComponent implements OnInit {
 
   createWorkoutItems(): FormGroup{
     return new FormGroup({
-      id: new FormControl(''),
+      _id: new FormControl(''),
       name: new FormControl(''),
       description: new FormControl(''),
       comments: new FormControl(''),

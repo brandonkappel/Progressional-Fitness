@@ -1,5 +1,6 @@
 const express = require("express");
-const {authUser} = require("../middleware/check-auth")
+const {authUser} = require("../middleware/check-auth");
+const { updateOne } = require("../models/workoutItem");
 
 const router = express.Router();
 
@@ -31,25 +32,41 @@ WorkoutItem.insertMany(items).then((createdWorkoutItem) => {
 
 router.put("",authUser,(req, res, next) => {
   // console.error(req.body)
-  const workoutItems = []
-  req.body.forEach(item => {
-    workoutItems = new WorkoutItem({
-      _id: item.id,
-      name: item.name,
-      description: item.description,
-      comments: item.comments,
-      workout: item.workout? item.workout : null
-    });
+  let items = req.body
+
+    // workoutItems = new WorkoutItem({
+    //   _id: item.id,
+    //   name: item.name,
+    //   description: item.description,
+    //   comments: item.comments,
+    //   workout: item.workout? item.workout : null
+    // });
+
+
+  WorkoutItem.bulkWrite(
+    items.map((item)=> 
+    ({
+      updateOne:{
+        filter: {_id: item._id},
+        update: { $set: item}
+      }
+    })
+    )
+  ).then(result => {
+    console.error(result)
   })
-  console.error(workoutItems)
-  WorkoutItem.updateMany({ _id: { $in: [workoutItems._id] } }, workoutItems).then((result) => {
-    // console.error(result)
-    if(result.nModified > 0) {
-    res.status(200).json({ message: "Update Successful" });
-    } else {
-    res.status(401).json({ message: "Not Authorized" });
-    }
-  });
+  
+
+ 
+
+  // WorkoutItem.updateMany({ _id: { $in: [items._id]} }, items, {multi: true}).then((result) => {
+  //   // console.error(result)
+  //   if(result.nModified > 0) {
+  //   res.status(200).json({ message: "Update Successful" });
+  //   } else {
+  //   res.status(401).json({ message: "Not Authorized" });
+  //   }
+  // });
 
  
 });

@@ -68,7 +68,7 @@ export class WorkoutsService {
   }
 
   updateWorkout(id,workout, workoutItem ) {
-    const w: Workout = {id: id , name: workout.name, date: workout.date, creator: null, client: null, program: null}
+    const w: Workout = {id: id , name: workout.name, date: workout.date, creator: null, client: workout.client, program: workout.program}
     this.http.put("http://localhost:3000/api/workouts/" + id, w)
       .subscribe(response => {
         console.error(response)
@@ -77,7 +77,7 @@ export class WorkoutsService {
         if (workoutItem && workoutItem[0].id != ''){
         workoutItem.forEach(item => {
           wItem.push({
-            id: item.id,
+            _id: item._id,
             name: item.name,
             description: item.description,
             comments: item.comments,
@@ -86,7 +86,7 @@ export class WorkoutsService {
         })
         console.error('wItem', wItem)
       
-        // this.updateWorkoutItem(wItem)
+        this.updateWorkoutItem(wItem)
       }
 
         

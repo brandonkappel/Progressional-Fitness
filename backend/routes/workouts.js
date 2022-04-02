@@ -39,7 +39,7 @@ router.put("/:id",authUser,(req, res, next) => {
     program: req.body.program ? req.body.program : null
   });
   Workout.updateOne({ _id: req.params.id}, workout).then((result) => {
-    console.error(result)
+    // console.error(result)
     if(result.nModified > 0) {
     res.status(200).json({ message: "Update Successful" });
     } else {
@@ -73,7 +73,7 @@ router.get("", (req, res, next) => {
 
 router.get("/:id", (req, res, next) => {
   Workout.findById(req.params.id).then((workout) => {
-    console.error(workout)
+    // console.error(workout)
     if (workout) {
       res.status(200).json(workout);
     } else {
@@ -83,7 +83,7 @@ router.get("/:id", (req, res, next) => {
 });
 
 router.get("/myWorkouts/:id", (req, res, next) => {
-  console.error(req.params)
+  // console.error(req.params)
   Workout.find({client: req.params.id }).then((workout) => {
     if (workout) {
       res.status(200).json(workout);
@@ -94,7 +94,7 @@ router.get("/myWorkouts/:id", (req, res, next) => {
 });
 
 router.get("/programWorkouts/:id", (req, res, next) => {
-  console.error(req.params)
+  // console.error(req.params)
   Workout.find({program: req.params.id }).then((workout) => {
     if (workout) {
       res.status(200).json(workout);
@@ -106,7 +106,7 @@ router.get("/programWorkouts/:id", (req, res, next) => {
 
 router.delete("/:id", authUser, (req, res, next) => {
   Workout.deleteOne({ _id: req.params.id, creator: req.userData.userId }).then((result) => {
-    console.error(result)
+    // console.error(result)
     if(result.n > 0) {
       res.status(200).json({ message: "Deletion Successful" });
       } else {

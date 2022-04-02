@@ -1,0 +1,45 @@
+<p>verify works!</p>
+
+<mat-card *ngIf="!resend" style="height: 40%; width: 40%; margin: auto;" class="text-center">
+    <mat-card-title class="mt-3 mb-5" >
+        Enter Verification Code
+    </mat-card-title>
+    
+
+    <form (submit)="verify(form)" #form="ngForm">
+        <mat-form-field>
+            <input matInput name="code" ngModel #codeInput="ngModel" type="text" required
+                placeholder="4 Digit Code">
+        </mat-form-field>
+        <br>
+    <button mat-raised-button  color="accent" type="submit">Verify</button>
+
+    </form>
+
+    <div>
+        <button mat-button  (click)="resendCode()" > Resend Code  </button>
+    </div>
+
+
+</mat-card  >
+
+
+
+<mat-card *ngIf="resend"  style="height: 40%; width: 40%; margin: auto;" class="text-center">
+
+    <mat-card-title class="mt-3 mb-5" >
+        Enter Email Address
+    </mat-card-title>
+
+
+    <form (submit)="sendResend(resendForm)" #resendForm="ngForm">
+        <mat-form-field>
+            <input matInput name="email" ngModel #emailInput="ngModel" type="text" email required
+                placeholder="Email address">
+        </mat-form-field>
+        <br>
+    <button mat-raised-button  color="accent" type="submit">Send Code</button>
+
+    </form>
+
+</mat-card>

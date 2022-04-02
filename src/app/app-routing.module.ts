@@ -18,12 +18,14 @@ import { MyworkoutsComponent } from './private/workouts/myworkouts/myworkouts.co
 import { WorkoutComponent } from './private/workouts/workout/workout.component';
 import { WorkoutdisplayComponent } from './private/workouts/workoutdisplay/workoutdisplay.component';
 import { WorkoutsComponent } from './private/workouts/workouts.component';
+import { VerifyComponent } from './auth/verify/verify.component';
+import { RoleGuard } from './auth/role.guard';
 
 
 const routes: Routes = [
   {path: '', component: PublicComponent},
   {path: 'fitness', component: HomeComponent},
-  {path: 'clients', component: ClientsComponent, canActivate: [AuthGuard]},
+  {path: 'clients', component: ClientsComponent, canActivate: [AuthGuard, RoleGuard] ,   }  ,
   {path: 'posts', component: PostListComponent, canActivate: [AuthGuard]},
   {path: 'workouts', component: WorkoutsComponent, canActivate: [AuthGuard]},
   {path: 'editWorkout/:id', component: WorkoutComponent, canActivate: [AuthGuard]},
@@ -32,14 +34,15 @@ const routes: Routes = [
   {path: 'workoutDisplay/:workoutId', component: WorkoutdisplayComponent},
 
   {path: 'program', component: ProgramComponent},
-  {path: 'programs', component: ProgramsComponent, canActivate: [AuthGuard]},
+  {path: 'programs', component: ProgramsComponent, canActivate: [AuthGuard, RoleGuard] },
   {path: 'programWorkout/:programId', component: ProgramworkoutsComponent},
   {path: 'create', component: PostCreateComponent, canActivate: [AuthGuard]},
   {path: 'client', component: ClientComponent, canActivate: [AuthGuard] },
   {path: 'edit/:postId', component: PostCreateComponent, canActivate: [AuthGuard]},
   {path: 'editClient/:userId', component: ClientComponent},
   {path: 'login', component: LoginComponent},
-  {path: 'signup', component: SignupComponent}
+  {path: 'signup', component: SignupComponent},
+  {path: 'verify', component: VerifyComponent}
 
 ];
 

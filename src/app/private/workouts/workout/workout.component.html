@@ -1,55 +1,65 @@
-<mat-card>
+<div style="background-color:lightgray;">
   <mat-spinner *ngIf="isLoading"></mat-spinner>
   <button [routerLink]="['/fitness']" class="m-2" mat-raised-button color="warn">Back</button>
 
   <form *ngIf="!isLoading" [formGroup]="workoutForm" (submit)="onSavePost()">
-    <mat-form-field>
-      <input matInput formControlName="workoutName" type="text" placeholder="Workout Name">
-      <mat-error *ngIf="workoutForm.get('workoutName').invalid"> Please enter a workout name. </mat-error>
-    </mat-form-field>
-    <mat-form-field appearance="">
-      <mat-label>Workout date</mat-label>
-      <input matInput formControlName="date" [matDatepicker]="picker3" [value]="date.value">
-      <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
-      <mat-datepicker #picker3></mat-datepicker>
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-      <mat-label>Clients</mat-label>
-      <mat-select formControlName="user">
-        <mat-option *ngFor="let user of users" [value]="user.id">
-          {{user.firstName}} {{user.lastName}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-      <mat-label>Programs</mat-label>
-      <mat-select formControlName="program">
-        <mat-option *ngFor="let program of programs" [value]="program.id">
-          {{program.name}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <br>
+    <mat-card class="m-3">
+      <mat-form-field>
+        <input matInput formControlName="workoutName" type="text" placeholder="Workout Name">
+        <mat-error *ngIf="workoutForm.get('workoutName').invalid"> Please enter a workout name. </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="">
+        <mat-label>Workout date</mat-label>
+        <input matInput formControlName="date" [matDatepicker]="picker3" [value]="date.value">
+        <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+        <mat-datepicker #picker3></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Clients</mat-label>
+        <mat-select formControlName="user">
+          <mat-option *ngFor="let user of users" [value]="user.id">
+            {{user.firstName}} {{user.lastName}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Programs</mat-label>
+        <mat-select formControlName="program">
+          <mat-option *ngFor="let program of programs" [value]="program.id">
+            {{program.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <br>
+
+    </mat-card>
 
     <div formArrayName="workoutItem">
       <div *ngFor="let workout of workoutItems.controls; let i = index" [formGroupName]="i">
-        <mat-form-field>
-          <input matInput formControlName="name" type="text" placeholder="Workout Item Name">
-          <!-- <mat-error *ngIf="workoutForm.get('workoutItemName').invalid"> Please enter a workout Item name.
-          </mat-error> -->
-        </mat-form-field>
-        <mat-form-field>
-          <textarea matInput formControlName="description" type="text" placeholder="description"> </textarea>
-            <!-- <mat-error *ngIf="workoutForm.get('description').invalid"> Please enter a description. </mat-error> -->
-        </mat-form-field>
-              <mat-form-field>
-            <textarea matInput formControlName="comments" type="text" placeholder="comments"> </textarea>
-              <!-- <mat-error *ngIf="workoutForm.get('comments').invalid"> Please enter comments. </mat-error> -->
-        </mat-form-field>
-        <button (click)="removeWorkoutItem(i)" mat-button>
-          Remove Item
-        </button>
+        <mat-card class="m-3">
 
+
+          <mat-form-field appearance="fill">
+            <input matInput formControlName="name" type="text" placeholder="Workout Item Name">
+            <!-- <mat-error *ngIf="workoutForm.get('workoutItemName').invalid"> Please enter a workout Item name.
+          </mat-error> -->
+          </mat-form-field>
+          <br>
+          <mat-form-field class="formText" appearance="fill">
+            <textarea style="white-space: pre-wrap;" matInput rows="5" cols="40" formControlName="description"
+              type="text" placeholder="description"> </textarea>
+            <!-- <mat-error *ngIf="workoutForm.get('description').invalid"> Please enter a description. </mat-error> -->
+          </mat-form-field>
+          <br>
+          <mat-form-field class="formText" appearance="fill">
+            <textarea style="white-space: pre-wrap;" rows="5" cols="40" matInput formControlName="comments" type="text"
+              placeholder="comments"> </textarea>
+            <!-- <mat-error *ngIf="workoutForm.get('comments').invalid"> Please enter comments. </mat-error> -->
+          </mat-form-field>
+          <button style="float:inline-end;" color="warn"  (click)="removeWorkoutItem(i)" mat-raised-button>
+            Remove Item
+          </button>
+        </mat-card>
       </div>
 
     </div>
@@ -58,7 +68,10 @@
 
 
 
-
+  <mat-card class="m-3">
     <h2>Update Workout!</h2>
     <button mat-raised-button color="accent" (click)="onSavePost()">Save Workout</button>
-</mat-card>
+  </mat-card>
+
+
+</div>

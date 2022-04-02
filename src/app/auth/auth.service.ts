@@ -4,6 +4,7 @@ import { Authdata } from './auth-data.model';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { Client } from '../private/clients/clients.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({ providedIn: "root" })
 export class AuthService {
@@ -17,7 +18,7 @@ export class AuthService {
   private userId: string;
   user: Client;
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private snackBar: MatSnackBar) { }
 
   getToken() {
     return this.token;
@@ -27,67 +28,93 @@ export class AuthService {
     return this.isAuthenticated
   }
 
-  getUserId(){
+  getUserId() {
     return this.userId
   }
 
-  getIsAdmin(){
+  getIsAdmin() {
     return this.isAdmin
   }
 
   createUser(firstName: string, lastName: string, email: string, password: string) {
-    const authData: Authdata = {firstName:firstName, lastName: lastName, email: email, password: password }
+    const authData: Authdata = { firstName: firstName, lastName: lastName, email: email, password: password }
     return this.http.post("http://localhost:3000/api/user/signup", authData)
       .subscribe(response => {
         console.error(response)
-        this.router.navigate(['/'])
+        this.router.navigate(['verify'])
       }, error => {
         console.error(error)
         this.authStatusListener.next(false)
       });
   };
 
+  verify(code: string) {
+    this.http.get("http://localhost:3000/api/user/verify/" + code).subscribe(response => {
+      console.error('verify res:', response)
+      if (response) {
+        console.error('youre In!')
+        this.snackBar.open('Successfully Verified', '', {duration: 2000, verticalPosition: 'top'})
+        this.router.navigate(['login'])
+      }
+
+    })
+  }
+
+  resendCode(email: string){
+    this.http.get("http://localhost:3000/api/user/resendCode/" + email).subscribe((response: any) => {
+      console.error('Resend Code', response)
+      if (response){
+        console.error('sent')
+        this.snackBar.open(response.message, '', {duration: 3000,verticalPosition: 'top'})
+      }
+    })
+  }
+
   logIn(email: string, password: string) {
-    const authData= { email: email, password: password }
-    this.http.post<{ token: string, expiresIn: number, userId: string, role: string }>("http://localhost:3000/api/user/login", authData)
+    console.error('here?')
+    const authData = { email: email, password: password }
+    this.http.post<{ token: string, expiresIn: number, userId: string, role: string, active: boolean }>("http://localhost:3000/api/user/login", authData)
       .subscribe(response => {
         console.error('Log In:', response)
         const token = response.token;
         this.token = token;
-        if (token) {
+        if (token && response.active) {
           const expiresInDuration = response.expiresIn;
           const role = response.role
           this.setAuthTimer(expiresInDuration)
           this.isAuthenticated = true;
           this.userId = response.userId
-          if(role == 'admin'){
+          if (role == 'admin') {
             console.error('ADMIN')
             this.isAdmin = true
-        this.adminStatusListener.next(true)
+            this.adminStatusListener.next(true)
           }
           console.error('AFTER ADMIN ')
           this.authStatusListener.next(true);
           const now = new Date()
           const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
-          this.saveAuthData(token, expirationDate, this.userId,role )
+          this.saveAuthData(token, expirationDate, this.userId, role)
           // this.getUser()
           this.router.navigate(['fitness'])
+        } else {
+          this.router.navigate(['verify'])
+          console.error('not active')
         }
-      }, error=>{
+      }, error => {
         this.authStatusListener.next(false)
       });
   };
 
   getUser() {
     this.http.get<{ _id: string, firstName: string, lastName: string, email: string, role: string }>("http://localhost:3000/api/user/" + this.userId).subscribe(user => {
-     this.user = {
+      this.user = {
         id: user._id,
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
         role: user.role
       }
-      if(user.role == 'admin'){
+      if (user.role == 'admin') {
         console.error('ADMIN')
         this.isAdmin = true;
         this.adminStatusListener.next(true)
@@ -104,7 +131,7 @@ export class AuthService {
 
   autoAuthUser() {
     const authInformation = this.getAuthData();
-    if(!authInformation){
+    if (!authInformation) {
       return;
     }
     const now = new Date();
@@ -113,7 +140,7 @@ export class AuthService {
       this.token = authInformation.token;
       this.isAuthenticated = true
       this.userId = authInformation.userId;
-      if(authInformation.userRole == 'admin'){
+      if (authInformation.userRole == 'admin') {
         console.error('ADMIN')
         this.isAdmin = true
         this.adminStatusListener.next(true)
@@ -181,7 +208,7 @@ export class AuthService {
     return this.authStatusListener.asObservable();
   }
 
-  getAdminStatusListener(){
+  getAdminStatusListener() {
     return this.adminStatusListener.asObservable();
   }
 

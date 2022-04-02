@@ -14,7 +14,12 @@ export class ErrorInterceptor implements HttpInterceptor {
 
    return next.handle(req).pipe(
      catchError((error: HttpErrorResponse)=>{
-      this.dialog.open(ErrorComponent);
+       console.error(error)
+      this.dialog.open(ErrorComponent, {
+        data: {
+          error: error
+        }
+      });
        return throwError(error);
      })
    );
