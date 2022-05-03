@@ -1,5 +1,7 @@
 <mat-spinner *ngIf="isLoading"></mat-spinner>
 <div *ngIf="!isLoading">
+  <button class="m-2" mat-raised-button color="warn" (click)="goBack()">Back</button>
+
   <h1> {{program.name}} </h1>
   <mat-card class="m-3" *ngFor="let workout of workouts" [routerLink]="['/workoutDisplay', workout['_id']]"  >
     <mat-card-title-group>

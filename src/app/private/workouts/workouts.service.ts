@@ -22,11 +22,12 @@ export class WorkoutsService {
 
 
 
-  getWorkouts(workoutsPerPage: number, currentPage: number) {
-    const queryParams = `?pagesize=${workoutsPerPage}&page=${currentPage}`;
+  getWorkouts(workoutsPerPage: number, currentPage: number, type: string, client: string) {
+    const queryParams = `?pagesize=${workoutsPerPage}&page=${currentPage}&type=${type}&client=${client}`;
     this.http.get<{ message: string, workouts: any, maxWorkouts: number }>(
       'http://localhost:3000/api/workouts' + queryParams)
       .pipe(map((workoutData) => {
+        console.error(workoutData)
         return {
           workouts: workoutData.workouts.map(workout => {
             return {
@@ -121,7 +122,7 @@ export class WorkoutsService {
         console.error('wItem', wItem)
         this.addWorkoutItem(wItem)
 
-        // this.router.navigate(["/workouts"])
+        this.router.navigate(["/workouts"])
       });
   }
 

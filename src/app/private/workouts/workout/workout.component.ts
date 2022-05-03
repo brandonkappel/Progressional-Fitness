@@ -34,7 +34,7 @@ export class WorkoutComponent implements OnInit {
   usersSub: Subscription;
   users: Client[] = [];
   totalUsers: number;
-  programs: Program[]=[]
+  programs: Program[] = []
   private workoutId: string
   workout: Workout
   workoutItemForm: FormGroup;
@@ -58,9 +58,9 @@ export class WorkoutComponent implements OnInit {
         this.totalUsers = userData.userCount
         this.users = userData.users;
       });
-      this.programService.getPrograms()
-   this.programService.getProgramUpdatedListener()
-      .subscribe((programData: {programs: Program[]})=> {
+    this.programService.getPrograms()
+    this.programService.getProgramUpdatedListener()
+      .subscribe((programData: { programs: Program[] }) => {
         this.programs = programData.programs
         console.error(this.programs)
       })
@@ -72,7 +72,7 @@ export class WorkoutComponent implements OnInit {
       date: ['', new Date],
       user: new FormControl(''),
       program: new FormControl(''),
-      workoutItem: this.formbuilder.array([this.createWorkoutItems()])
+      workoutItem: this.formbuilder.array([])
     })
 
 
@@ -90,7 +90,7 @@ export class WorkoutComponent implements OnInit {
           this.isLoading = false
           this.workout = {
             id: workoutData._id,
-            name: workoutData.name, 
+            name: workoutData.name,
             date: workoutData.date,
             client: workoutData.client,
             creator: workoutData.creator,
@@ -105,17 +105,15 @@ export class WorkoutComponent implements OnInit {
 
           this.workoutService.getWorkoutI(this.workout.id).subscribe(workoutItems => {
             // console.error(workoutItems)
-             this.workoutI = workoutItems
+            this.workoutI = workoutItems
             console.error('ITEMS:', this.workoutI)
             // this.setWorkoutItems()
             let workoutItemControl = <FormArray>this.workoutForm.controls.workoutItem;
             this.workoutI.forEach(item => {
-              workoutItemControl.push(this.formbuilder.group({_id: item._id, name: item.name, description: item.description, comments: item.comments}))
+              workoutItemControl.push(this.formbuilder.group({ _id: item._id, name: item.name, description: item.description, comments: item.comments }))
             })
 
           })
-
-         
 
         })
       } else {
@@ -125,18 +123,18 @@ export class WorkoutComponent implements OnInit {
     });
   }
 
-  setWorkoutItems(){
-    let control = <FormArray>this.workoutForm.controls.workoutItem;
-    this.workoutI.forEach(x => {
-      control.push(this.formbuilder.group(x));
-    })
-  }
+  // setWorkoutItems() {
+  //   let control = <FormArray>this.workoutForm.controls.workoutItem;
+  //   this.workoutI.forEach(x => {
+  //     control.push(this.formbuilder.group(x));
+  //   })
+  // }
 
-  get workoutItems(){
+  get workoutItems() {
     return this.workoutForm.get('workoutItem') as FormArray;
   }
 
-  createWorkoutItems(): FormGroup{
+  createWorkoutItems(): FormGroup {
     return new FormGroup({
       _id: new FormControl(''),
       name: new FormControl(''),
@@ -145,37 +143,37 @@ export class WorkoutComponent implements OnInit {
     })
   }
 
-  add(){
+  add() {
     console.error('hello')
   }
-  
 
-  public addItem(){
+
+  public addItem() {
     this.workoutItems.push(this.createWorkoutItems())
 
 
   }
 
-  public removeWorkoutItem(i){
+  public removeWorkoutItem(i) {
     this.workoutItems.removeAt(i)
   }
 
- 
 
- 
+
+
 
 
 
 
   onSavePost() {
-    console.error('SAVE STARTED ',)
+    console.error('SAVE STARTED ', this.workoutForm.value)
 
 
     if (this.workoutForm.invalid) {
-      console.error('ERROR ON FORM',this.workoutForm)
+      console.error('ERROR ON FORM', this.workoutForm)
       return
     }
-    let workout = {name: this.workoutForm.value.workoutName,date: this.date.value,client: this.workoutForm.value.user, program: this.workoutForm.value.program}
+    let workout = { name: this.workoutForm.value.workoutName, date: this.date.value, client: this.workoutForm.value.user, program: this.workoutForm.value.program }
     let workoutItem = this.workoutForm.value.workoutItem
     console.error('Item', workoutItem)
     // this.isLoading = true;
@@ -185,10 +183,10 @@ export class WorkoutComponent implements OnInit {
       this.snackBar.open("Successfully Created Post", "", { duration: 2000, verticalPosition: "top" })
 
     } else {
-      this.workoutService.updateWorkout(this.workout.id,workout,  workoutItem)
+      this.workoutService.updateWorkout(this.workout.id, workout, workoutItem)
       this.snackBar.open("Successfully Update Post", "", { duration: 2000, verticalPosition: "top" })
     }
-    
+
 
   }
 

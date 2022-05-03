@@ -18,7 +18,7 @@
         <mat-label>Clients</mat-label>
         <mat-select formControlName="user">
           <mat-option *ngFor="let user of users" [value]="user.id">
-            {{user.firstName}} {{user.lastName}}
+            {{user.firstName}} {{user.lastName}} ({{user.email}})
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -41,20 +41,17 @@
 
           <mat-form-field appearance="fill">
             <input matInput formControlName="name" type="text" placeholder="Workout Item Name">
-            <!-- <mat-error *ngIf="workoutForm.get('workoutItemName').invalid"> Please enter a workout Item name.
-          </mat-error> -->
+           
           </mat-form-field>
           <br>
           <mat-form-field class="formText" appearance="fill">
             <textarea style="white-space: pre-wrap;" matInput rows="5" cols="40" formControlName="description"
               type="text" placeholder="description"> </textarea>
-            <!-- <mat-error *ngIf="workoutForm.get('description').invalid"> Please enter a description. </mat-error> -->
           </mat-form-field>
           <br>
           <mat-form-field class="formText" appearance="fill">
             <textarea style="white-space: pre-wrap;" rows="5" cols="40" matInput formControlName="comments" type="text"
               placeholder="comments"> </textarea>
-            <!-- <mat-error *ngIf="workoutForm.get('comments').invalid"> Please enter comments. </mat-error> -->
           </mat-form-field>
           <button style="float:inline-end;" color="warn"  (click)="removeWorkoutItem(i)" mat-raised-button>
             Remove Item

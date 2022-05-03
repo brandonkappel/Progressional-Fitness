@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
+import { Client } from '../clients/clients.model';
+import { ClientsService } from '../clients/clients.service';
+import { Program } from '../programs/program.model';
+import { ProgramsService } from '../programs/programs.service';
 import { Workout } from './workout.model';
 import { WorkoutsService } from './workouts.service';
 
@@ -12,7 +16,7 @@ import { WorkoutsService } from './workouts.service';
 })
 export class WorkoutsComponent implements OnInit {
 
-  workouts: Workout[]=[]
+  workouts: Workout[] = []
 
   isLoading = false;
   workoutsPerPage = 10;
@@ -23,42 +27,91 @@ export class WorkoutsComponent implements OnInit {
   private authStatusSub: Subscription
   userId: string;
   pageSizeOptions = [1, 2, 5, 10]
+  workoutType: any
+  usersPerPage: number;
+  usersSub: Subscription;
+  totalUsers: number;
+  users: Client[];
+  programs: Program[];
+  selectedClient: any;
+  selectedProgram: any;
 
 
 
 
 
-  constructor(private workoutService: WorkoutsService, public authService: AuthService) { }
+
+  constructor(private workoutService: WorkoutsService,
+    public authService: AuthService,
+    private clientService: ClientsService,
+    private programService: ProgramsService,
+  ) { }
 
   ngOnInit(): void {
+    this.workoutType = 'all'
+    this.selectedClient= ''
+    this.getData();
+  }
+
+  private getData() {
     this.isLoading = true
-    this.workoutService.getWorkouts(this.workoutsPerPage, this.currentPage)
+    this.workoutService.getWorkouts(this.workoutsPerPage, this.currentPage, this.workoutType, this.selectedClient);
     this.workoutSub = this.workoutService.getWorkoutUpdatedListener()
-      .subscribe((workoutData: { workouts: Workout[], workoutCount: number }) => {
-        this.isLoading = false
-        this.totalWorkouts = workoutData.workoutCount
+      .subscribe((workoutData: { workouts: Workout[]; workoutCount: number; }) => {
+        this.isLoading = false;
+        this.totalWorkouts = workoutData.workoutCount;
         this.workouts = workoutData.workouts;
-        console.error(this.workouts)
+        console.error(this.workouts);
       });
-      this.userIsAuthenticated = this.authService.getIsAuth()
-      this.authStatusSub = this.authService.getAuthStatusListener().subscribe(isAuthenticated =>{
-        this.userIsAuthenticated = isAuthenticated;
-        this.userId = this.authService.getUserId()
+    this.userIsAuthenticated = this.authService.getIsAuth();
+    this.authStatusSub = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
+      this.userIsAuthenticated = isAuthenticated;
+      this.userId = this.authService.getUserId();
+    });
+    this.clientService.getUsers(this.usersPerPage, this.currentPage)
+    this.usersSub = this.clientService.getUserUpdatedListener()
+      .subscribe((userData: { users: Client[], userCount: number }) => {
+        this.isLoading = false
+        this.totalUsers = userData.userCount
+        this.users = userData.users;
       });
+    this.programService.getPrograms()
+    this.programService.getProgramUpdatedListener()
+      .subscribe((programData: { programs: Program[] }) => {
+        this.programs = programData.programs
+        console.error(this.programs)
+      })
   }
 
   onChangedPage(pageData: PageEvent) {
     this.isLoading = true
     this.currentPage = pageData.pageIndex + 1;
     this.workoutsPerPage = pageData.pageSize;
-    this.workoutService.getWorkouts(this.workoutsPerPage, this.currentPage);
+    this.workoutService.getWorkouts(this.workoutsPerPage, this.currentPage, 'all', 'all');
+  }
+
+  workoutTypeSelect(e) {
+    console.error(e)
+    this.workoutType = e
+    this.getData()
+  }
+
+  clientSelect(e) {
+    console.error(e)
+    this.selectedClient = e
+    this.getData()
+  }
+
+  programSelect(e) {
+    console.error(e)
+
   }
 
   onDelete(workoutId: string) {
     this.isLoading = true
 
-    this.workoutService.deleteWorkout(workoutId).subscribe(()=>{
-      this.workoutService.getWorkouts(this.workoutsPerPage, this.currentPage)
+    this.workoutService.deleteWorkout(workoutId).subscribe(() => {
+      this.workoutService.getWorkouts(this.workoutsPerPage, this.currentPage, 'all', 'all')
     });
   }
 

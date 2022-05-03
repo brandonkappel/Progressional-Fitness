@@ -171,7 +171,8 @@ router.get("/resendCode/:email", (req,res,next)=> {
 
 
 router.post("/login", (req, res, next) => {
-  console.error('hello')
+  
+  // console.error('hello', req.body)
   let fetchedUser;
   User.findOne({ email: req.body.email }).then((user) => {
     if (!user) {
@@ -273,7 +274,7 @@ router.put(
 
 // Update specific
 router.get("/:id", (req, res, next) => {
-  User.findById(req.params.id).then((user) => {
+  User.findById(req.params.id).select('-password').then((user) => {
     if (user) {
       res.status(200).json(user);
     } else {

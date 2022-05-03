@@ -41,7 +41,9 @@ export class AuthService {
     return this.http.post("http://localhost:3000/api/user/signup", authData)
       .subscribe(response => {
         console.error(response)
+        this.snackBar.open('An Email was sent to ' + email + ' with a verification code' , 'Okay', { verticalPosition: 'top'})
         this.router.navigate(['verify'])
+
       }, error => {
         console.error(error)
         this.authStatusListener.next(false)

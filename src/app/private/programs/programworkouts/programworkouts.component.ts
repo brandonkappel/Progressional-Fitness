@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit, QueryList } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { WorkoutsService } from '../../workouts/workouts.service';
@@ -17,7 +18,9 @@ export class ProgramworkoutsComponent implements OnInit {
   constructor(
     private workoutService: WorkoutsService,
     public route: ActivatedRoute,
-    private programService: ProgramsService) {
+    private programService: ProgramsService,
+    private location: Location
+    ) {
 
 
    }
@@ -48,6 +51,10 @@ export class ProgramworkoutsComponent implements OnInit {
       }
     })
 
+  }
+
+  goBack(){
+    this.location.back()
   }
 
 

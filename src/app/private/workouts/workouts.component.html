@@ -3,10 +3,49 @@
   <button [routerLink]="['/fitness']" mat-raised-button color="warn">Back</button>
   <button mat-raised-button color="primary" routerLink="/workout" routerLinkActive="mat-accent"> Create Workout</button>
 </div>
+<mat-card class="m-2">
+    <mat-card-header>
+        <mat-card-title> <h6>Filters</h6></mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="d-flex justify-content-between">
+
+        <!-- workout types, users, programs -->    
+        <mat-select [(ngModel)]="workoutType" (valueChange)="workoutTypeSelect($event)"   placeholder=""  >
+          <mat-option value="all">All</mat-option>
+            <mat-option value="client">Clients</mat-option>
+            <mat-option value="program">Programs</mat-option>
+        </mat-select> 
+        <mat-select [(ngModel)]="selectedClient" (valueChange)="clientSelect($event)"   placeholder="Clients"  >
+          <mat-option value="all">All</mat-option>
+            <mat-option *ngFor="let user of users" [value]="user.id">  {{user.firstName}} {{user.lastName}} ({{user.email}}) </mat-option>
+        </mat-select> 
+        <mat-select [(ngModel)]="selectedProgram" (valueChange)="programSelect($event)"   placeholder="programs"  >
+          <mat-option value="all">All</mat-option>
+            <mat-option *ngFor="let program of programs" [value]="program.id">  {{program.name}} </mat-option>
+        </mat-select> 
+    </mat-card-content>
+  
+</mat-card>
+
 <mat-accordion multi="true" *ngIf="workouts.length > 0 && !isLoading">
   <mat-expansion-panel *ngFor="let workout of workouts">
     <mat-expansion-panel-header>
-      {{workout.name}}
+      <div class="d-flex" >
+        <div >
+          <strong>
+            {{workout.name}}
+          </strong>
+     
+
+        </div>
+        <div  *ngIf="workout.program == null && workout.client == null ">
+          Public
+        </div>
+        <div *ngIf="workout.program != null && workout.client == null ">
+          Program Workout 
+        </div>
+
+      </div>
     </mat-expansion-panel-header>
     <div>
       <strong> Creator: </strong> {{workout.creator}}

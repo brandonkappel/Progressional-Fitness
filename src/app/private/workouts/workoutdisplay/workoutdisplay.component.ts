@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Workout } from '../workout.model';
@@ -12,9 +13,13 @@ export class WorkoutdisplayComponent implements OnInit {
 
   workout: Workout
   public isLoading = false
+  items: Object;
 
-  constructor(private workoutService: WorkoutsService,
-    public route: ActivatedRoute,) { }
+  constructor(
+    private workoutService: WorkoutsService,
+    public route: ActivatedRoute,
+    private location: Location
+    ) { }
 
   ngOnInit(): void {
 
@@ -36,8 +41,16 @@ export class WorkoutdisplayComponent implements OnInit {
           this.isLoading = false
           console.error(this.workout)
         })
+        this.workoutService.getWorkoutI(workoutId).subscribe(item=> {
+          console.error(item)
+          this.items = item
+        })
       }
     })
+  }
+
+  goBack(){
+    this.location.back()
   }
 
 }
