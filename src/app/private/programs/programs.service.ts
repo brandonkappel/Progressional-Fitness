@@ -4,6 +4,10 @@ import {  Program,  } from './program.model';
 import { last, map } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
+
+const url = environment.apiUrl + "/programs/"  
+
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +25,7 @@ export class ProgramsService {
   getPrograms() {
     // const queryParams = `?pagesize=${workoutsPerPage}&page=${currentPage}`;
     this.http.get<{ message: string, programs: any}>(
-      'http://localhost:3000/api/programs' )
+     url )
       .pipe(map((programData) => {
         return {
           programs: programData.programs.map(program => {
@@ -47,7 +51,7 @@ export class ProgramsService {
   updateProgram(id: string, ) {
     const program = this.programs
     console.error(program)
-    this.http.put("http://localhost:3000/api/programs/" + id, program)
+    this.http.put(url + id, program)
       .subscribe(response => {
         console.error(response)
         this.router.navigate(["/programs"])
@@ -59,7 +63,7 @@ export class ProgramsService {
     // console.error(workout)
     const programData = {name: name, date: description}
     // console.error(workoutData)
-    this.http.post<{ message: string, programId: any }>('http://localhost:3000/api/programs', programData)
+    this.http.post<{ message: string, programId: any }>(url, programData)
       .subscribe((responseData) => {
         console.error('Program:',responseData)
         this.router.navigate(["/"])
@@ -72,11 +76,11 @@ export class ProgramsService {
   }
 
   getProgram(id: string) {
-    return this.http.get<{_id: string, name: string, description: string, creator: string}>("http://localhost:3000/api/programs/" + id);
+    return this.http.get<{_id: string, name: string, description: string, creator: string}>(url+ id);
   }
 
   deleteProgram(programId: string) {
-    return this.http.delete("http://localhost:3000/api/programs/" + programId)
+    return this.http.delete(url + programId)
 
   }
 

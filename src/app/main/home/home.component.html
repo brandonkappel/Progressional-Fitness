@@ -4,12 +4,12 @@
     <div class="col-md-6">
       <mat-card class="m-3" routerLink="/posts"> Blog Posts </mat-card>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-6" *ngIf="isUserAdmin">
       <mat-card class="m-3" routerLink="/clients"> Clients </mat-card>
     </div>
   </div>
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-6" *ngIf="isUserAdmin">
       <mat-card class="m-3" routerLink="/workouts"> Workouts </mat-card>
     </div>
     <div class="col-md-6">
@@ -20,9 +20,9 @@
     <div class="col-md-6">
       <mat-card class="m-3" routerLink="/myworkouts"> My Workouts </mat-card>
     </div>
-    <div class="col-md-6">
+    <!-- <div class="col-md-6">
       <mat-card> </mat-card>
-    </div>
+    </div> -->
   </div>
 
 

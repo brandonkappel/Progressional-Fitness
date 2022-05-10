@@ -61,7 +61,7 @@ export class WorkoutsComponent implements OnInit {
         this.isLoading = false;
         this.totalWorkouts = workoutData.workoutCount;
         this.workouts = workoutData.workouts;
-        console.error(this.workouts);
+        // console.error(this.workouts);
       });
     this.userIsAuthenticated = this.authService.getIsAuth();
     this.authStatusSub = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
@@ -79,7 +79,7 @@ export class WorkoutsComponent implements OnInit {
     this.programService.getProgramUpdatedListener()
       .subscribe((programData: { programs: Program[] }) => {
         this.programs = programData.programs
-        console.error(this.programs)
+        // console.error(this.programs)
       })
   }
 

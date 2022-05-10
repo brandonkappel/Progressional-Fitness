@@ -1,7 +1,7 @@
 <mat-spinner *ngIf="isLoading"></mat-spinner>
 <div  class="d-flex justify-content-between m-2">
 <button [routerLink]="['/fitness']" mat-raised-button color="warn" >Back</button>
-<button  mat-raised-button color="primary" routerLink="/program" routerLinkActive="mat-accent"> Create Program</button>
+<button *ngIf="isUserAdmin"  mat-raised-button color="primary" routerLink="/program" routerLinkActive="mat-accent"> Create Program</button>
 </div>
 <!-- <mat-accordion multi="true" *ngIf="programs.length > 0 && !isLoading">
   <mat-expansion-panel *ngFor="let program of programs">

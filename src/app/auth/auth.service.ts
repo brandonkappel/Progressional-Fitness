@@ -5,6 +5,9 @@ import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { Client } from '../private/clients/clients.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { environment } from 'src/environments/environment';
+
+const url = environment.apiUrl + "/user/"
 
 @Injectable({ providedIn: "root" })
 export class AuthService {
@@ -38,7 +41,7 @@ export class AuthService {
 
   createUser(firstName: string, lastName: string, email: string, password: string) {
     const authData: Authdata = { firstName: firstName, lastName: lastName, email: email, password: password }
-    return this.http.post("http://localhost:3000/api/user/signup", authData)
+    return this.http.post(url+"signup", authData)
       .subscribe(response => {
         console.error(response)
         this.snackBar.open('An Email was sent to ' + email + ' with a verification code' , 'Okay', { verticalPosition: 'top'})
@@ -51,7 +54,7 @@ export class AuthService {
   };
 
   verify(code: string) {
-    this.http.get("http://localhost:3000/api/user/verify/" + code).subscribe(response => {
+    this.http.get(url+"verify/" + code).subscribe(response => {
       console.error('verify res:', response)
       if (response) {
         console.error('youre In!')
@@ -63,7 +66,7 @@ export class AuthService {
   }
 
   resendCode(email: string){
-    this.http.get("http://localhost:3000/api/user/resendCode/" + email).subscribe((response: any) => {
+    this.http.get(url+"resendCode/" + email).subscribe((response: any) => {
       console.error('Resend Code', response)
       if (response){
         console.error('sent')
@@ -75,7 +78,7 @@ export class AuthService {
   logIn(email: string, password: string) {
     console.error('here?')
     const authData = { email: email, password: password }
-    this.http.post<{ token: string, expiresIn: number, userId: string, role: string, active: boolean }>("http://localhost:3000/api/user/login", authData)
+    this.http.post<{ token: string, expiresIn: number, userId: string, role: string, active: boolean }>(url+"login", authData)
       .subscribe(response => {
         console.error('Log In:', response)
         const token = response.token;
@@ -108,7 +111,7 @@ export class AuthService {
   };
 
   getUser() {
-    this.http.get<{ _id: string, firstName: string, lastName: string, email: string, role: string }>("http://localhost:3000/api/user/" + this.userId).subscribe(user => {
+    this.http.get<{ _id: string, firstName: string, lastName: string, email: string, role: string }>(url + this.userId).subscribe(user => {
       this.user = {
         id: user._id,
         firstName: user.firstName,

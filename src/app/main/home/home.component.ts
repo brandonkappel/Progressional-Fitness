@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Client } from 'src/app/private/clients/clients.model';
 
@@ -11,6 +12,8 @@ export class HomeComponent implements OnInit {
 
   user: Client
   userId: string;
+  isUserAdmin: boolean = false;
+  private adminStatusSub: Subscription
 
   constructor(private authService: AuthService) {
 
@@ -18,7 +21,9 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userId = this.authService.getUserId()
+    console.error(this.authService.getIsAdmin())
+    this.isUserAdmin = this.authService.getIsAdmin()
+    
     // this.authService.getUser(this.userId).subscribe(user => {
     //   this.user = {
     //     id: user._id,

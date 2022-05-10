@@ -39,16 +39,18 @@ router.put("/:id",authUser,(req, res, next) => {
   });
   Workout.updateOne({ _id: req.params.id}, workout).then((result) => {
     // console.error(result)
-    if(result.nModified > 0) {
     res.status(200).json({ message: "Update Successful" });
-    } else {
-    res.status(401).json({ message: "Not Authorized" });
-    }
+
+    // if(result.nModified > 0) {
+    // res.status(200).json({ message: "Update Successful" });
+    // } else {
+    // res.status(401).json({ message: "Not Authorized" });
+    // }
   });
 });
 
 router.get("", (req, res, next) => {
-console.error(req.query)
+// console.error(req.query)
   const pageSize = +req.query.pagesize;
   const currentPage = +req.query.page;
   // const client = req.query.client

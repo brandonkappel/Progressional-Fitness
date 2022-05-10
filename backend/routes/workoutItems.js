@@ -31,7 +31,7 @@ WorkoutItem.insertMany(items).then((createdWorkoutItem) => {
 );
 
 router.put("",authUser,(req, res, next) => {
-  // console.error(req.body)
+  console.error(req.body)
   let items = req.body
 
     // workoutItems = new WorkoutItem({
@@ -97,6 +97,7 @@ router.get("/:id", (req, res, next) => {
 });
 
 router.delete("/:id", authUser, (req, res, next) => {
+  console.error(req.params)
   WorkoutItem.deleteOne({ _id: req.params.id}).then((result) => {
     if(result.n > 0) {
       res.status(200).json({ message: "Deletion Successful" });

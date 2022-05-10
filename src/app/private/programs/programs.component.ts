@@ -21,6 +21,7 @@ export class ProgramsComponent implements OnInit {
   public userIsAuthenticated = false
   private authStatusSub: Subscription
   userId: string;
+  isUserAdmin: boolean = false ;
 
 
 
@@ -33,6 +34,7 @@ export class ProgramsComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoading = true
+    this.isUserAdmin = this.authService.getIsAdmin()
     this.programService.getPrograms()
     this.programSub = this.programService.getProgramUpdatedListener()
       .subscribe((programData: { programs: Program[]}) => {

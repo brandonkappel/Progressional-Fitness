@@ -2,7 +2,7 @@
   <mat-spinner *ngIf="isLoading"></mat-spinner>
   <button [routerLink]="['/fitness']" class="m-2" mat-raised-button color="warn">Back</button>
 
-  <form *ngIf="!isLoading" [formGroup]="workoutForm" (submit)="onSavePost()">
+  <form *ngIf="!isLoading" [formGroup]="workoutForm" >
     <mat-card class="m-3">
       <mat-form-field>
         <input matInput formControlName="workoutName" type="text" placeholder="Workout Name">
@@ -35,7 +35,7 @@
     </mat-card>
 
     <div formArrayName="workoutItem">
-      <div *ngFor="let workout of workoutItems.controls; let i = index" [formGroupName]="i">
+      <div *ngFor="let item of workoutItems.controls; let i = index" [formGroupName]="i">
         <mat-card class="m-3">
 
 
@@ -53,7 +53,7 @@
             <textarea style="white-space: pre-wrap;" rows="5" cols="40" matInput formControlName="comments" type="text"
               placeholder="comments"> </textarea>
           </mat-form-field>
-          <button style="float:inline-end;" color="warn"  (click)="removeWorkoutItem(i)" mat-raised-button>
+          <button style="float:inline-end;" color="warn" (click)="openDelete(template, i, item)"  mat-raised-button>
             Remove Item
           </button>
         </mat-card>
@@ -72,3 +72,13 @@
 
 
 </div>
+
+<ng-template #template let-data>
+  <h1> Delete {{data.item.value.name}} </h1>
+  <p> Are you sure you want to delete this workout item?</p>
+  <div class="d-flex justify-content-between">
+    <button mat-raised-button mat-dialog-close >Cancel</button>
+    <button mat-raised-button color="danger" (click)="removeWorkoutItem(data.index, data.item.value._id)" >Delete</button>
+  </div>
+
+ </ng-template>

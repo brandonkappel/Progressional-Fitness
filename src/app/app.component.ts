@@ -12,16 +12,19 @@ export class AppComponent implements OnInit {
 
   public userIsAuthenticated = false
   private authStatusSub: Subscription
+  isUserAdmin: boolean = false;
+  adminStatusSub: Subscription;
 
   constructor(private authService: AuthService){}
 
   ngOnInit(){
     this.authService.autoAuthUser();
-    console.error(this.authService.getIsAuth())
+    // console.error(this.authService.getIsAuth())
     this.userIsAuthenticated = this.authService.getIsAuth()
       this.authStatusSub = this.authService.getAuthStatusListener().subscribe(isAuthenticated =>{
         this.userIsAuthenticated = isAuthenticated;
-
+        console.error(this.userIsAuthenticated)
       })
+   
     }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -48,6 +49,7 @@ export class WorkoutComponent implements OnInit {
     public snackBar: MatSnackBar,
     private clientService: ClientsService,
     private programService: ProgramsService,
+    private dialog: MatDialog,
     private route: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -62,7 +64,7 @@ export class WorkoutComponent implements OnInit {
     this.programService.getProgramUpdatedListener()
       .subscribe((programData: { programs: Program[] }) => {
         this.programs = programData.programs
-        console.error(this.programs)
+        // console.error(this.programs)
       })
 
 
@@ -79,13 +81,13 @@ export class WorkoutComponent implements OnInit {
 
 
     this.route.paramMap.subscribe((ParamMap: ParamMap) => {
-      console.error(ParamMap)
+      // console.error(ParamMap)
       if (ParamMap.has('id')) {
         this.mode = 'edit';
         this.workoutId = ParamMap.get('id')
         this.isLoading = true
         this.workoutService.getWorkout(this.workoutId).subscribe(workoutData => {
-          console.error(workoutData)
+          // console.error(workoutData)
 
           this.isLoading = false
           this.workout = {
@@ -106,7 +108,7 @@ export class WorkoutComponent implements OnInit {
           this.workoutService.getWorkoutI(this.workout.id).subscribe(workoutItems => {
             // console.error(workoutItems)
             this.workoutI = workoutItems
-            console.error('ITEMS:', this.workoutI)
+            // console.error('ITEMS:', this.workoutI)
             // this.setWorkoutItems()
             let workoutItemControl = <FormArray>this.workoutForm.controls.workoutItem;
             this.workoutI.forEach(item => {
@@ -154,8 +156,23 @@ export class WorkoutComponent implements OnInit {
 
   }
 
-  public removeWorkoutItem(i) {
+  public removeWorkoutItem(i, item) {
+    console.error(i, item)
     this.workoutItems.removeAt(i)
+    this.workoutService.deleteWorkoutItem(item).subscribe(item=> {
+      console.error(item)
+    })
+    this.dialog.closeAll()
+  }
+
+  public openDelete(templateRef, i, item){
+    console.error(item)
+    let dialogRef = this.dialog.open(templateRef, {
+      data: {
+        item: item,
+        index: i
+      } 
+    })
   }
 
 
