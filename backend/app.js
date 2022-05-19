@@ -20,7 +20,7 @@ mongoose
   .catch(() => {
     console.log("Connection failed");
   });
-// kXUeDiNh3tl6zi6P
+// MONGO ATLAS PW: kXUeDiNh3tl6zi6P
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 

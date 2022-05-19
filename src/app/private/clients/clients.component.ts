@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
 import { Client } from './clients.model';
 import { AuthService } from 'src/app/auth/auth.service';
+import { MatDialog } from '@angular/material/dialog';
 
 
 @Component({
@@ -30,7 +31,7 @@ export class ClientsComponent implements OnInit {
 
 
 
-  constructor(public authService: AuthService, private clientService: ClientsService) { }
+  constructor(public authService: AuthService, private clientService: ClientsService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.isLoading = true
@@ -61,11 +62,21 @@ export class ClientsComponent implements OnInit {
     this.clientService.getUsers(this.usersPerPage, this.currentPage);
   }
 
+  openDelete(templateRef, user){
+    console.error(user)
+    let dialogRef = this.dialog.open(templateRef, {
+      data: {
+        user: user
+      }
+    })
+  }
+
   onDelete(userId: string) {
     this.isLoading = true
 
     this.clientService.deletePost(userId).subscribe(()=>{
       this.clientService.getUsers(this.usersPerPage, this.currentPage)
+      this.dialog.closeAll()
     });
   }
 

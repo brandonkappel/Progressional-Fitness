@@ -9,17 +9,23 @@
     </mat-card-header>
     <mat-card-content class="d-flex justify-content-between">
 
-        <!-- workout types, users, programs -->    
+      
+        <mat-label>Workout Type</mat-label>
         <mat-select [(ngModel)]="workoutType" (valueChange)="workoutTypeSelect($event)"   placeholder=""  >
+          
           <mat-option value="all">All</mat-option>
             <mat-option value="client">Clients</mat-option>
             <mat-option value="program">Programs</mat-option>
         </mat-select> 
+        <mat-label>Clients</mat-label>
         <mat-select [(ngModel)]="selectedClient" (valueChange)="clientSelect($event)"   placeholder="Clients"  >
+         
           <mat-option value="all">All</mat-option>
             <mat-option *ngFor="let user of users" [value]="user.id">  {{user.firstName}} {{user.lastName}} ({{user.email}}) </mat-option>
         </mat-select> 
+        <mat-label>Programs</mat-label>
         <mat-select [(ngModel)]="selectedProgram" (valueChange)="programSelect($event)"   placeholder="programs"  >
+          
           <mat-option value="all">All</mat-option>
             <mat-option *ngFor="let program of programs" [value]="program.id">  {{program.name}} </mat-option>
         </mat-select> 
@@ -30,7 +36,7 @@
 <mat-accordion multi="true" *ngIf="workouts.length > 0 && !isLoading">
   <mat-expansion-panel *ngFor="let workout of workouts">
     <mat-expansion-panel-header>
-      <div class="d-flex" >
+      <div class="d-flex " >
         <div >
           <strong>
             {{workout.name}}
@@ -38,12 +44,19 @@
      
 
         </div>
-        <div  *ngIf="workout.program == null && workout.client == null ">
-          Public
+        <div style="margin-left: 20px;" >
+          <div  *ngIf="workout.program == null && workout.client == null ">
+            Public
+          </div>
+          <div *ngIf="workout.program != null && workout.client == null ">
+            Program Workout 
+          </div>
+          <div *ngIf="workout.program == null && workout.client != null ">
+            Private
+          </div>
+
         </div>
-        <div *ngIf="workout.program != null && workout.client == null ">
-          Program Workout 
-        </div>
+      
 
       </div>
     </mat-expansion-panel-header>

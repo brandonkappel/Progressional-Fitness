@@ -97,7 +97,7 @@ export class WorkoutsComponent implements OnInit {
   }
 
   clientSelect(e) {
-    console.error(e)
+    console.error(e) 
     this.selectedClient = e
     this.getData()
   }
