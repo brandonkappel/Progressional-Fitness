@@ -5,7 +5,7 @@ import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { Client } from '../private/clients/clients.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.prod';
 
 const url = environment.apiUrl + "/user/"
 
