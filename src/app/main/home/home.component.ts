@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.error(this.authService.getIsAdmin())
+    // console.error(this.authService.getIsAdmin())
     this.isUserAdmin = this.authService.getIsAdmin()
     
     // this.authService.getUser(this.userId).subscribe(user => {

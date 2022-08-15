@@ -177,6 +177,10 @@ export class WorkoutsService {
       client: string;}>(url+"/myWorkouts/" + id);
   }
 
+  getPersonalWorkouts(id){
+    return this.http.get(url+"/personalWorkouts/" + id);
+  }
+
   getProgramWorkouts(id: string) {
     console.error('program id:', id)
     return this.http.get(url+"/programWorkouts/" + id);

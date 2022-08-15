@@ -31,15 +31,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.userIsAuthenticated = this.authService.getIsAuth();
     this.authListenerSubs = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
       this.userIsAuthenticated = isAuthenticated;
-      console.error(this.userIsAuthenticated)
+      // console.error(this.userIsAuthenticated)
     })
     this.userIsAdmin = this.authService.getIsAdmin()
     this.adminListenerSub = this.authService.getAdminStatusListener().subscribe(isAdmin => {
       this.userIsAdmin = isAdmin;
-      console.error('ADMIN?',this.userIsAdmin)
+      // console.error('ADMIN?',this.userIsAdmin)
     })
-    console.error('is Auth?', this.userIsAuthenticated)
-    console.error('ADMIN?',this.userIsAdmin)
+    // console.error('is Auth?', this.userIsAuthenticated)
+    // console.error('ADMIN?',this.userIsAdmin)
 
 
     this.userId = this.authService.getUserId()

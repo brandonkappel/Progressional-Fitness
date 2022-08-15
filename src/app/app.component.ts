@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
     this.userIsAuthenticated = this.authService.getIsAuth()
       this.authStatusSub = this.authService.getAuthStatusListener().subscribe(isAuthenticated =>{
         this.userIsAuthenticated = isAuthenticated;
-        console.error(this.userIsAuthenticated)
+        // console.error(this.userIsAuthenticated)
       })
    
     }

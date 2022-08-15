@@ -146,7 +146,7 @@ export class AuthService {
       this.isAuthenticated = true
       this.userId = authInformation.userId;
       if (authInformation.userRole == 'admin') {
-        console.error('ADMIN')
+        // console.error('ADMIN')
         this.isAdmin = true
         this.adminStatusListener.next(true)
       }
@@ -169,7 +169,7 @@ export class AuthService {
   }
 
   private setAuthTimer(duration: number) {
-    console.error("setting timer: " + duration)
+    // console.error("setting timer: " + duration)
     this.tokenTimer = setTimeout(() => {
       this.logout()
     }, duration * 1000);

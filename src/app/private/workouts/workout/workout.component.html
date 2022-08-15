@@ -14,7 +14,7 @@
         <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
         <mat-datepicker #picker3></mat-datepicker>
       </mat-form-field>
-      <mat-form-field appearance="fill">
+      <mat-form-field *ngIf="workoutType != 'personal'" appearance="fill">
         <mat-label>Clients</mat-label>
         <mat-select formControlName="user">
           <mat-option *ngFor="let user of users" [value]="user.id">
@@ -22,7 +22,7 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <mat-form-field appearance="fill">
+      <mat-form-field *ngIf="workoutType != 'personal'" appearance="fill">
         <mat-label>Programs</mat-label>
         <mat-select formControlName="program">
           <mat-option *ngFor="let program of programs" [value]="program.id">

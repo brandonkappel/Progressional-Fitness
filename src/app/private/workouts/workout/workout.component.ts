@@ -40,6 +40,7 @@ export class WorkoutComponent implements OnInit {
   workout: Workout
   workoutItemForm: FormGroup;
   workoutI: any;
+  workoutType: any;
 
 
 
@@ -53,20 +54,33 @@ export class WorkoutComponent implements OnInit {
     private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.clientService.getUsers(this.usersPerPage, this.currentPage)
-    this.usersSub = this.clientService.getUserUpdatedListener()
-      .subscribe((userData: { users: Client[], userCount: number }) => {
-        this.isLoading = false
-        this.totalUsers = userData.userCount
-        this.users = userData.users;
-      });
-    this.programService.getPrograms()
-    this.programService.getProgramUpdatedListener()
-      .subscribe((programData: { programs: Program[] }) => {
-        this.programs = programData.programs
-        // console.error(this.programs)
-      })
+    this.route.queryParams.subscribe(param => {
+      console.error(param)
+      this.workoutType = param.type
+    })
+    
+    this.getData();
 
+
+
+  }
+
+  private getData() {
+    if(this.workoutType != 'personal'){
+      this.clientService.getUsers(this.usersPerPage, this.currentPage);
+      this.usersSub = this.clientService.getUserUpdatedListener()
+        .subscribe((userData: { users: Client[]; userCount: number; }) => {
+          this.isLoading = false;
+          this.totalUsers = userData.userCount;
+          this.users = userData.users;
+        });
+      this.programService.getPrograms();
+      this.programService.getProgramUpdatedListener()
+        .subscribe((programData: { programs: Program[]; }) => {
+          this.programs = programData.programs;
+        });
+    }
+  
 
 
     this.workoutForm = this.formbuilder.group({
