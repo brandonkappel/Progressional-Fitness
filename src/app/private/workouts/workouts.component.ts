@@ -49,13 +49,19 @@ export class WorkoutsComponent implements OnInit {
 
   ngOnInit(): void {
     this.workoutType = 'all'
-    this.selectedClient= ''
+    this.selectedClient= 'all'
+    this.selectedProgram = 'all'
     this.getData();
   }
 
   private getData() {
     this.isLoading = true
-    this.workoutService.getWorkouts(this.workoutsPerPage, this.currentPage, this.workoutType, this.selectedClient);
+    this.userIsAuthenticated = this.authService.getIsAuth();
+    this.authStatusSub = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
+      this.userIsAuthenticated = isAuthenticated;
+      this.userId = this.authService.getUserId();
+    });
+    this.workoutService.getWorkouts(this.workoutsPerPage, this.currentPage, this.workoutType, this.selectedClient, this.selectedProgram);
     this.workoutSub = this.workoutService.getWorkoutUpdatedListener()
       .subscribe((workoutData: { workouts: Workout[]; workoutCount: number; }) => {
         this.isLoading = false;
@@ -63,11 +69,6 @@ export class WorkoutsComponent implements OnInit {
         this.workouts = workoutData.workouts;
         // console.error(this.workouts);
       });
-    this.userIsAuthenticated = this.authService.getIsAuth();
-    this.authStatusSub = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
-      this.userIsAuthenticated = isAuthenticated;
-      this.userId = this.authService.getUserId();
-    });
     this.clientService.getUsers(this.usersPerPage, this.currentPage)
     this.usersSub = this.clientService.getUserUpdatedListener()
       .subscribe((userData: { users: Client[], userCount: number }) => {
@@ -87,23 +88,22 @@ export class WorkoutsComponent implements OnInit {
     this.isLoading = true
     this.currentPage = pageData.pageIndex + 1;
     this.workoutsPerPage = pageData.pageSize;
-    this.workoutService.getWorkouts(this.workoutsPerPage, this.currentPage, 'all', 'all');
+    this.workoutService.getWorkouts(this.workoutsPerPage, this.currentPage, 'all', 'all', 'all');
   }
 
   workoutTypeSelect(e) {
-    console.error(e)
     this.workoutType = e
     this.getData()
   }
 
   clientSelect(e) {
-    console.error(e) 
     this.selectedClient = e
     this.getData()
   }
 
   programSelect(e) {
-    console.error(e)
+    this.selectedProgram = e
+    this.getData()
 
   }
 
@@ -111,7 +111,7 @@ export class WorkoutsComponent implements OnInit {
     this.isLoading = true
 
     this.workoutService.deleteWorkout(workoutId).subscribe(() => {
-      this.workoutService.getWorkouts(this.workoutsPerPage, this.currentPage, 'all', 'all')
+      this.workoutService.getWorkouts(this.workoutsPerPage, this.currentPage, 'all', 'all', 'all')
     });
   }
 

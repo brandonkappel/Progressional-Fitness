@@ -28,8 +28,8 @@ export class WorkoutsService {
 
 
 
-  getWorkouts(workoutsPerPage: number, currentPage: number, type: string, client: string) {
-    const queryParams = `?pagesize=${workoutsPerPage}&page=${currentPage}&type=${type}&client=${client}`;
+  getWorkouts(workoutsPerPage: number, currentPage: number, type: string, client: string, program: string) {
+    const queryParams = `?pagesize=${workoutsPerPage}&page=${currentPage}&type=${type}&client=${client}&program=${program}`;
     this.http.get<{ message: string, workouts: any, maxWorkouts: number }>(
       url + queryParams)
       .pipe(map((workoutData) => {
@@ -105,10 +105,10 @@ export class WorkoutsService {
 
           }
         })
-      
+
       }
 
-        
+
         // this.router.navigate(["/workouts"])
 
       })
