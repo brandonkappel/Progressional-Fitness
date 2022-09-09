@@ -36,7 +36,7 @@ export class MyworkoutsComponent implements OnInit {
       this.workoutService.getPersonalWorkouts(this.userId).subscribe(workouts => {
         this.workouts = workouts 
         this.isLoading = false
-        console.error('PERSONAL WORKOUTS:', workouts)
+        // console.error('PERSONAL WORKOUTS:', workouts)
       })
       
     } else {

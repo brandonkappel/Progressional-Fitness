@@ -105,12 +105,8 @@ export class WorkoutsService {
 
           }
         })
-
-      }
-
-
+      } 
         // this.router.navigate(["/workouts"])
-
       })
   }
 
@@ -154,6 +150,8 @@ export class WorkoutsService {
     })
   }
 
+
+
   getWorkoutUpdatedListener() {
     return this.workoutsUpdated.asObservable();
   }
@@ -188,7 +186,6 @@ export class WorkoutsService {
 
   deleteWorkout(workoutId: string) {
     return this.http.delete(url + workoutId)
-
   }
 
   deleteWorkoutItem(itemId: string){

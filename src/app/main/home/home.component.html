@@ -20,17 +20,20 @@
   </div>
  
 
-  <h2 class="m-3">Admin Features</h2>
-  <div class="row">
-    
+  <div *ngIf="isUserAdmin">
+    <h2 class="m-3">Admin Features</h2>
+    <div class="row">
+      
+        <div class="col-md-6" *ngIf="isUserAdmin">
+          <mat-card class="m-3" routerLink="/clients"> Clients </mat-card>
+        </div>
+      
       <div class="col-md-6" *ngIf="isUserAdmin">
-        <mat-card class="m-3" routerLink="/clients"> Clients </mat-card>
+        <mat-card class="m-3" routerLink="/workouts"> Admin Workouts </mat-card>
       </div>
-    
-    <div class="col-md-6" *ngIf="isUserAdmin">
-      <mat-card class="m-3" routerLink="/workouts"> Admin Workouts </mat-card>
     </div>
   </div>
+ 
 
 
   <!-- <app-myworkouts></app-myworkouts> -->

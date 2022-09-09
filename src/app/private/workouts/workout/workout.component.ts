@@ -88,9 +88,10 @@ export class WorkoutComponent implements OnInit {
       date: ['', new Date],
       user: new FormControl(''),
       program: new FormControl(''),
-      workoutItem: this.formbuilder.array([])
+      workoutItem: this.formbuilder.array([]),
+      personalWorkout: new FormControl(this.workoutType == 'personal' ? '1': '0') 
     })
-
+    console.error('this is a test', this.workoutForm.value)
 
 
 
@@ -116,9 +117,10 @@ export class WorkoutComponent implements OnInit {
             workoutName: this.workout.name,
             date: this.workout.date,
             user: this.workout.client,
-            program: this.workout.program
+            program: this.workout.program,
+            personalWorkout: this.workoutType == 'personal' ? '1': '0'
           });
-
+          
           this.workoutService.getWorkoutI(this.workout.id).subscribe(workoutItems => {
             // console.error(workoutItems)
             this.workoutI = workoutItems
@@ -159,9 +161,6 @@ export class WorkoutComponent implements OnInit {
     })
   }
 
-  add() {
-    console.error('hello')
-  }
 
 
   public addItem() {
@@ -204,13 +203,12 @@ export class WorkoutComponent implements OnInit {
       console.error('ERROR ON FORM', this.workoutForm)
       return
     }
-    let workout = { name: this.workoutForm.value.workoutName, date: this.date.value, client: this.workoutForm.value.user, program: this.workoutForm.value.program }
+    let workout = { name: this.workoutForm.value.workoutName, date: this.date.value, client: this.workoutForm.value.user, program: this.workoutForm.value.program, personalWorkout: this.workoutForm.value.personalWorkout }
     let workoutItem = this.workoutForm.value.workoutItem
     console.error('Item', workoutItem)
     // this.isLoading = true;
     if (this.mode === 'create') {
       this.workoutService.addWorkout(workout, workoutItem)
-      // this.workoutService.addWorkoutItem(this.form.value.name, this.form.value.description, this.form.value.comments)
       this.snackBar.open("Successfully Created Post", "", { duration: 2000, verticalPosition: "top" })
 
     } else {

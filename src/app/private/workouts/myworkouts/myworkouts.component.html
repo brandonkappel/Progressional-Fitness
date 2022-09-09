@@ -4,6 +4,9 @@
     <button [routerLink]="['/fitness']" mat-raised-button color="warn">Back</button>
     <button mat-raised-button color="primary" routerLink="/workout" [queryParams]="{type: 'personal'}"  routerLinkActive="mat-accent"> Create Workout</button>
   </div>
+  <div *ngIf="!workouts.length  && !isLoading && workoutType == 'personal'" class="text-center" >
+    No Workouts created yet
+  </div>
 
 
   <mat-card class="m-3" *ngFor="let workout of workouts" [routerLink]="['/workoutDisplay', workout['_id']]">

@@ -45,7 +45,7 @@ import { PrivateComponent } from './private/private.component';
 import { ProgramComponent } from './private/programs/program/program.component';
 import { ProgramsComponent } from './private/programs/programs.component';
 import { ProgramworkoutsComponent } from './private/programs/programworkouts/programworkouts.component';
-import { MyworkoutsComponent } from './private/workouts/workoutlist/myworkouts.component';
+import { MyworkoutsComponent } from './private/workouts/myworkouts/myworkouts.component';
 import { WorkoutComponent } from './private/workouts/workout/workout.component';
 import { WorkoutdisplayComponent } from './private/workouts/workoutdisplay/workoutdisplay.component';
 import { WorkoutsComponent } from './private/workouts/workouts.component';
