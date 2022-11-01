@@ -27,7 +27,7 @@ const routes: Routes = [
   {path: 'fitness', component: HomeComponent},
   {path: 'clients', component: ClientsComponent, canActivate: [AuthGuard, RoleGuard] ,   }  ,
   {path: 'posts', component: PostListComponent, canActivate: [AuthGuard]},
-  {path: 'workouts', component: WorkoutsComponent, canActivate: [AuthGuard, RoleGuard]},
+  {path: 'workouts', component: WorkoutsComponent, canActivate: [AuthGuard]},
   {path: 'editWorkout/:id', component: WorkoutComponent, canActivate: [AuthGuard]},
   {path: 'workout', component: WorkoutComponent},
   {path: 'myworkouts', component: MyworkoutsComponent, canActivate: [AuthGuard] },
