@@ -5,8 +5,8 @@ import { last, map } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { WorkoutItem } from './workoutitem.model';
-import { identifierModuleUrl } from '@angular/compiler';
-import { SELECT_ITEM_HEIGHT_EM } from '@angular/material/select';
+// import { identifierModuleUrl } from '@angular/compiler';
+// import { SELECT_ITEM_HEIGHT_EM } from '@angular/material/select';
 import { environment } from 'src/environments/environment';
 
 const url = environment.apiUrl + "/workouts/"
