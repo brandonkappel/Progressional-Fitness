@@ -23,7 +23,11 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     // console.error(this.authService.getIsAdmin())
     this.isUserAdmin = this.authService.getIsAdmin()
-    
+  // this.user = this.authService.user
+  this.user = JSON.parse(localStorage.getItem('user'))
+  console.error('USER', this.user)
+
+
     // this.authService.getUser(this.userId).subscribe(user => {
     //   this.user = {
     //     id: user._id,

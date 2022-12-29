@@ -1,44 +1,64 @@
 <!-- <div *ngIf="user"> -->
 
-  <div class="row">
-    <div class="col-md-6">
+<div class="row">
+  <!-- <div class="col-md-6">
       <mat-card class="m-3" routerLink="/posts"> Blog Posts </mat-card>
-    </div>
-    <div class="col-md-6">
-      <mat-card class="m-3" routerLink="/programs"> Programs </mat-card>
-    </div>
-   
-  </div>
-  <div class="row">
-    <div class="col-md-6">
-      <mat-card class="m-3" routerLink="/myworkouts" [queryParams]="{type: 'personal'}" > My Workouts</mat-card>
-    </div>
-    <div class="col-md-6">
-      <mat-card class="m-3" routerLink="/myworkouts" [queryParams]="{type: 'personal training'}" > Personal Traning </mat-card>
-    </div>
-   
-  </div>
- 
-
-  <div *ngIf="isUserAdmin">
-    <h2 class="m-3">Admin Features</h2>
-    <div class="row">
-      
-        <div class="col-md-6" *ngIf="isUserAdmin">
-          <mat-card class="m-3" routerLink="/clients"> Clients </mat-card>
-        </div>
-      
-      <div class="col-md-6" *ngIf="isUserAdmin">
-        <mat-card class="m-3" routerLink="/workouts"> Admin Workouts </mat-card>
+    </div> -->
+  <div class="col-md-6">
+    <mat-card class="m-3" routerLink="/programs">
+      <div class="m-3">
+        Programs
       </div>
+    </mat-card>
+  </div>
+
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <mat-card class="m-3" routerLink="/myworkouts" [queryParams]="{type: 'personal'}">
+      <div class="m-3">
+        My Workouts
+      </div>
+    </mat-card>
+  </div>
+  <div class="col-md-6">
+    <mat-card *ngIf="user.personalTrainingClient" class="m-3" routerLink="/myworkouts" [queryParams]="{type: 'personal training'}"> 
+      <div class="m-3">
+        Personal Training
+      </div>
+    </mat-card>
+  </div>
+
+</div>
+
+
+<div *ngIf="isUserAdmin">
+  <h2 class="m-3">Admin Features</h2>
+  <div class="row">
+
+    <div class="col-md-6" *ngIf="isUserAdmin">
+      <mat-card class="m-3" routerLink="/clients">
+        <div class="m-3">
+          Clients
+        </div>
+      </mat-card>
+    </div>
+
+    <div class="col-md-6" *ngIf="isUserAdmin">
+      <mat-card class="m-3" routerLink="/workouts"> 
+        <div class="m-3">
+          Admin Workouts
+        </div>
+      </mat-card>
     </div>
   </div>
- 
+</div>
 
 
-  <!-- <app-myworkouts></app-myworkouts> -->
 
-  <!-- <div class="container">
+<!-- <app-myworkouts></app-myworkouts> -->
+
+<!-- <div class="container">
     <div class="row">
       <div *ngIf="user.role == 'admin'" class="col ">
         <h2>Clients</h2>

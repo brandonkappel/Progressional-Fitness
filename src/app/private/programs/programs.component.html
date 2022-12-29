@@ -27,11 +27,11 @@
     <mat-card class="m-3" [routerLink]="['/programWorkout', program['id']]"   >
       <!-- <a mat-button color="primary" [routerLink]="['/editClient', program['id']]">EDIT</a> -->
 
-      <mat-card-title-group>
+      <mat-card-header>
         <mat-card-title> {{program.name}} </mat-card-title>
         <mat-card-subtitle> {{program.name}} </mat-card-subtitle>
 
-      </mat-card-title-group>
+      </mat-card-header>
       <mat-card-content>
         {{program.description}}
       </mat-card-content>

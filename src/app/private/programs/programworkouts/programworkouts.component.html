@@ -2,12 +2,12 @@
 <div *ngIf="!isLoading">
   <button class="m-2" mat-raised-button color="warn" (click)="goBack()">Back</button>
 
-  <h1> {{program.name}} </h1>
+  <h1 class="m-2"> {{program.name}} </h1>
   <mat-card class="m-3" *ngFor="let workout of workouts" [routerLink]="['/workoutDisplay', workout['_id']]"  >
-    <mat-card-title-group>
+    <mat-card-header>
       <mat-card-title> {{workout.name}} </mat-card-title>
       <mat-card-subtitle> {{workout.name}} </mat-card-subtitle>
-    </mat-card-title-group>
+    </mat-card-header>
     <mat-card-content>
       {{workout.date|date:'EEEE, MMMM d, y'}}
     </mat-card-content>

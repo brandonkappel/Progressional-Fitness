@@ -50,6 +50,7 @@ import { WorkoutComponent } from './private/workouts/workout/workout.component';
 import { WorkoutdisplayComponent } from './private/workouts/workoutdisplay/workoutdisplay.component';
 import { WorkoutsComponent } from './private/workouts/workouts.component';
 import { VerifyComponent } from './auth/verify/verify.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -104,6 +105,7 @@ import { VerifyComponent } from './auth/verify/verify.component';
     MatSidenavModule,
     MatIconModule,
     MatListModule,
+    NgbModule,
   ],
 
 

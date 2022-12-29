@@ -4,17 +4,20 @@
 
   <form *ngIf="!isLoading" [formGroup]="workoutForm" >
     <mat-card class="m-3">
-      <mat-form-field>
+      <div class="row m-3">
+
+      
+      <mat-form-field class="col" appearance="outline">
         <input matInput formControlName="workoutName" type="text" placeholder="Workout Name">
         <mat-error *ngIf="workoutForm.get('workoutName').invalid"> Please enter a workout name. </mat-error>
       </mat-form-field>
-      <mat-form-field appearance="">
+      <mat-form-field class="col" appearance="outline">
         <mat-label>Workout date</mat-label>
         <input matInput formControlName="date" [matDatepicker]="picker3" [value]="date.value">
         <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
         <mat-datepicker #picker3></mat-datepicker>
       </mat-form-field>
-      <mat-form-field *ngIf="workoutType != 'personal'" appearance="fill">
+      <mat-form-field class="col" *ngIf="workoutType != 'personal'" appearance="fill">
         <mat-label>Clients</mat-label>
         <mat-select formControlName="user">
           <mat-option *ngFor="let user of users" [value]="user.id">
@@ -22,7 +25,7 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <mat-form-field *ngIf="workoutType != 'personal'" appearance="fill">
+      <mat-form-field class="col" *ngIf="workoutType != 'personal'" appearance="fill">
         <mat-label>Programs</mat-label>
         <mat-select formControlName="program">
           <mat-option *ngFor="let program of programs" [value]="program.id">
@@ -30,6 +33,7 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
+    </div>
       <br>
 
     </mat-card>
@@ -38,7 +42,7 @@
       <div *ngFor="let item of workoutItems.controls; let i = index" [formGroupName]="i">
         <mat-card class="m-3">
 
-
+          <mat-card-content>
           <mat-form-field appearance="fill">
             <input matInput formControlName="name" type="text" placeholder="Workout Item Name">
            
@@ -56,18 +60,19 @@
           <button style="float:inline-end;" color="warn" (click)="openDelete(template, i, item)"  mat-raised-button>
             Remove Item
           </button>
+        </mat-card-content>
         </mat-card>
       </div>
 
     </div>
   </form>
-  <button (click)="addItem()">Add Item</button>
+  <button class="ms-3" mat-raised-button (click)="addItem()">Add Item</button>
 
 
 
   <mat-card class="m-3">
-    <h2>Update Workout!</h2>
-    <button mat-raised-button color="accent" (click)="onSavePost()">Save Workout</button>
+    <!-- <h2>Update Workout!</h2> -->
+    <button mat-raised-button color="accent" (click)="onSavePost()">{{mode == 'edit' ? 'Save Workout' : 'Create Workout'}}</button>
   </mat-card>
 
 

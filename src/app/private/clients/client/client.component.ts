@@ -51,16 +51,18 @@ export class ClientComponent implements OnInit {
         this.mode = 'edit';
         this.userId = ParamMap.get('userId')
         this.isLoading = true
-        this.clientService.getUser(this.userId).subscribe(userData => {
+        this.clientService.getUser(this.userId).subscribe((userData: any) => {
           this.isLoading = false
-          this.user = {
-            id: userData._id,
-            firstName: userData.firstName,
-            lastName: userData.lastName,
-            email: userData.email,
-            role: userData.role
+          this.user = userData
+          // this.user = {
+          //   id: userData._id,
+          //   firstName: userData.firstName,
+          //   lastName: userData.lastName,
+          //   email: userData.email,
+          //   role: userData.role,
+          //   personalTrainingClient: this.user.personalTrainingClient 
 
-          };
+          // };
           console.error(this.user)
           this.form.setValue({
             'firstName': this.user.firstName,
@@ -83,10 +85,13 @@ export class ClientComponent implements OnInit {
     }
     this.isLoading = true;
     if (this.mode === 'create') {
-      this.clientService.addClient(this.form.value.firstName, this.form.value.lastName, this.form.value.email, this.form.value.role)
+      // this.clientService.addClient(this.form.value.firstName, this.form.value.lastName, this.form.value.email, this.form.value.role)
+      this.clientService.addClient(this.form.value).subscribe(data=> {
+        console.error(data)
+      })
 
     } else {
-      this.clientService.updateUser(this.userId, this.form.value.firstName, this.form.value.lastName, this.form.value.email, this.form.value.role)
+      this.clientService.updateUser(this.userId, this.form.value.firstName, this.form.value.lastName, this.form.value.email, this.form.value.role, this.form.value.personalTrainingClient)
     }
 
   }

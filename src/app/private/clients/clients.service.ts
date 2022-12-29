@@ -46,8 +46,8 @@ export class ClientsService {
       });
   }
 
-  updateUser(id: string, firstName: string, lastName: string, email: string, role: string) {
-    const user: Client = {id: id, firstName: firstName, lastName: lastName, email: email, role: role }
+  updateUser(id: string, firstName: string, lastName: string, email: string, role: string, personalTrainingClient: boolean) {
+    const user: Client = {id: id, firstName: firstName, lastName: lastName, email: email, role: role, personalTrainingClient: personalTrainingClient }
     console.error(user)
     this.http.put(url + id, user)
       .subscribe(response => {
@@ -57,15 +57,27 @@ export class ClientsService {
       })
   }
 
-  addClient(firstName: string, lastName: string, email: string, role: string) {
+  // addClient(firstName: string, lastName: string, email: string, role: string) {
 
-    const clientData = {firstName: firstName, lastName: lastName, email:email, role: role}
+  //   const clientData = {firstName: firstName, lastName: lastName, email:email, role: role}
 
-    this.http.post<{ message: string, userId: any }>(url+'newUser', clientData)
-      .subscribe((responseData) => {
-        console.error(responseData)
-        this.router.navigate(["/"])
-      });
+  //   this.http.post<{ message: string, userId: any }>(url+'newUser', clientData)
+  //     .subscribe((responseData) => {
+  //       console.error(responseData)
+  //       this.router.navigate(["/"])
+  //     });
+
+  // }
+
+  addClient(client) {
+
+    // const clientData = {firstName: firstName, lastName: lastName, email:email, role: role}
+
+   return this.http.post(url+'newUser', client)
+      // .subscribe((responseData) => {
+      //   console.error(responseData)
+      //   this.router.navigate(["/"])
+      // });
 
   }
 

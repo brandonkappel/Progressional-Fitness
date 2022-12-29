@@ -23,7 +23,7 @@ import { WorkoutsService } from '../workouts.service';
 export class WorkoutComponent implements OnInit {
 
   isLoading = false;
-  private mode = 'create';
+   mode = 'create';
   items: FormArray;
   workoutForm: FormGroup;
   itemForm: FormGroup;

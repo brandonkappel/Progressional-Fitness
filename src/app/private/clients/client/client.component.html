@@ -13,35 +13,38 @@
 
 
 <mat-card>
+  <mat-card-content>
+
+  
   <mat-spinner *ngIf="isLoading"></mat-spinner>
   <button [routerLink]="['/clients']" class="m-2" mat-raised-button color="warn">Back</button>
 
   <form *ngIf="!isLoading" [formGroup]="form" (submit)="onSavePost()" >
-    <mat-form-field>
-      <input matInput
-
-      formControlName="firstName"
-       type="text"
-       placeholder="First Name">
-       <mat-error *ngIf="form.get('firstName').invalid" > Please enter a first name. </mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput
-
-      formControlName="lastName"
-
-       type="text"
-       placeholder="last Name ">
-       <mat-error *ngIf="form.get('lastName').invalid" > Please enter a first name. </mat-error>
-    </mat-form-field>
-    <mat-form-field>
+    <div class="row">  
+      <mat-form-field class="col">
+        <input matInput
+        formControlName="firstName"
+         type="text"
+         placeholder="First Name">
+         <mat-error *ngIf="form.get('firstName').invalid" > Please enter a first name. </mat-error>
+      </mat-form-field>
+      <mat-form-field class="col">
+        <input matInput
+        formControlName="lastName"
+         type="text"
+         placeholder="last Name ">
+         <mat-error *ngIf="form.get('lastName').invalid" > Please enter a last name. </mat-error>
+      </mat-form-field>    
+    </div>
+   <div class="row">
+    <mat-form-field class="col">
       <input matInput
       formControlName="email"
        type="text"
        placeholder="Email">
-       <mat-error *ngIf="form.get('email').invalid" > Please enter a first name. </mat-error>
+       <mat-error *ngIf="form.get('email').invalid" > Please enter an email. </mat-error>
     </mat-form-field>
-    <mat-form-field >
+    <mat-form-field  class="col">
       <mat-label>Role</mat-label>
       <mat-select
       formControlName="role">
@@ -51,6 +54,8 @@
       <mat-error *ngIf="form.get('role').invalid" > Please select a Role </mat-error>
 
     </mat-form-field>
+   </div>
+  
 
 
     <!-- <mat-form-field>
@@ -82,5 +87,5 @@
     color="accent"
     type="submit">Save Client</button>
   </form>
-
+</mat-card-content>
 </mat-card>

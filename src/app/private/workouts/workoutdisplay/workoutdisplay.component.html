@@ -3,8 +3,11 @@
 <div *ngIf="!isLoading">
   <button class="m-2" mat-raised-button color="warn" (click)="goBack()">Back</button>
   <mat-card class="m-2">
-    <mat-card-title> {{workout.date|date: 'EEEE, MMMM, d, y'}} </mat-card-title>
-    <mat-card-subtitle>{{workout.name}}  </mat-card-subtitle>
+    <mat-card-header>
+      <mat-card-title> {{workout.date|date: 'EEEE, MMMM, d, y'}} </mat-card-title>
+      <mat-card-subtitle>{{workout.name}}  </mat-card-subtitle>
+    </mat-card-header>
+  
   </mat-card>
 
   <div *ngIf="items">

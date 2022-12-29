@@ -4,6 +4,7 @@ export interface Client {
   lastName: string,
   email: string,
   role: string,
+  personalTrainingClient: boolean,
 
 
 }

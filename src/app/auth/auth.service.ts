@@ -79,13 +79,14 @@ export class AuthService {
     console.error('here?')
     const authData = { email: email, password: password }
     this.http.post<{ token: string, expiresIn: number, userId: string, role: string, active: boolean }>(url+"login", authData)
-      .subscribe(response => {
+      .subscribe((response: any )=> {
         console.error('Log In:', response)
         const token = response.token;
         this.token = token;
         if (token && response.active) {
           const expiresInDuration = response.expiresIn;
           const role = response.role
+          this.user = response.user
           this.setAuthTimer(expiresInDuration)
           this.isAuthenticated = true;
           this.userId = response.userId
@@ -98,7 +99,7 @@ export class AuthService {
           this.authStatusListener.next(true);
           const now = new Date()
           const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
-          this.saveAuthData(token, expirationDate, this.userId, role)
+          this.saveAuthData(token, expirationDate, this.userId, role, this.user)
           // this.getUser()
           this.router.navigate(['fitness'])
         } else {
@@ -111,13 +112,14 @@ export class AuthService {
   };
 
   getUser() {
-    this.http.get<{ _id: string, firstName: string, lastName: string, email: string, role: string }>(url + this.userId).subscribe(user => {
+    this.http.get<{ _id: string, firstName: string, lastName: string, email: string, role: string, personalTrainingClient: boolean }>(url + this.userId).subscribe(user => {
       this.user = {
         id: user._id,
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
-        role: user.role
+        role: user.role,
+        personalTrainingClient: user.personalTrainingClient
       }
       if (user.role == 'admin') {
         console.error('ADMIN')
@@ -175,11 +177,12 @@ export class AuthService {
     }, duration * 1000);
   }
 
-  private saveAuthData(token: string, expirationDate: Date, userId: string, role: string) {
+  private saveAuthData(token: string, expirationDate: Date, userId: string, role: string, user: any) {
     localStorage.setItem('token', token);
     localStorage.setItem('expiration', expirationDate.toISOString());
     localStorage.setItem('userId', userId)
     localStorage.setItem('userRole', role)
+    localStorage.setItem('user', JSON.stringify(user))
   }
 
   private clearAuthData() {
@@ -187,6 +190,8 @@ export class AuthService {
     localStorage.removeItem('expiration');
     localStorage.removeItem('userId')
     localStorage.removeItem('userRole')
+    localStorage.removeItem('user')
+
 
 
   }
@@ -204,7 +209,7 @@ export class AuthService {
       token: token,
       expirationDate: new Date(expirationDate),
       userId: userId,
-      userRole: userRole
+      userRole: userRole,
     }
   }
 

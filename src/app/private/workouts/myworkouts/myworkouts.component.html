@@ -13,11 +13,12 @@
     
     <!-- <a mat-button color="primary" [routerLink]="['/editClient', program['id']]">EDIT</a> -->
 
-    <mat-card-title-group>
+    <mat-card-header>
+      <button mat-raised-button ></button>
       <mat-card-title> {{workout.date |date:'EEEE,MMMM,d,y '}} </mat-card-title>
       <mat-card-subtitle> {{workout.name}} </mat-card-subtitle>
 
-    </mat-card-title-group>
+    </mat-card-header>
     <mat-card-content>
       {{workout.description}}
     </mat-card-content>
