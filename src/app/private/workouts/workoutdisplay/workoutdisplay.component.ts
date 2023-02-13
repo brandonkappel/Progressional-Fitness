@@ -14,6 +14,7 @@ export class WorkoutdisplayComponent implements OnInit {
   workout: Workout
   public isLoading = false
   items: Object;
+  workoutType: any;
 
   constructor(
     private workoutService: WorkoutsService,
@@ -22,6 +23,11 @@ export class WorkoutdisplayComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+
+    this.route.queryParams.subscribe(param => {
+      console.error(param)
+      this.workoutType = param.type
+    })
 
     this.route.paramMap.subscribe((ParamMap: ParamMap)=> {
       console.error(ParamMap)

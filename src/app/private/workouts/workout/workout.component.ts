@@ -1,8 +1,9 @@
+import { state } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { subscribeOn } from 'rxjs/operators';
 import { Client } from 'src/app/private/clients/clients.model';
@@ -41,7 +42,7 @@ export class WorkoutComponent implements OnInit {
   workoutItemForm: FormGroup;
   workoutI: any;
   workoutType: any;
-
+  state: any
 
 
   constructor(
@@ -51,14 +52,21 @@ export class WorkoutComponent implements OnInit {
     private clientService: ClientsService,
     private programService: ProgramsService,
     private dialog: MatDialog,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private router: Router
+    ) {
+      this.state = this.router.getCurrentNavigation().extras.state
+      console.error('state:',this.state)
+     }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(param => {
-      console.error(param)
+      // console.error(param)
       this.workoutType = param.type
     })
-    
+
+   
+
     this.getData();
 
 
@@ -92,6 +100,15 @@ export class WorkoutComponent implements OnInit {
       personalWorkout: new FormControl(this.workoutType == 'personal' ? '1': '0') 
     })
     console.error('this is a test', this.workoutForm.value)
+     
+    if(this.state){
+      this.workoutForm.patchValue({
+        user: this.state.type == 'clients'? this.state.id : '',
+        program: this.state.type == 'programs' ? this.state.id : '',
+      });
+    }
+
+ 
 
 
 
@@ -117,7 +134,7 @@ export class WorkoutComponent implements OnInit {
             workoutName: this.workout.name,
             date: this.workout.date,
             user: this.workout.client,
-            program: this.workout.program,
+            program: this.state.type == 'programs' ? this.state.id : this.workout.program,
             personalWorkout: this.workoutType == 'personal' ? '1': '0'
           });
           
@@ -208,11 +225,11 @@ export class WorkoutComponent implements OnInit {
     console.error('Item', workoutItem)
     // this.isLoading = true;
     if (this.mode === 'create') {
-      this.workoutService.addWorkout(workout, workoutItem)
+      this.workoutService.addWorkout(workout, workoutItem, this.workoutType)
       this.snackBar.open("Successfully Created Post", "", { duration: 2000, verticalPosition: "top" })
 
     } else {
-      this.workoutService.updateWorkout(this.workout.id, workout, workoutItem)
+      this.workoutService.updateWorkout(this.workout.id, workout, workoutItem, this.workoutType)
       this.snackBar.open("Successfully Update Post", "", { duration: 2000, verticalPosition: "top" })
     }
 

@@ -2,6 +2,7 @@
 <div *ngIf="workouts && !isLoading">
   <div class="d-flex justify-content-between m-2">
     <button [routerLink]="['/fitness']" mat-raised-button color="warn">Back</button>
+    <h2>My Workouts</h2>
     <button mat-raised-button color="primary" routerLink="/workout" [queryParams]="{type: 'personal'}"  routerLinkActive="mat-accent"> Create Workout</button>
   </div>
   <div *ngIf="!workouts.length  && !isLoading && workoutType == 'personal'" class="text-center" >
@@ -9,18 +10,18 @@
   </div>
 
 
-  <mat-card class="m-3" *ngFor="let workout of workouts" [routerLink]="['/workoutDisplay', workout['_id']]">
+  <mat-card class="m-3" *ngFor="let workout of workouts" [routerLink]="['/workoutDisplay', workout['_id']]" [queryParams]="{type: workoutType}">
     
     <!-- <a mat-button color="primary" [routerLink]="['/editClient', program['id']]">EDIT</a> -->
 
     <mat-card-header>
-      <button mat-raised-button ></button>
-      <mat-card-title> {{workout.date |date:'EEEE,MMMM,d,y '}} </mat-card-title>
-      <mat-card-subtitle> {{workout.name}} </mat-card-subtitle>
+      <button  mat-raised-button class="float-right" [routerLink]="['/editWorkout', workout['_id']]" [queryParams]="{type: workoutType}" > Edit </button>
+      <mat-card-title>  {{workout.name}} </mat-card-title>
+      <mat-card-subtitle> {{workout.date |date:'EEEE MMMM d y '}}  </mat-card-subtitle>
 
     </mat-card-header>
-    <mat-card-content>
+    <!-- <mat-card-content>
       {{workout.description}}
-    </mat-card-content>
+    </mat-card-content> -->
   </mat-card>
 </div>

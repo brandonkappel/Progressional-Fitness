@@ -1,6 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, OnInit, QueryList } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { AuthService } from 'src/app/auth/auth.service';
 import { WorkoutsService } from '../../workouts/workouts.service';
 import { Program } from '../program.model';
 import { ProgramsService } from '../programs.service';
@@ -14,18 +15,22 @@ export class ProgramworkoutsComponent implements OnInit {
   workouts: Object;
   program: Program;
   isLoading = false;
+  isUserAdmin: boolean = false;
 
   constructor(
     private workoutService: WorkoutsService,
     public route: ActivatedRoute,
     private programService: ProgramsService,
-    private location: Location
+    private location: Location,
+    private authService: AuthService
     ) {
 
 
    }
 
   ngOnInit(): void {
+
+    this.isUserAdmin = this.authService.getIsAdmin()
 
 
 

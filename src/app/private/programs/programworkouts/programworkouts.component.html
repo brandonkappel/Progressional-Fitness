@@ -1,8 +1,12 @@
 <mat-spinner *ngIf="isLoading"></mat-spinner>
 <div *ngIf="!isLoading">
-  <button class="m-2" mat-raised-button color="warn" (click)="goBack()">Back</button>
+  <div class="m-2">
+    <button class=" float-start"  mat-raised-button color="warn" (click)="goBack()">Back</button>
+    <button *ngIf="isUserAdmin" class=" float-end"  mat-raised-button color="primary" routerLink="/workout" [state]="{type: 'programs', id: program.id}" >Create Workout</button>
 
-  <h1 class="m-2"> {{program.name}} </h1>
+    <h2 class=" text-center"> {{program.name}} </h2>
+  </div>
+ 
   <mat-card class="m-3" *ngFor="let workout of workouts" [routerLink]="['/workoutDisplay', workout['_id']]"  >
     <mat-card-header>
       <mat-card-title> {{workout.name}} </mat-card-title>

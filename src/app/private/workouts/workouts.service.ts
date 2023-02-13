@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Workout,  } from './workout.model';
+import { Workout, } from './workout.model';
 import { last, map } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
@@ -21,7 +21,7 @@ export class WorkoutsService {
 
   private workouts: Workout[] = []
   private workoutsUpdated = new Subject<{ workouts: Workout[], workoutCount: number }>()
-  private workoutItems: WorkoutItem[]=[];
+  private workoutItems: WorkoutItem[] = [];
 
 
   constructor(private http: HttpClient, private router: Router) { }
@@ -53,77 +53,82 @@ export class WorkoutsService {
       });
   }
 
-  getWorkoutItems(id: string){
-   return this.http.get<{message: string, workoutItem: any}>( itemUrl + id)
-    .pipe(map((itemData)=> {
-      return {
-        workoutItems: itemData.workoutItem.map(item => {
-          return {
-            name: item.name,
-            description: item.description,
-            comments: item.comments,
-          }
-        })
-      }
-    })). subscribe((transformedItemData)=> {
-      this.workoutItems = transformedItemData.workoutItems;
-    })
-  }
-
-  getWorkoutI(id: string){
-    return this.http.get( itemUrl + id)
-  }
-
-  updateWorkout(id,workout, workoutItem ) {
-    const w: Workout = {id: id , name: workout.name, date: workout.date, creator: null, client: workout.client, program: workout.program}
-    this.http.put(url + id, w)
-      .subscribe(response => {
-        console.error(response)
-        console.error(workoutItem)
-        let wItem = []
-        if (workoutItem && workoutItem[0].id != ''){
-        workoutItem.forEach(item => {
-          wItem.push({
-            _id: item._id,
-            name: item.name,
-            description: item.description,
-            comments: item.comments,
-            workout: id
+  getWorkoutItems(id: string) {
+    return this.http.get<{ message: string, workoutItem: any }>(itemUrl + id)
+      .pipe(map((itemData) => {
+        return {
+          workoutItems: itemData.workoutItem.map(item => {
+            return {
+              name: item.name,
+              description: item.description,
+              comments: item.comments,
+            }
           })
-        })
-        console.error('wItem', wItem)
-        wItem.forEach(item=> {
-          let newItems = []
-          let existingItems = []
-          if(item._id == ''){
-            delete item._id
-            newItems.push(item)
-            this.addWorkoutItem(newItems)
-          } else {
-            existingItems.push(item)
-        this.updateWorkoutItem(existingItems)
-
-          }
-        })
-      } 
-        // this.router.navigate(["/workouts"])
+        }
+      })).subscribe((transformedItemData) => {
+        this.workoutItems = transformedItemData.workoutItems;
       })
   }
 
-  updateWorkoutItem(item){
-    console.error(item)
-    this.http.put(itemUrl, item).subscribe(response =>{
-      console.error('ITEM UPDATED', response)
+  getWorkoutI(id: string) {
+    return this.http.get(itemUrl + id)
+  }
+
+  updateWorkout(id, workout, workoutItem, workoutType) {
+    const w: Workout = { id: id, name: workout.name, date: workout.date, creator: null, client: workout.client, program: workout.program }
+    this.http.put(url + id, w)
+      .subscribe(response => {
+        // console.error(response)
+        // console.error(workoutItem)
+        let wItem = []
+        if (workoutItem && workoutItem[0].id != '') {
+          workoutItem.forEach(item => {
+            wItem.push({
+              _id: item._id,
+              name: item.name,
+              description: item.description,
+              comments: item.comments,
+              workout: id
+            })
+          })
+          console.error('wItem', wItem)
+          wItem.forEach(item => {
+            let newItems = []
+            let existingItems = []
+            if (item._id == '') {
+              delete item._id
+              newItems.push(item)
+              this.addWorkoutItem(newItems)
+            } else {
+              existingItems.push(item)
+              this.updateWorkoutItem(existingItems)
+
+            }
+          })
+        }
+        if (workoutType == 'personal') {
+          this.router.navigate(['/myworkouts'], { queryParams: { type: 'personal' } })
+        } else {
+          this.router.navigate(["/workouts"])
+
+        }
+      })
+  }
+
+  updateWorkoutItem(item) {
+    // console.error(item)
+    this.http.put(itemUrl, item).subscribe(response => {
+      // console.error('ITEM UPDATED', response)
     })
   }
 
-  addWorkout(workout, workoutItem ) {
-    console.error(workout)
+  addWorkout(workout, workoutItem, workoutType) {
+    // console.error(workout)
     // const workoutData = {name: name, date: date, user: user, program: program}
     // console.error(workoutData)
     this.http.post<{ message: string, workoutId: any }>(url, workout)
       .subscribe((responseData) => {
-        console.error('Workout:',responseData)
+        // console.error('Workout:', responseData)
         let wItem = []
         workoutItem.forEach(item => {
           wItem.push({
@@ -133,21 +138,25 @@ export class WorkoutsService {
             workout: responseData.workoutId
           })
         })
-        console.error('wItem', wItem)
+        // console.error('wItem', wItem)
         this.addWorkoutItem(wItem)
+        if (workoutType == 'personal') {
+          this.router.navigate(['/myworkouts'], { queryParams: { type: 'personal' } })
+        } else {
+          this.router.navigate(["/workouts"])
 
-        this.router.navigate(["/workouts"])
+        }
       });
   }
 
-  addWorkoutItem (workoutItem){
-    console.error('ADDED WORKOUT ITEM :', workoutItem)
+  addWorkoutItem(workoutItem) {
+    // console.error('ADDED WORKOUT ITEM :', workoutItem)
     // const itemData = {name: name, description: description, comments: comments, workout: workout}
     // console.error(itemData)
-    this.http.post<{message: string, workoutItemId: any}>(itemUrl, workoutItem)
-    .subscribe((response)=> {
-      console.error('workout Item RETURN:',response)
-    })
+    this.http.post<{ message: string, workoutItemId: any }>(itemUrl, workoutItem)
+      .subscribe((response) => {
+        // console.error('workout Item RETURN:', response)
+      })
   }
 
 
@@ -163,7 +172,8 @@ export class WorkoutsService {
       date: Date;
       creator: string;
       client: string;
-      program: string}>(url + id);
+      program: string
+    }>(url + id);
   }
 
   getMyWorkouts(id: string) {
@@ -172,23 +182,24 @@ export class WorkoutsService {
       name: string
       date: Date;
       creator: string;
-      client: string;}>(url+"/myWorkouts/" + id);
+      client: string;
+    }>(url + "/myWorkouts/" + id);
   }
 
-  getPersonalWorkouts(id){
-    return this.http.get(url+"/personalWorkouts/" + id);
+  getPersonalWorkouts(id) {
+    return this.http.get(url + "/personalWorkouts/" + id);
   }
 
   getProgramWorkouts(id: string) {
-    console.error('program id:', id)
-    return this.http.get(url+"/programWorkouts/" + id);
+    // console.error('program id:', id)
+    return this.http.get(url + "/programWorkouts/" + id);
   }
 
   deleteWorkout(workoutId: string) {
     return this.http.delete(url + workoutId)
   }
 
-  deleteWorkoutItem(itemId: string){
+  deleteWorkoutItem(itemId: string) {
     return this.http.delete(itemUrl + itemId)
   }
 
