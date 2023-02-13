@@ -46,6 +46,7 @@
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
+              "aot": true,
               "buildOptimizer": true,
               "budgets": [
                 {
@@ -61,21 +62,23 @@
               ]
             },
             "dev": {
-              "optimization": true,
+              "optimization": false,
               "outputHashing": "all",
-              "sourceMap": false,
-              "extractCss": true,
+              "sourceMap": true,
               "namedChunks": false,
               "aot": false,
               "extractLicenses": true,
               "vendorChunk": false,
-              "buildOptimizer": true,
+              "buildOptimizer": false,
               "fileReplacements": [
                 {
-                  "replace": "src/environments/environment.prod.ts",
-                  "with": "src/environments/environment.ts"
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dev.ts"
                 }
               ]
+
+
+
             }
           }
         },
@@ -87,6 +90,9 @@
           "configurations": {
             "production": {
               "browserTarget": "life-app:build:production"
+            },
+            "dev": {
+              "browserTarget": "life-app:build:dev"
             }
           }
         },
@@ -139,6 +145,9 @@
           "configurations": {
             "production": {
               "devServerTarget": "life-app:serve:production"
+            },
+            "dev": {
+              "devServerTarget": "life-app:serve:dev"
             }
           }
         }
