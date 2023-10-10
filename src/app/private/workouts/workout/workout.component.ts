@@ -15,6 +15,7 @@ import { WorkoutItem } from '../workoutitem.model';
 
 
 import { WorkoutsService } from '../workouts.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-workout',
@@ -24,7 +25,7 @@ import { WorkoutsService } from '../workouts.service';
 export class WorkoutComponent implements OnInit {
 
   isLoading = false;
-   mode = 'create';
+  mode = 'create';
   items: FormArray;
   workoutForm: FormGroup;
   itemForm: FormGroup;
@@ -53,28 +54,25 @@ export class WorkoutComponent implements OnInit {
     private programService: ProgramsService,
     private dialog: MatDialog,
     private route: ActivatedRoute,
-    private router: Router
-    ) {
-      this.state = this.router.getCurrentNavigation().extras.state
-      console.error('state:',this.state)
-     }
+    private router: Router,
+    private location: Location
+  ) {
+    this.state = this.router.getCurrentNavigation().extras.state
+    console.error('state:', this.state)
+  }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(param => {
-      // console.error(param)
+      console.error(param)
       this.workoutType = param.type
-    })
-
-   
-
     this.getData();
 
-
-
+    })
   }
 
   private getData() {
-    if(this.workoutType != 'personal'){
+    console.error(this.workoutType)
+    if (this.workoutType != 'personal') {
       this.clientService.getUsers(this.usersPerPage, this.currentPage);
       this.usersSub = this.clientService.getUserUpdatedListener()
         .subscribe((userData: { users: Client[]; userCount: number; }) => {
@@ -88,7 +86,7 @@ export class WorkoutComponent implements OnInit {
           this.programs = programData.programs;
         });
     }
-  
+
 
 
     this.workoutForm = this.formbuilder.group({
@@ -96,20 +94,17 @@ export class WorkoutComponent implements OnInit {
       date: ['', new Date],
       user: new FormControl(''),
       program: new FormControl(''),
-      workoutItem: this.formbuilder.array([]),
-      personalWorkout: new FormControl(this.workoutType == 'personal' ? '1': '0') 
+      workoutItems: this.formbuilder.array([]),
+      personalWorkout: new FormControl(this.workoutType == 'personal' ? '1' : '0')
     })
-    console.error('this is a test', this.workoutForm.value)
-     
-    if(this.state){
+    // console.error('this is a test', this.workoutForm.value)
+
+    if (this.state) {
       this.workoutForm.patchValue({
-        user: this.state.type == 'clients'? this.state.id : '',
+        user: this.state.type == 'clients' ? this.state.id : '',
         program: this.state.type == 'programs' ? this.state.id : '',
       });
-    }
-
- 
-
+    } 
 
 
     this.route.paramMap.subscribe((ParamMap: ParamMap) => {
@@ -119,7 +114,6 @@ export class WorkoutComponent implements OnInit {
         this.workoutId = ParamMap.get('id')
         this.isLoading = true
         this.workoutService.getWorkout(this.workoutId).subscribe(workoutData => {
-          // console.error(workoutData)
 
           this.isLoading = false
           this.workout = {
@@ -128,27 +122,38 @@ export class WorkoutComponent implements OnInit {
             date: workoutData.date,
             client: workoutData.client,
             creator: workoutData.creator,
-            program: workoutData.program
+            program: workoutData.program,
+            workoutItems: workoutData.workoutItems
           };
+          console.error('Workout:',this.workout)
+
           this.workoutForm.patchValue({
             workoutName: this.workout.name,
             date: this.workout.date,
             user: this.workout.client,
             program: this.state.type == 'programs' ? this.state.id : this.workout.program,
-            personalWorkout: this.workoutType == 'personal' ? '1': '0'
+            personalWorkout: this.workoutType == 'personal' ? '1' : '0'
           });
-          
-          this.workoutService.getWorkoutI(this.workout.id).subscribe(workoutItems => {
-            // console.error(workoutItems)
-            this.workoutI = workoutItems
-            // console.error('ITEMS:', this.workoutI)
-            // this.setWorkoutItems()
-            let workoutItemControl = <FormArray>this.workoutForm.controls.workoutItem;
-            this.workoutI.forEach(item => {
-              workoutItemControl.push(this.formbuilder.group({ _id: item._id, name: item.name, description: item.description, comments: item.comments }))
-            })
+
+          let workoutItemControl = <FormArray>this.workoutForm.controls.workoutItems;
+          if(this.workout.workoutItems){
+          this.workout.workoutItems.forEach(item=> {
+            workoutItemControl.push(this.formbuilder.group({ _id: item._id, name: item.name, description: item.description, comments: item.comments }))
 
           })
+
+          }
+
+          // this.workoutService.getWorkoutI(this.workout.id).subscribe(workoutItems => {
+          
+          //   this.workoutI = workoutItems
+           
+          //   let workoutItemControl = <FormArray>this.workoutForm.controls.workoutItem;
+          //   this.workoutI.forEach(item => {
+          //     workoutItemControl.push(this.formbuilder.group({ _id: item._id, name: item.name, description: item.description, comments: item.comments }))
+          //   })
+
+          // })
 
         })
       } else {
@@ -166,12 +171,12 @@ export class WorkoutComponent implements OnInit {
   // }
 
   get workoutItems() {
-    return this.workoutForm.get('workoutItem') as FormArray;
+    return this.workoutForm.get('workoutItems') as FormArray;
   }
 
   createWorkoutItems(): FormGroup {
     return new FormGroup({
-      _id: new FormControl(''),
+      // _id: new FormControl(''),
       name: new FormControl(''),
       description: new FormControl(''),
       comments: new FormControl(''),
@@ -189,20 +194,24 @@ export class WorkoutComponent implements OnInit {
   public removeWorkoutItem(i, item) {
     console.error(i, item)
     this.workoutItems.removeAt(i)
-    this.workoutService.deleteWorkoutItem(item).subscribe(item=> {
-      console.error(item)
-    })
+    // this.workoutService.deleteWorkoutItem(item).subscribe(item => {
+    //   console.error(item)
+    // })
     this.dialog.closeAll()
   }
 
-  public openDelete(templateRef, i, item){
+  public openDelete(templateRef, i, item) {
     console.error(item)
     let dialogRef = this.dialog.open(templateRef, {
       data: {
         item: item,
         index: i
-      } 
+      }
     })
+  }
+
+  goBack(){
+    this.location.back()
   }
 
 
@@ -220,16 +229,23 @@ export class WorkoutComponent implements OnInit {
       console.error('ERROR ON FORM', this.workoutForm)
       return
     }
-    let workout = { name: this.workoutForm.value.workoutName, date: this.date.value, client: this.workoutForm.value.user, program: this.workoutForm.value.program, personalWorkout: this.workoutForm.value.personalWorkout }
-    let workoutItem = this.workoutForm.value.workoutItem
-    console.error('Item', workoutItem)
+    let workout = {
+      name: this.workoutForm.value.workoutName,
+      date: this.date.value, 
+      client: this.workoutForm.value.user,
+      program: this.workoutForm.value.program,
+      personalWorkout: this.workoutForm.value.personalWorkout,
+      workoutItems: this.workoutForm.value.workoutItems
+    }
+    // let workoutItem = this.workoutForm.value.workoutItem
+    // console.error('Item', workoutItem)
     // this.isLoading = true;
     if (this.mode === 'create') {
-      this.workoutService.addWorkout(workout, workoutItem, this.workoutType)
+      this.workoutService.addWorkout(workout,  this.workoutType)
       this.snackBar.open("Successfully Created Post", "", { duration: 2000, verticalPosition: "top" })
 
     } else {
-      this.workoutService.updateWorkout(this.workout.id, workout, workoutItem, this.workoutType)
+      this.workoutService.updateWorkout(this.workout.id, workout,  this.workoutType)
       this.snackBar.open("Successfully Update Post", "", { duration: 2000, verticalPosition: "top" })
     }
 

@@ -74,40 +74,25 @@ export class WorkoutsService {
     return this.http.get(itemUrl + id)
   }
 
-  updateWorkout(id, workout, workoutItem, workoutType) {
-    const w: Workout = { id: id, name: workout.name, date: workout.date, creator: null, client: workout.client, program: workout.program }
-    this.http.put(url + id, w)
-      .subscribe(response => {
-        // console.error(response)
-        // console.error(workoutItem)
-        let wItem = []
-        if (workoutItem && workoutItem[0].id != '') {
-          workoutItem.forEach(item => {
-            wItem.push({
-              _id: item._id,
-              name: item.name,
-              description: item.description,
-              comments: item.comments,
-              workout: id
-            })
-          })
-          console.error('wItem', wItem)
-          wItem.forEach(item => {
-            let newItems = []
-            let existingItems = []
-            if (item._id == '') {
-              delete item._id
-              newItems.push(item)
-              this.addWorkoutItem(newItems)
-            } else {
-              existingItems.push(item)
-              this.updateWorkoutItem(existingItems)
-
-            }
-          })
-        }
+  updateWorkout(id, workout, workoutType) {
+    console.error('w:',workout)
+    // const w: Workout = { 
+    //   id: id, name: workout.name, 
+    //   date: workout.date, 
+    //   creator: null, 
+    //   client: workout.client, 
+    //   program: workout.program, 
+    //   personalWorkout: workout.personalWorkout,
+    //   workoutItems: workout.workoutItems 
+    // }
+   
+    this.http.put(url + id, workout)
+      .subscribe((response:any) => {
+        console.error(response)
+       
+       
         if (workoutType == 'personal') {
-          this.router.navigate(['/myworkouts'], { queryParams: { type: 'personal' } })
+          this.router.navigate(['/workoutDisplay/' + response.workoutId], { queryParams: { type: 'personal' } })
         } else {
           this.router.navigate(["/workouts"])
 
@@ -122,24 +107,15 @@ export class WorkoutsService {
     })
   }
 
-  addWorkout(workout, workoutItem, workoutType) {
-    // console.error(workout)
-    // const workoutData = {name: name, date: date, user: user, program: program}
+  addWorkout(workout, workoutType) {
+    console.error(workout)
     // console.error(workoutData)
     this.http.post<{ message: string, workoutId: any }>(url, workout)
       .subscribe((responseData) => {
-        // console.error('Workout:', responseData)
-        let wItem = []
-        workoutItem.forEach(item => {
-          wItem.push({
-            name: item.name,
-            description: item.description,
-            comments: item.comments,
-            workout: responseData.workoutId
-          })
-        })
+        console.error('Workout:', responseData)
+      
         // console.error('wItem', wItem)
-        this.addWorkoutItem(wItem)
+        // this.addWorkoutItem(wItem)
         if (workoutType == 'personal') {
           this.router.navigate(['/myworkouts'], { queryParams: { type: 'personal' } })
         } else {
@@ -172,7 +148,8 @@ export class WorkoutsService {
       date: Date;
       creator: string;
       client: string;
-      program: string
+      program: string;
+      workoutItems: Array<any>
     }>(url + id);
   }
 

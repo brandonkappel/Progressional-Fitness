@@ -1,89 +1,95 @@
 <div style="background-color:lightgray;">
   <mat-spinner *ngIf="isLoading"></mat-spinner>
-  <button [routerLink]="['/fitness']" class="m-2" mat-raised-button color="warn">Back</button>
+  <button (click)="goBack()" class="m-2" mat-raised-button color="warn">Back</button>
 
-  <form *ngIf="!isLoading" [formGroup]="workoutForm" >
+  <form *ngIf="!isLoading" [formGroup]="workoutForm">
     <mat-card class="m-3">
       <div class="row m-3">
 
-      
-      <mat-form-field class="col" appearance="outline">
-        <input matInput formControlName="workoutName" type="text" placeholder="Workout Name">
-        <mat-error *ngIf="workoutForm.get('workoutName').invalid"> Please enter a workout name. </mat-error>
-      </mat-form-field>
-      <mat-form-field class="col" appearance="outline">
-        <mat-label>Workout date</mat-label>
-        <input matInput formControlName="date" [matDatepicker]="picker3" [value]="date.value">
-        <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
-        <mat-datepicker #picker3></mat-datepicker>
-      </mat-form-field>
-      <mat-form-field class="col" *ngIf="workoutType != 'personal'" appearance="fill">
-        <mat-label>Clients</mat-label>
-        <mat-select formControlName="user">
-          <mat-option *ngFor="let user of users" [value]="user.id">
-            {{user.firstName}} {{user.lastName}} ({{user.email}})
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field class="col" *ngIf="workoutType != 'personal'" appearance="fill">
-        <mat-label>Programs</mat-label>
-        <mat-select formControlName="program">
-          <mat-option *ngFor="let program of programs" [value]="program.id">
-            {{program.name}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
+
+        <mat-form-field class="col" appearance="outline">
+          <input matInput formControlName="workoutName" type="text" placeholder="Workout Name">
+          <mat-error *ngIf="workoutForm.get('workoutName').invalid"> Please enter a workout name. </mat-error>
+        </mat-form-field>
+        <mat-form-field class="col" appearance="outline">
+          <mat-label>Workout date</mat-label>
+          <input matInput formControlName="date" [matDatepicker]="picker3" [value]="date.value">
+          <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+          <mat-datepicker #picker3></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field class="col" *ngIf="workoutType != 'personal'" appearance="fill">
+          <mat-label>Clients</mat-label>
+          <mat-select formControlName="user">
+            <mat-option *ngFor="let user of users" [value]="user.id">
+              {{user.firstName}} {{user.lastName}} ({{user.email}})
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="col" *ngIf="workoutType != 'personal'" appearance="fill">
+          <mat-label>Programs</mat-label>
+          <mat-select formControlName="program">
+            <mat-option *ngFor="let program of programs" [value]="program.id">
+              {{program.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
       <br>
 
     </mat-card>
 
-    <div formArrayName="workoutItem">
+    <div formArrayName="workoutItems">
       <div *ngFor="let item of workoutItems.controls; let i = index" [formGroupName]="i">
         <mat-card class="m-3">
 
           <mat-card-content>
-          <mat-form-field appearance="fill">
-            <input matInput formControlName="name" type="text" placeholder="Workout Item Name">
-           
-          </mat-form-field>
-          <br>
-          <mat-form-field class="formText" appearance="fill">
-            <textarea style="white-space: pre-wrap;" matInput rows="5" cols="40" formControlName="description"
-              type="text" placeholder="description"> </textarea>
-          </mat-form-field>
-          <br>
-          <mat-form-field class="formText" appearance="fill">
-            <textarea style="white-space: pre-wrap;" rows="5" cols="40" matInput formControlName="comments" type="text"
-              placeholder="comments"> </textarea>
-          </mat-form-field>
-          <button style="float: right;" color="warn" (click)="openDelete(template, i, item)"  mat-raised-button>
-            Remove Item
-          </button>
-        </mat-card-content>
+            <mat-form-field appearance="fill">
+              <input matInput formControlName="name" type="text" placeholder="Workout Item Name">
+
+            </mat-form-field>
+            <br>
+            <mat-form-field class="formText" appearance="fill">
+              <textarea style="white-space: pre-wrap;" matInput rows="5" cols="40" formControlName="description"
+                type="text" placeholder="description"> </textarea>
+            </mat-form-field>
+            <br>
+            <mat-form-field class="formText" appearance="fill">
+              <textarea style="white-space: pre-wrap;" rows="5" cols="40" matInput formControlName="comments"
+                type="text" placeholder="comments"> </textarea>
+            </mat-form-field>
+            <button style="float: right;" color="warn" (click)="openDelete(template, i, item)" mat-raised-button>
+              Remove Item
+            </button>
+          </mat-card-content>
         </mat-card>
       </div>
 
     </div>
+    <button class="ms-3" mat-raised-button (click)="addItem()">Add Item</button>
+
+
+
+    <mat-card class="m-3">
+      <!-- <h2>Update Workout!</h2> -->
+      <button mat-raised-button color="accent" (click)="onSavePost()">
+        {{mode == 'edit' ? 'Save Workout' : 'Create Workout'}}
+      </button>
+    </mat-card>
   </form>
-  <button class="ms-3" mat-raised-button (click)="addItem()">Add Item</button>
-
-
-
-  <mat-card class="m-3">
-    <!-- <h2>Update Workout!</h2> -->
-    <button mat-raised-button color="accent" (click)="onSavePost()">{{mode == 'edit' ? 'Save Workout' : 'Create Workout'}}</button>
-  </mat-card>
 
 
 </div>
 
 <ng-template #template let-data>
-  <h1> Delete {{data.item.value.name}} </h1>
-  <p> Are you sure you want to delete this workout item?</p>
-  <div class="d-flex justify-content-between">
-    <button mat-raised-button mat-dialog-close >Cancel</button>
-    <button mat-raised-button color="danger" (click)="removeWorkoutItem(data.index, data.item.value._id)" >Delete</button>
+  <div class="m-2">
+
+    <h1> Delete {{data.item.value.name}} </h1>
+    <p> Are you sure you want to delete this workout item?</p>
+    <div class="d-flex justify-content-between">
+      <button mat-raised-button mat-dialog-close>Cancel</button>
+      <button mat-raised-button color="danger"
+        (click)="removeWorkoutItem(data.index, data.item.value._id)">Delete</button>
+    </div>
   </div>
 
- </ng-template>
+</ng-template>

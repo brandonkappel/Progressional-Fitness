@@ -25,30 +25,32 @@ export class WorkoutdisplayComponent implements OnInit {
   ngOnInit(): void {
 
     this.route.queryParams.subscribe(param => {
-      console.error(param)
+      // console.error(param)
       this.workoutType = param.type
     })
 
     this.route.paramMap.subscribe((ParamMap: ParamMap)=> {
-      console.error(ParamMap)
+      // console.error(ParamMap)
       if (ParamMap.has('workoutId')){
         this.isLoading = true
         let workoutId = ParamMap.get('workoutId')
         this.workoutService.getWorkout(workoutId).subscribe(workout => {
-
+          
           this.workout = {
             id: workout._id,
             name: workout.name,
             creator: workout.creator,
             client: workout.client,
             date: workout.date,
-            program: workout.program
+            program: workout.program,
+            workoutItems: workout.workoutItems
           }
+          console.error('Workout:',this.workout)
           this.isLoading = false
-          console.error(this.workout)
+          
         })
         this.workoutService.getWorkoutI(workoutId).subscribe(item=> {
-          console.error(item)
+          // console.error(item)
           this.items = item
         })
       }

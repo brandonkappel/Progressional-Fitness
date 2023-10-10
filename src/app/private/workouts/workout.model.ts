@@ -5,6 +5,7 @@ export interface Workout {
   creator: string;
   client: string;
   program: string;
+  workoutItems: Array<any>
 
 
 }
