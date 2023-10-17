@@ -1,8 +1,8 @@
 <mat-spinner *ngIf="isLoading"></mat-spinner>
 <div class=" d-flex justify-content-between m-2">
-  <button [routerLink]="['/fitness']" mat-raised-button color="warn">Back</button>
+  <!-- <button [routerLink]="['/fitness']" mat-raised-button color="warn">Back</button> -->
 
-  <button mat-raised-button color="primary" routerLink="/client" routerLinkActive="mat-accent"> Create Client</button>
+  <button mat-raised-button color="primary" routerLink="/private/client" routerLinkActive="mat-accent"> Create Client</button>
 </div>
 <mat-accordion multi="true" *ngIf="users.length > 0 && !isLoading">
   <mat-expansion-panel *ngFor="let user of users">
@@ -19,7 +19,7 @@
 
 
     <mat-action-row>
-      <a mat-button color="primary" [routerLink]="['/editClient', user['id']]">EDIT</a>
+      <a mat-button color="primary" [routerLink]="['/private/editClient', user['id']]">EDIT</a>
       <button mat-button color="warn" (click)="openDelete(template, user)" >DELETE</button>
     </mat-action-row>
   </mat-expansion-panel> 

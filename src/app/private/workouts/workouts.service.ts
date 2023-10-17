@@ -28,30 +28,39 @@ export class WorkoutsService {
 
 
 
-  getWorkouts(workoutsPerPage: number, currentPage: number, type: string, client: string, program: string) {
-    const queryParams = `?pagesize=${workoutsPerPage}&page=${currentPage}&type=${type}&client=${client}&program=${program}`;
-    this.http.get<{ message: string, workouts: any, maxWorkouts: number }>(
-      url + queryParams)
-      .pipe(map((workoutData) => {
-        // console.error(workoutData)
-        return {
-          workouts: workoutData.workouts.map(workout => {
-            return {
-              name: workout.name,
-              date: workout.date,
-              creator: workout.creator,
-              client: workout.client,
-              program: workout.program,
-              id: workout._id
-            };
-          }), maxWorkouts: workoutData.maxWorkouts
-        };
-      }))
+  getWorkouts(workoutsPerPage: number, currentPage: number, search:any) {
+    const queryParams = `?pagesize=${workoutsPerPage}&page=${currentPage}`;
+    this.http.post<{ message: string, workouts: any, maxWorkouts: number }>(
+      url + 'workouts' + queryParams,search)
+      // .pipe(map((workoutData) => {
+      //   // console.error(workoutData)
+      //   return {
+      //     workouts: workoutData.workouts.map(workout => {
+      //       return {
+      //         name: workout.name,
+      //         date: workout.date,
+      //         creator: workout.creator,
+      //         client: workout.client,
+      //         program: workout.program,
+      //         id: workout._id
+      //       };
+      //     }), maxWorkouts: workoutData.maxWorkouts
+      //   };
+      // }))
       .subscribe((transformedWorkoutData) => {
+        console.error(transformedWorkoutData)
         this.workouts = transformedWorkoutData.workouts;
         this.workoutsUpdated.next({ workouts: [...this.workouts], workoutCount: transformedWorkoutData.maxWorkouts });
       });
   }
+
+  // getWorkouts(workoutsPerPage: number, currentPage: number, search: any,){
+
+  //   console.error('check', search)
+  //   const queryParams = `?pagesize=${workoutsPerPage}&page=${currentPage}`;
+  //  return this.http.post<{ message: string, workouts: any, maxWorkouts: number }>(
+  //     url + 'workouts' + queryParams, search)
+  // }
 
   getWorkoutItems(id: string) {
     return this.http.get<{ message: string, workoutItem: any }>(itemUrl + id)

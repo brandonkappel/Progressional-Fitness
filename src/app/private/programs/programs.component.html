@@ -1,7 +1,7 @@
 <mat-spinner *ngIf="isLoading"></mat-spinner>
 <div  class="d-flex justify-content-between m-2">
-<button [routerLink]="['/fitness']" mat-raised-button color="warn" >Back</button>
-<button *ngIf="isUserAdmin"  mat-raised-button color="primary" routerLink="/program" routerLinkActive="mat-accent"> Create Program</button>
+<!-- <button [routerLink]="['/fitness']" mat-raised-button color="warn" >Back</button> -->
+<button *ngIf="isUserAdmin"  mat-raised-button color="primary" routerLink="/private/program" routerLinkActive="mat-accent"> Create Program</button>
 </div>
 <!-- <mat-accordion multi="true" *ngIf="programs.length > 0 && !isLoading">
   <mat-expansion-panel *ngFor="let program of programs">
@@ -24,7 +24,7 @@
 
 <div class="row" *ngIf="programs.length > 0 && !isLoading">
   <div class="col-6" *ngFor="let program of programs">
-    <mat-card class="m-3" [routerLink]="['/programWorkout', program['id']]"   >
+    <mat-card class="m-3" [routerLink]="['/private/programWorkout', program['id']]"   >
       <!-- <a mat-button color="primary" [routerLink]="['/editClient', program['id']]">EDIT</a> -->
 
       <mat-card-header>

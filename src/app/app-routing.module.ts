@@ -20,29 +20,47 @@ import { WorkoutdisplayComponent } from './private/workouts/workoutdisplay/worko
 import { WorkoutsComponent } from './private/workouts/workouts.component';
 import { VerifyComponent } from './auth/verify/verify.component';
 import { RoleGuard } from './auth/role.guard';
+import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 
 
 const routes: Routes = [
   {path: '', component: PublicComponent},
   {path: 'fitness', component: HomeComponent},
-  {path: 'clients', component: ClientsComponent, canActivate: [AuthGuard, RoleGuard] ,   }  ,
-  {path: 'posts', component: PostListComponent, canActivate: [AuthGuard]},
-  {path: 'workouts', component: WorkoutsComponent, canActivate: [AuthGuard]},
-  {path: 'editWorkout/:id', component: WorkoutComponent, canActivate: [AuthGuard]},
-  {path: 'workout', component: WorkoutComponent},
-  {path: 'myworkouts', component: MyworkoutsComponent, canActivate: [AuthGuard] },
-  {path: 'workoutDisplay/:workoutId', component: WorkoutdisplayComponent},
 
-  {path: 'program', component: ProgramComponent, canActivate: [AuthGuard, RoleGuard] },
-  {path: 'programs', component: ProgramsComponent, canActivate: [AuthGuard] },
-  {path: 'programWorkout/:programId', component: ProgramworkoutsComponent},
+  // {path: 'clients', component: ClientsComponent, canActivate: [AuthGuard, RoleGuard] ,   }  ,
+  // {path: 'workouts', component: WorkoutsComponent, canActivate: [AuthGuard]},
+  // {path: 'editWorkout/:id', component: WorkoutComponent, canActivate: [AuthGuard]},
+  // {path: 'workout', component: WorkoutComponent},
+  // {path: 'myworkouts', component: MyworkoutsComponent, canActivate: [AuthGuard] },
+  // {path: 'workoutDisplay/:workoutId', component: WorkoutdisplayComponent},
+
+  // {path: 'program', component: ProgramComponent, canActivate: [AuthGuard, RoleGuard] },
+  // {path: 'programs', component: ProgramsComponent, canActivate: [AuthGuard] },
+  // {path: 'programWorkout/:programId', component: ProgramworkoutsComponent},
+  // {path: 'client', component: ClientComponent, canActivate: [AuthGuard] },
+  // {path: 'editClient/:userId', component: ClientComponent},
+
+  //posts
   {path: 'create', component: PostCreateComponent, canActivate: [AuthGuard]},
-  {path: 'client', component: ClientComponent, canActivate: [AuthGuard] },
   {path: 'edit/:postId', component: PostCreateComponent, canActivate: [AuthGuard]},
-  {path: 'editClient/:userId', component: ClientComponent},
+  {path: 'posts', component: PostListComponent, canActivate: [AuthGuard]},
+
+
+
+
+  
+//Auth Stuff
   {path: 'login', component: LoginComponent},
   {path: 'signup', component: SignupComponent},
-  {path: 'verify', component: VerifyComponent}
+  {path: 'verify', component: VerifyComponent},
+  {path: 'forgotPassword', component: ForgotPasswordComponent},
+
+  {
+    path: 'private',
+    loadChildren: () => import('./private/private.module').then(m => m.PrivateModule)
+  }
+
+
 
 ];
 

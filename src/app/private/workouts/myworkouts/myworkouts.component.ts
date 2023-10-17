@@ -21,9 +21,9 @@ export class MyworkoutsComponent implements OnInit {
 
   constructor(private authService: AuthService, private workoutService: WorkoutsService, private route: ActivatedRoute) {
     this.userId = this.authService.getUserId()
-    console.error(this.userId)
+    // console.error(this.userId)
     this.route.queryParams.subscribe(param => {
-      console.error(param)
+      // console.error(param)
       this.workoutType = param.type
     })
    }
@@ -34,9 +34,10 @@ export class MyworkoutsComponent implements OnInit {
 
     if(this.workoutType == 'personal'){
       this.workoutService.getPersonalWorkouts(this.userId).subscribe(workouts => {
+
         this.workouts = workouts 
         this.isLoading = false
-        // console.error('PERSONAL WORKOUTS:', workouts)
+        console.error('PERSONAL WORKOUTS:', workouts)
       })
       
     } else {

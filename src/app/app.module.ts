@@ -51,32 +51,38 @@ import { WorkoutdisplayComponent } from './private/workouts/workoutdisplay/worko
 import { WorkoutsComponent } from './private/workouts/workouts.component';
 import { VerifyComponent } from './auth/verify/verify.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
+
     PostsComponent,
     PostCreateComponent,
     HeaderComponent,
     PostListComponent,
+     HomeComponent,
+    MainComponent,
+
+    ErrorComponent,
+
+    // ClientsComponent,
+    // ClientComponent,
+    // WorkoutsComponent,
+    // WorkoutComponent,
+    // ProgramsComponent,
+    // ProgramComponent,
+    // MyworkoutsComponent,
+    // ProgramworkoutsComponent,
+    // WorkoutdisplayComponent,
+
     LoginComponent,
     SignupComponent,
-    HomeComponent,
-    MainComponent,
-    ClientsComponent,
-    ClientComponent,
-    ErrorComponent,
-    WorkoutsComponent,
-    WorkoutComponent,
-    ProgramsComponent,
-    ProgramComponent,
-    MyworkoutsComponent,
-    ProgramworkoutsComponent,
-    WorkoutdisplayComponent,
     PublicComponent,
     VerifyComponent,
+    ForgotPasswordComponent,
 
 
   ],
@@ -106,6 +112,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     MatIconModule,
     MatListModule,
     NgbModule,
+    MatSidenavModule
   ],
 
 

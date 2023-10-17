@@ -27,6 +27,7 @@ export class ProgramsService {
     this.http.get<{ message: string, programs: any}>(
      url )
       .pipe(map((programData) => {
+        console.error('p:', programData)
         return {
           programs: programData.programs.map(program => {
             return {

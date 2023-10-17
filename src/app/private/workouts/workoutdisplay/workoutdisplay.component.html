@@ -13,9 +13,9 @@
   </div> -->
   <div >
     
-    <button class="float-end m-2"  *ngIf="workoutType == 'personal'" mat-raised-button color="primary" [routerLink]="['/editWorkout', workout['id']]" [state]="{type: ''}" [queryParams]="{type: workoutType}"> Edit</button>
+    <button class="float-end m-2"  *ngIf="workoutType == 'personal'" mat-raised-button color="primary" [routerLink]="['/private/editWorkout', workout['id']]" [state]="{type: ''}" [queryParams]="{type: workoutType}"> Edit</button>
 
-    <button class="m-2 float-start" mat-raised-button color="warn" [routerLink]="['/myworkouts']" [queryParams]="{type: 'personal'}" >Back</button>
+    <button class="m-2 float-start" mat-raised-button color="warn" [routerLink]="['/private/myworkouts']" [queryParams]="{type: 'personal'}" >Back</button>
     <div class="text-center">
       <h2 class="d-block text-center" >{{workout.name}} </h2>
       <p class="d-block  text-center"> {{workout.date|date: 'EEEE MMMM d y'}}</p>

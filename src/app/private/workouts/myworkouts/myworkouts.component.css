@@ -5,4 +5,12 @@ mat-spinner {
 
   mat-card{
     cursor: pointer;
+    :hover{
+        background-color: lightgray;
+    }
   }
+
+  /* mat-card:hover{
+    cursor: pointer;
+    background-color: aqua;
+  } */

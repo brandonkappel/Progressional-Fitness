@@ -1,16 +1,16 @@
 <mat-spinner *ngIf="isLoading"></mat-spinner>
 <div *ngIf="workouts && !isLoading">
   <div class="d-flex justify-content-between m-2">
-    <button [routerLink]="['/fitness']" mat-raised-button color="warn">Back</button>
+    <!-- <button [routerLink]="['/fitness']" mat-raised-button color="warn">Back</button> -->
     <h2>My Workouts</h2>
-    <button mat-raised-button color="primary" routerLink="/workout" [queryParams]="{type: 'personal'}"  routerLinkActive="mat-accent"> Create Workout</button>
+    <button mat-raised-button color="primary" routerLink="/private/workout" [queryParams]="{type: 'personal'}"  routerLinkActive="mat-accent"> Create Workout</button>
   </div>
   <div *ngIf="!workouts.length  && !isLoading && workoutType == 'personal'" class="text-center" >
     No Workouts created yet
   </div>
 
 
-  <mat-card class="m-3" *ngFor="let workout of workouts" [routerLink]="['/workoutDisplay', workout['_id']]" [queryParams]="{type: workoutType}">
+  <mat-card class="m-3" *ngFor="let workout of workouts" [routerLink]="['/private/workoutDisplay', workout['_id']]" [queryParams]="{type: workoutType}">
     
     <!-- <a mat-button color="primary" [routerLink]="['/editClient', program['id']]">EDIT</a> -->
 

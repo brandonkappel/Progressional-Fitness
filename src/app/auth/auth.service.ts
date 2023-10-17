@@ -8,6 +8,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { environment } from 'src/environments/environment';
 
 const url = environment.apiUrl + "/user/"
+const url1 = environment.apiUrl + "/passwordReset/"
 
 @Injectable({ providedIn: "root" })
 export class AuthService {
@@ -75,6 +76,19 @@ export class AuthService {
     })
   }
 
+  forgotPassword(email:string) {
+    return this.http.get(url1+"sendCode/" + email)
+  }
+
+  passwordCodeVerify(code:string){
+    return this.http.get(url1+"verify/" + code)
+  }
+
+  updatePassword(id: string, password: string){
+    console.error(password)
+    return this.http.put(url1+"passwordReset/" + id, {password})
+  }
+
   logIn(email: string, password: string) {
     console.error('here?')
     const authData = { email: email, password: password }
@@ -101,7 +115,7 @@ export class AuthService {
           const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
           this.saveAuthData(token, expirationDate, this.userId, role, this.user)
           // this.getUser()
-          this.router.navigate(['fitness'])
+          this.router.navigate(['private'])
         } else {
           this.router.navigate(['verify'])
           console.error('not active')
