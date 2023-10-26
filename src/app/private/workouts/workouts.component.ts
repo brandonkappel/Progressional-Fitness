@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { Subscription } from 'rxjs';
-import { AuthService } from 'src/app/auth/auth.service';
-import { Client } from '../clients/clients.model';
-import { ClientsService } from '../clients/clients.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { Client } from '../../models/clients.model';
 import { Program } from '../programs/program.model';
-import { ProgramsService } from '../programs/programs.service';
-import { Workout } from './workout.model';
-import { WorkoutsService } from './workouts.service';
+import { ProgramsService } from '../../services/programs.service';
+import { Workout } from '../../models/workout.model';
+import { WorkoutsService } from '../../services/workouts.service';
+import { ClientsService } from 'src/app/services/clients.service';
 
 @Component({
   selector: 'app-workouts',

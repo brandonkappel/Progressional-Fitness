@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ClientsService } from './clients.service';
 import { Subscription } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
-import { Client } from './clients.model';
-import { AuthService } from 'src/app/auth/auth.service';
+import { Client } from '../../models/clients.model';
+import { AuthService } from 'src/app/services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
+import { ClientsService } from 'src/app/services/clients.service';
 
 
 @Component({

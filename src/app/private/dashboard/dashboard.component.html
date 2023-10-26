@@ -1,0 +1,21 @@
+<mat-spinner class="text-center" *ngIf="!loaded"></mat-spinner>
+<div *ngIf="loaded" class="m-3">
+    <h2 class="m-2">
+        Welcome {{user.firstName}}
+    </h2>
+
+    <p> You have created {{reports.workoutNumber}} workouts </p>
+
+    <div class="cal">
+        <div class="week">
+            <div class="days" *ngFor="let day of dates">
+                <!-- <div class="content"> -->
+                    <span>{{day.date |date:'EEE d'}}</span>
+                    <p>{{day?.workout?.name}}</p>
+                    
+                <!-- </div> -->
+            </div>
+        </div>
+    </div>
+
+</div>

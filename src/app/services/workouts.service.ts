@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Workout, } from './workout.model';
+import { Workout, } from '../models/workout.model';
 import { last, map } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
-import { WorkoutItem } from './workoutitem.model';
 // import { identifierModuleUrl } from '@angular/compiler';
 // import { SELECT_ITEM_HEIGHT_EM } from '@angular/material/select';
 import { environment } from 'src/environments/environment';
@@ -21,7 +20,7 @@ export class WorkoutsService {
 
   private workouts: Workout[] = []
   private workoutsUpdated = new Subject<{ workouts: Workout[], workoutCount: number }>()
-  private workoutItems: WorkoutItem[] = [];
+  // private workoutItems: WorkoutItem[] = [];
 
 
   constructor(private http: HttpClient, private router: Router) { }
@@ -31,7 +30,7 @@ export class WorkoutsService {
   getWorkouts(workoutsPerPage: number, currentPage: number, search:any) {
     const queryParams = `?pagesize=${workoutsPerPage}&page=${currentPage}`;
     this.http.post<{ message: string, workouts: any, maxWorkouts: number }>(
-      url + 'workouts' + queryParams,search)
+      url + 'getWorkouts' + queryParams,search)
       // .pipe(map((workoutData) => {
       //   // console.error(workoutData)
       //   return {
@@ -75,7 +74,7 @@ export class WorkoutsService {
           })
         }
       })).subscribe((transformedItemData) => {
-        this.workoutItems = transformedItemData.workoutItems;
+        // this.workoutItems = transformedItemData.workoutItems;
       })
   }
 
@@ -83,7 +82,7 @@ export class WorkoutsService {
     return this.http.get(itemUrl + id)
   }
 
-  updateWorkout(id, workout, workoutType) {
+  updateWorkout(id, workout, workoutType) { 
     console.error('w:',workout)
     // const w: Workout = { 
     //   id: id, name: workout.name, 
@@ -101,9 +100,9 @@ export class WorkoutsService {
        
        
         if (workoutType == 'personal') {
-          this.router.navigate(['/workoutDisplay/' + response.workoutId], { queryParams: { type: 'personal' } })
+          this.router.navigate(['/private/workoutDisplay/' + response.workoutId], { queryParams: { type: 'personal' } })
         } else {
-          this.router.navigate(["/workouts"])
+          this.router.navigate(["private/workouts"])
 
         }
       })
@@ -118,17 +117,18 @@ export class WorkoutsService {
 
   addWorkout(workout, workoutType) {
     console.error(workout)
+    // return
     // console.error(workoutData)
-    this.http.post<{ message: string, workoutId: any }>(url, workout)
+    this.http.post<{ message: string, workoutId: any }>(url + 'workouts', workout)
       .subscribe((responseData) => {
         console.error('Workout:', responseData)
       
         // console.error('wItem', wItem)
         // this.addWorkoutItem(wItem)
         if (workoutType == 'personal') {
-          this.router.navigate(['/myworkouts'], { queryParams: { type: 'personal' } })
+          this.router.navigate(['/private/myworkouts'], { queryParams: { type: 'personal' } })
         } else {
-          this.router.navigate(["/workouts"])
+          this.router.navigate(["/private/workouts"])
 
         }
       });
@@ -152,28 +152,32 @@ export class WorkoutsService {
 
   getWorkout(id: string) {
     return this.http.get<{
-      _id: string;
-      name: string
-      date: Date;
-      creator: string;
-      client: string;
-      program: string;
-      workoutItems: Array<any>
+      // _id: string;
+      // name: string
+      // date: Date;
+      // creator: string;
+      // client: string;
+      // program: string;
+      // workoutItems: Array<any>
     }>(url + id);
   }
 
-  getMyWorkouts(id: string) {
+  getMyWorkouts(id: string, dateStart, dateEnd) {
+    const queryParams = `?dateStart=${dateStart}&dateEnd=${dateEnd}`;
+
+    // console.error(id)
     return this.http.get<{
       _id: string;
       name: string
       date: Date;
       creator: string;
       client: string;
-    }>(url + "/myWorkouts/" + id);
+    }>(url + "/myWorkouts/" + id + queryParams);
   }
 
-  getPersonalWorkouts(id) {
-    return this.http.get(url + "/personalWorkouts/" + id);
+  getPersonalTrainingWorkouts(id, dateStart, dateEnd) {
+    const queryParams = `?dateStart=${dateStart}&dateEnd=${dateEnd}`;
+    return this.http.get(url + "/personalTrainingWorkouts/" + id + queryParams );
   }
 
   getProgramWorkouts(id: string) {

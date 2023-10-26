@@ -7,11 +7,14 @@ import { ClientsComponent } from './clients/clients.component';
 import { ProgramComponent } from './programs/program/program.component';
 import { ProgramsComponent } from './programs/programs.component';
 import { ProgramworkoutsComponent } from './programs/programworkouts/programworkouts.component';
-import { MyworkoutsComponent } from './workouts/myworkouts/myworkouts.component';
-import { WorkoutComponent } from './workouts/workout/workout.component';
-import { WorkoutdisplayComponent } from './workouts/workoutdisplay/workoutdisplay.component';
+import { MyworkoutsComponent } from './myworkouts/myworkouts.component';
+import { WorkoutComponent } from './create-workout/workout.component';
+import { WorkoutdisplayComponent } from './workoutdisplay/workoutdisplay.component';
 import { WorkoutsComponent } from './workouts/workouts.component';
 import { PrivateComponent } from './private.component';
+import { PersonalTrainingComponent } from './personal-training/personal-training.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { SettingsComponent } from './settings/settings.component';
 
 const routes: Routes = [
   {path: '', component: PrivateComponent, children:[
@@ -27,6 +30,9 @@ const routes: Routes = [
     {path: 'programWorkout/:programId', component: ProgramworkoutsComponent},
     {path: 'client', component: ClientComponent, canActivate: [AuthGuard] },
     {path: 'editClient/:userId', component: ClientComponent},
+    {path: 'personalTraining', component: PersonalTrainingComponent},
+    {path: 'dashboard', component: DashboardComponent},
+    {path: 'settings', component: SettingsComponent},
 
   ] } 
 

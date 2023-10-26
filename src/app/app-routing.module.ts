@@ -5,27 +5,16 @@ import { PostCreateComponent } from './posts/post-create/post-create.component';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { AuthGuard } from './auth/auth.guard';
-import { HomeComponent } from './main/home/home.component';
 
 
 import { PublicComponent } from './public/public.component';
-import { ClientsComponent } from './private/clients/clients.component';
-import { ClientComponent } from './private/clients/client/client.component';
-import { ProgramComponent } from './private/programs/program/program.component';
-import { ProgramsComponent } from './private/programs/programs.component';
-import { ProgramworkoutsComponent } from './private/programs/programworkouts/programworkouts.component';
-import { MyworkoutsComponent } from './private/workouts/myworkouts/myworkouts.component';
-import { WorkoutComponent } from './private/workouts/workout/workout.component';
-import { WorkoutdisplayComponent } from './private/workouts/workoutdisplay/workoutdisplay.component';
-import { WorkoutsComponent } from './private/workouts/workouts.component';
+
 import { VerifyComponent } from './auth/verify/verify.component';
-import { RoleGuard } from './auth/role.guard';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 
 
 const routes: Routes = [
   {path: '', component: PublicComponent},
-  {path: 'fitness', component: HomeComponent},
 
   // {path: 'clients', component: ClientsComponent, canActivate: [AuthGuard, RoleGuard] ,   }  ,
   // {path: 'workouts', component: WorkoutsComponent, canActivate: [AuthGuard]},

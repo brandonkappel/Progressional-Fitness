@@ -1,4 +1,8 @@
-mat-card:hover{
+/* mat-card:hover{
   cursor: pointer;
   background-color: darkgrey;
+} */
+
+mat-spinner {
+  margin: auto;
 }

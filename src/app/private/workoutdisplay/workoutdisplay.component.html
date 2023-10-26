@@ -11,15 +11,20 @@
     <button *ngIf="workoutType == 'personal'" mat-raised-button color="primary" [routerLink]="['/editWorkout', workout['id']]" [queryParams]="{type: workoutType}"> Edit</button>
     </div>
   </div> -->
-  <div >
-    
-    <button class="float-end m-2"  *ngIf="workoutType == 'personal'" mat-raised-button color="primary" [routerLink]="['/private/editWorkout', workout['id']]" [state]="{type: ''}" [queryParams]="{type: workoutType}"> Edit</button>
+  <div class="d-flex justify-content-between m-3" >
+    <button class="" mat-icon-button (click)="goBack()"  >
+      <mat-icon>arrow_back</mat-icon>
+    </button>
 
-    <button class="m-2 float-start" mat-raised-button color="warn" [routerLink]="['/private/myworkouts']" [queryParams]="{type: 'personal'}" >Back</button>
     <div class="text-center">
       <h2 class="d-block text-center" >{{workout.name}} </h2>
       <p class="d-block  text-center"> {{workout.date|date: 'EEEE MMMM d y'}}</p>
     </div>
+    
+    <button class=""  *ngIf="workoutType == 'personal' || isUserAdmin == true" mat-raised-button color="primary" [routerLink]="['/private/editWorkout', workout['_id']]" [state]="{type: ''}" [queryParams]="{type: workoutType}"> Edit</button>
+
+    <!-- <button class="m-2 float-start" mat-raised-button color="warn" [routerLink]="['/private/myworkouts']" [queryParams]="{type: 'personal'}" >Back</button> -->
+  
   </div>
 
 

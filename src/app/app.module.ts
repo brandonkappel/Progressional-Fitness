@@ -30,8 +30,6 @@ import { PostListComponent } from './posts/post-list/post-list.component';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { AuthInterceptor } from './auth/auth-interceptor';
-import { HomeComponent } from './main/home/home.component';
-import { MainComponent } from './main/main/main.component';
 import { ClientsComponent } from './private/clients/clients.component';
 import { ClientComponent } from './private/clients/client/client.component';
 import { ErrorInterceptor } from './error-interceptor';
@@ -45,9 +43,9 @@ import { PrivateComponent } from './private/private.component';
 import { ProgramComponent } from './private/programs/program/program.component';
 import { ProgramsComponent } from './private/programs/programs.component';
 import { ProgramworkoutsComponent } from './private/programs/programworkouts/programworkouts.component';
-import { MyworkoutsComponent } from './private/workouts/myworkouts/myworkouts.component';
-import { WorkoutComponent } from './private/workouts/workout/workout.component';
-import { WorkoutdisplayComponent } from './private/workouts/workoutdisplay/workoutdisplay.component';
+import { MyworkoutsComponent } from './private/myworkouts/myworkouts.component';
+import { WorkoutComponent } from './private/create-workout/workout.component';
+import { WorkoutdisplayComponent } from './private/workoutdisplay/workoutdisplay.component';
 import { WorkoutsComponent } from './private/workouts/workouts.component';
 import { VerifyComponent } from './auth/verify/verify.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -63,8 +61,6 @@ import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.
     PostCreateComponent,
     HeaderComponent,
     PostListComponent,
-     HomeComponent,
-    MainComponent,
 
     ErrorComponent,
 

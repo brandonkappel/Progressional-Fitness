@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
-import { AuthService } from '../auth/auth.service';
-import { Client } from './clients/clients.model';
+import { AuthService } from '../services/auth.service';
+import { Client } from '../models/clients.model';
 
 @Component({
   selector: 'app-private',

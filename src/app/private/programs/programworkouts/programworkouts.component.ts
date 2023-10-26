@@ -1,10 +1,10 @@
 import { Location } from '@angular/common';
 import { Component, OnInit, QueryList } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { AuthService } from 'src/app/auth/auth.service';
-import { WorkoutsService } from '../../workouts/workouts.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { WorkoutsService } from '../../../services/workouts.service';
 import { Program } from '../program.model';
-import { ProgramsService } from '../programs.service';
+import { ProgramsService } from '../../../services/programs.service';
 
 @Component({
   selector: 'app-programworkouts',

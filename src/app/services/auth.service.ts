@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Authdata } from './auth-data.model';
+import { Authdata } from '../auth/auth-data.model';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
-import { Client } from '../private/clients/clients.model';
+import { Client } from '../models/clients.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { environment } from 'src/environments/environment';
 
@@ -115,7 +115,7 @@ export class AuthService {
           const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
           this.saveAuthData(token, expirationDate, this.userId, role, this.user)
           // this.getUser()
-          this.router.navigate(['private'])
+          this.router.navigate(['private/dashboard'])
         } else {
           this.router.navigate(['verify'])
           console.error('not active')
@@ -126,14 +126,16 @@ export class AuthService {
   };
 
   getUser() {
-    this.http.get<{ _id: string, firstName: string, lastName: string, email: string, role: string, personalTrainingClient: boolean }>(url + this.userId).subscribe(user => {
+    this.http.get<{ _id: string, firstName: string, lastName: string, email: string, role: string, personalTrainingClient: boolean, active:boolean }>(url + this.userId).subscribe(user => {
+    //  this.user = user
       this.user = {
         id: user._id,
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
         role: user.role,
-        personalTrainingClient: user.personalTrainingClient
+        personalTrainingClient: user.personalTrainingClient,
+        active: user.active
       }
       if (user.role == 'admin') {
         console.error('ADMIN')

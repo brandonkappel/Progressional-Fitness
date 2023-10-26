@@ -2,24 +2,24 @@
 
 <mat-toolbar color="primary" class="example-toolbar">
 	<button mat-icon-button (click)="isExpanded = !isExpanded"><mat-icon>menu</mat-icon></button>
-	<h1 class="example-app-name">{{page}}</h1>
+	<h1 class="example-app-name">Progressional Fitness</h1>
 </mat-toolbar>
 <mat-sidenav-container class="example-container" autosize >
 	<mat-sidenav #sidenav class="example-sidenav" mode="side" opened="true" (mouseenter)="mouseenter()"
 		(mouseleave)="mouseleave()">
 		<mat-nav-list>
-			<mat-list-item (click)="showSubmenu = !showSubmenu" routerLinkActive="active" class="parent">
+			<mat-list-item (click)="showSubmenu = !showSubmenu" routerLink="/private/dashboard" routerLinkActive="active" class="parent">
 				<mat-icon mat-list-icon>home</mat-icon>
 				<span class="full-width" *ngIf="isExpanded || isShowing">Home</span>
 				<!-- <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}"
 					*ngIf="isExpanded || isShowing">expand_more</mat-icon> -->
 			</mat-list-item>
-			<mat-list-item  routerLink="/private/myworkouts" routerLinkActive="active" (click)="page = 'My Workouts'" [queryParams]="{type: 'personal'}" class="parent">
+			<mat-list-item  routerLink="/private/myworkouts" routerLinkActive="active" (click)="page = 'My Workouts'" class="parent">
 				<mat-icon mat-list-icon>fitness_center</mat-icon>
 				<span class="full-width" *ngIf="isExpanded || isShowing">My Workouts</span>
 			</mat-list-item>
-			<mat-list-item *ngIf="user.personalTrainingClient"  routerLinkActive="active" (click)="page = 'Personal Training'" routerLink="/private/myworkouts" [queryParams]="{type: 'personal training'}" class="parent">
-				<mat-icon mat-list-icon>exercise</mat-icon>
+			<mat-list-item *ngIf="user.personalTrainingClient"  routerLinkActive="active" (click)="page = 'Personal Training'" routerLink="/private/personalTraining" class="parent">
+				<mat-icon mat-list-icon>directions_run</mat-icon>
 				<span class="full-width" *ngIf="isExpanded || isShowing">Personal Traning</span>
 			</mat-list-item>
 			<mat-list-item  class="parent" routerLinkActive="active" (click)="page = 'Programs'" routerLink="/private/programs">

@@ -8,9 +8,9 @@ import { ClientsComponent } from './clients/clients.component';
 import { ProgramComponent } from './programs/program/program.component';
 import { ProgramsComponent } from './programs/programs.component';
 import { ProgramworkoutsComponent } from './programs/programworkouts/programworkouts.component';
-import { MyworkoutsComponent } from './workouts/myworkouts/myworkouts.component';
-import { WorkoutComponent } from './workouts/workout/workout.component';
-import { WorkoutdisplayComponent } from './workouts/workoutdisplay/workoutdisplay.component';
+import { MyworkoutsComponent } from './myworkouts/myworkouts.component';
+import { WorkoutComponent } from './create-workout/workout.component';
+import { WorkoutdisplayComponent } from './workoutdisplay/workoutdisplay.component';
 import { WorkoutsComponent } from './workouts/workouts.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -23,6 +23,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
+import {MatChipsModule} from '@angular/material/chips';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatRadioModule } from '@angular/material/radio';
@@ -39,8 +40,10 @@ import { AppRoutingModule } from '../app-routing.module';
 import { AppComponent } from '../app.component';
 import { AuthInterceptor } from '../auth/auth-interceptor';
 import { ErrorInterceptor } from '../error-interceptor';
-import { HomeComponent } from '../main/home/home.component';
 import { PrivateComponent } from './private.component';
+import { PersonalTrainingComponent } from './personal-training/personal-training.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { SettingsComponent } from './settings/settings.component';
 
 
 @NgModule({
@@ -56,7 +59,10 @@ import { PrivateComponent } from './private.component';
     MyworkoutsComponent,
     ProgramworkoutsComponent,
     WorkoutdisplayComponent,
-    PrivateComponent
+    PrivateComponent,
+    PersonalTrainingComponent,
+    DashboardComponent,
+    SettingsComponent
   ],
   imports: [
     PrivateRoutingModule,
@@ -86,6 +92,7 @@ import { PrivateComponent } from './private.component';
     MatSidenavModule,
     MatIconModule,
     MatListModule,
+    MatChipsModule,
     // NgbModule,
   ],
 

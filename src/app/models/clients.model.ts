@@ -5,6 +5,7 @@ export interface Client {
   email: string,
   role: string,
   personalTrainingClient: boolean,
+  active: boolean
 
 
 }

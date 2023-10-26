@@ -6,16 +6,15 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { subscribeOn } from 'rxjs/operators';
-import { Client } from 'src/app/private/clients/clients.model';
-import { ClientsService } from 'src/app/private/clients/clients.service';
-import { Program } from '../../programs/program.model';
-import { ProgramsService } from '../../programs/programs.service';
-import { Workout } from '../workout.model';
-import { WorkoutItem } from '../workoutitem.model';
+import { Client } from 'src/app/models/clients.model';
+import { Program } from '../programs/program.model';
+import { ProgramsService } from '../../services/programs.service';
+import { Workout } from '../../models/workout.model';
 
 
-import { WorkoutsService } from '../workouts.service';
+import { WorkoutsService } from '../../services/workouts.service';
 import { Location } from '@angular/common';
+import { ClientsService } from 'src/app/services/clients.service';
 
 @Component({
   selector: 'app-workout',
@@ -65,7 +64,7 @@ export class WorkoutComponent implements OnInit {
     this.route.queryParams.subscribe(param => {
       console.error(param)
       this.workoutType = param.type
-    this.getData();
+      this.getData();
 
     })
   }
@@ -87,8 +86,6 @@ export class WorkoutComponent implements OnInit {
         });
     }
 
-
-
     this.workoutForm = this.formbuilder.group({
       workoutName: ['', Validators.required],
       date: ['', new Date],
@@ -97,14 +94,14 @@ export class WorkoutComponent implements OnInit {
       workoutItems: this.formbuilder.array([]),
       personalWorkout: new FormControl(this.workoutType == 'personal' ? '1' : '0')
     })
-    // console.error('this is a test', this.workoutForm.value)
+    console.error('this is a test', this.workoutForm.value)
 
     if (this.state) {
       this.workoutForm.patchValue({
         user: this.state.type == 'clients' ? this.state.id : '',
         program: this.state.type == 'programs' ? this.state.id : '',
       });
-    } 
+    }
 
 
     this.route.paramMap.subscribe((ParamMap: ParamMap) => {
@@ -113,7 +110,7 @@ export class WorkoutComponent implements OnInit {
         this.mode = 'edit';
         this.workoutId = ParamMap.get('id')
         this.isLoading = true
-        this.workoutService.getWorkout(this.workoutId).subscribe(workoutData => {
+        this.workoutService.getWorkout(this.workoutId).subscribe((workoutData: any) => {
 
           this.isLoading = false
           this.workout = {
@@ -123,9 +120,10 @@ export class WorkoutComponent implements OnInit {
             client: workoutData.client,
             creator: workoutData.creator,
             program: workoutData.program,
-            workoutItems: workoutData.workoutItems
+            workoutItems: workoutData.workoutItems,
+            personalWorkout: workoutData.personlWorkout
           };
-          console.error('Workout:',this.workout)
+          console.error('Workout:', this.workout)
 
           this.workoutForm.patchValue({
             workoutName: this.workout.name,
@@ -136,24 +134,13 @@ export class WorkoutComponent implements OnInit {
           });
 
           let workoutItemControl = <FormArray>this.workoutForm.controls.workoutItems;
-          if(this.workout.workoutItems){
-          this.workout.workoutItems.forEach(item=> {
-            workoutItemControl.push(this.formbuilder.group({ _id: item._id, name: item.name, description: item.description, comments: item.comments }))
+          if (this.workout.workoutItems) {
+            this.workout.workoutItems.forEach(item => {
+              workoutItemControl.push(this.formbuilder.group({ _id: item._id, name: item.name, description: item.description, comments: item.comments }))
 
-          })
+            })
 
           }
-
-          // this.workoutService.getWorkoutI(this.workout.id).subscribe(workoutItems => {
-          
-          //   this.workoutI = workoutItems
-           
-          //   let workoutItemControl = <FormArray>this.workoutForm.controls.workoutItem;
-          //   this.workoutI.forEach(item => {
-          //     workoutItemControl.push(this.formbuilder.group({ _id: item._id, name: item.name, description: item.description, comments: item.comments }))
-          //   })
-
-          // })
 
         })
       } else {
@@ -209,21 +196,29 @@ export class WorkoutComponent implements OnInit {
       }
     })
   }
+  public openDeleteWorkout(templateRef) {
+    console.error(this.workout)
+    let dialogRef = this.dialog.open(templateRef, {
+      data: {
+        workout: this.workout,
+      }
+    })
+  }
 
-  goBack(){
+  deleteWorkout(){
+    this.workoutService.deleteWorkout(this.workout.id).subscribe(res=> {
+      this.location.historyGo(-2)
+    })
+  }
+
+  goBack() {
     this.location.back()
   }
 
 
-
-
-
-
-
-
   onSavePost() {
     console.error('SAVE STARTED ', this.workoutForm.value)
-
+    // return
 
     if (this.workoutForm.invalid) {
       console.error('ERROR ON FORM', this.workoutForm)
@@ -231,7 +226,7 @@ export class WorkoutComponent implements OnInit {
     }
     let workout = {
       name: this.workoutForm.value.workoutName,
-      date: this.date.value, 
+      date: this.workoutForm.value.date ?   this.workoutForm.value.date: this.date.value,
       client: this.workoutForm.value.user,
       program: this.workoutForm.value.program,
       personalWorkout: this.workoutForm.value.personalWorkout,
@@ -241,11 +236,11 @@ export class WorkoutComponent implements OnInit {
     // console.error('Item', workoutItem)
     // this.isLoading = true;
     if (this.mode === 'create') {
-      this.workoutService.addWorkout(workout,  this.workoutType)
+      this.workoutService.addWorkout(workout, this.workoutType)
       this.snackBar.open("Successfully Created Post", "", { duration: 2000, verticalPosition: "top" })
 
     } else {
-      this.workoutService.updateWorkout(this.workout.id, workout,  this.workoutType)
+      this.workoutService.updateWorkout(this.workout.id, workout, this.workoutType)
       this.snackBar.open("Successfully Update Post", "", { duration: 2000, verticalPosition: "top" })
     }
 

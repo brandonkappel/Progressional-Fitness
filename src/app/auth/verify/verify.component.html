@@ -1,43 +1,39 @@
+<div class="p-5 text-center">
+    <h3 *ngIf="!resend"> Enter Verification Code</h3>
+    <h3 *ngIf="resend"> Enter Email Address</h3>
+</div>
 
-<mat-card *ngIf="!resend" style="height: 40%; width: 40%; margin: auto;" class="text-center">
-    <mat-card-title class="mt-3 mb-5" >
-        Enter Verification Code
-    </mat-card-title>
-    
+<mat-card *ngIf="!resend" class=" m-3 text-center">
 
-    <form (submit)="verify(form)" #form="ngForm">
-        <mat-form-field>
-            <input matInput name="code" ngModel #codeInput="ngModel" type="text" required
-                placeholder="4 Digit Code">
+
+    <form (submit)="verify(form)" #form="ngForm" class="m-3">
+        <mat-form-field appearance="outline">
+            <input matInput name="code" ngModel #codeInput="ngModel" type="text" required placeholder="4 Digit Code">
         </mat-form-field>
         <br>
-    <button mat-raised-button  color="accent" type="submit">Verify</button>
+        <button mat-raised-button color="primary" type="submit">Verify</button>
 
     </form>
 
     <div>
-        <button mat-button  (click)="resendCode()" > Resend Code  </button>
+        <button mat-button (click)="resendCode()"> Resend Code </button>
     </div>
 
 
-</mat-card  >
+</mat-card>
 
 
 
-<mat-card *ngIf="resend"  style="height: 40%; width: 40%; margin: auto;" class="text-center">
-
-    <mat-card-title class="mt-3 mb-5" >
-        Enter Email Address
-    </mat-card-title>
+<mat-card *ngIf="resend" class="m-3 text-center">
 
 
-    <form (submit)="sendResend(resendForm)" #resendForm="ngForm">
+    <form (submit)="sendResend(resendForm)" #resendForm="ngForm" class="m-3">
         <mat-form-field>
             <input matInput name="email" ngModel #emailInput="ngModel" type="text" email required
                 placeholder="Email address">
         </mat-form-field>
         <br>
-    <button mat-raised-button  color="accent" type="submit">Send Code</button>
+        <button mat-raised-button color="primary" type="submit">Send Code</button>
 
     </form>
 

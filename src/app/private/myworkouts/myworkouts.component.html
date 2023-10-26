@@ -1,0 +1,72 @@
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<div *ngIf="workouts && !isLoading">
+  <div class="d-flex justify-content-between m-3">
+    <!-- <button [routerLink]="['/fitness']" mat-raised-button color="warn">Back</button> -->
+    <h2>My Workouts</h2>
+    <button mat-raised-button color="primary" routerLink="/private/workout" [queryParams]="{type: 'personal'}"  routerLinkActive="mat-accent"> Create Workout</button>
+  </div>
+ 
+  <div class="d-flex justify-content-between m-2 mx-3 align-items-center">
+    <div *ngIf="filterType != 'all'">
+      <button mat-icon-button  (click)="changeDate('last')">
+        <mat-icon>navigate_before</mat-icon>
+      </button>
+      <button mat-icon-button (click)="changeDate('next')" >
+        <mat-icon>navigate_next</mat-icon>
+      </button>
+    </div>
+    <div>
+      <p *ngIf="filterType =='month'" class="m-0" > {{dateStart | date:'MMMM'}} </p>
+      <p *ngIf="filterType =='week'" class="m-0" >{{dateStart | date:'MMM d'}} - {{dateEnd | date:'d, y'}}</p>
+    </div>
+
+    <div >
+      <mat-chip-listbox >
+        <mat-chip-option [selected]="filterType == 'week'" (click)="selectDate('week')" >Week</mat-chip-option>
+        <mat-chip-option [selected]="filterType == 'month'" (click)="selectDate('month')" >Month</mat-chip-option>
+        <mat-chip-option [selected]="filterType == 'all'" (click)="selectAll()" >All</mat-chip-option>
+  
+      </mat-chip-listbox>
+    </div>
+
+  </div>
+
+ 
+  <div *ngIf="!workouts.length  && !isLoading " class="text-center" >
+    No Workouts created yet
+  </div>
+
+<!-- 
+  <mat-card class="m-3" *ngFor="let workout of workouts" [routerLink]="['/private/workoutDisplay', workout['_id']]" [queryParams]="{type: workoutType}">
+    
+
+    <mat-card-header>
+  
+      <mat-card-title>  {{workout.name}} </mat-card-title>
+      <mat-card-subtitle> {{workout.date |date:'EEEE MMMM d y '}}  </mat-card-subtitle>
+
+    </mat-card-header>
+  
+  </mat-card> -->
+
+  <mat-card class="m-3" >
+     
+  <mat-nav-list *ngFor="let workout of workouts" class="p-0 " [routerLink]="['/private/workoutDisplay', workout['_id']]" [queryParams]="{type: workoutType}">
+    <mat-list-item class="">
+
+      <!-- <a [routerLink]="['/private/workoutDisplay', workout['_id']]">{{workout.name}}</a> -->
+      <!-- <p>{{workout.name}}</p> -->
+      <span matListItemTitle>{{workout.name}}</span>
+      <span matListItemLine>{{workout.date |date:'EEEE MMMM d y '}} </span>
+      <div matListItemMeta class="d-flex align-self-center">
+        <mat-icon  >open_in_new</mat-icon>
+
+      </div>
+
+    </mat-list-item>
+    <mat-divider ></mat-divider>
+
+  </mat-nav-list>
+
+</mat-card>
+</div>

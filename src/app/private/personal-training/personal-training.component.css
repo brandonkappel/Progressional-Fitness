@@ -1,0 +1,11 @@
+mat-spinner {
+    margin: auto;
+  }
+
+
+  mat-card{
+    cursor: pointer;
+    :hover{
+        background-color: lightgray;
+    }
+  }

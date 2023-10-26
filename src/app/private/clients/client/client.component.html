@@ -15,50 +15,59 @@
 <mat-card>
   <mat-card-content>
 
-  
-  <mat-spinner *ngIf="isLoading"></mat-spinner>
-  <button [routerLink]="['/private/clients']" class="m-2" mat-raised-button color="warn">Back</button>
 
-  <form *ngIf="!isLoading" [formGroup]="form" (submit)="onSavePost()" >
-    <div class="row">  
-      <mat-form-field class="col">
-        <input matInput
-        formControlName="firstName"
-         type="text"
-         placeholder="First Name">
-         <mat-error *ngIf="form.get('firstName').invalid" > Please enter a first name. </mat-error>
-      </mat-form-field>
-      <mat-form-field class="col">
-        <input matInput
-        formControlName="lastName"
-         type="text"
-         placeholder="last Name ">
-         <mat-error *ngIf="form.get('lastName').invalid" > Please enter a last name. </mat-error>
-      </mat-form-field>    
-    </div>
-   <div class="row">
-    <mat-form-field class="col">
-      <input matInput
-      formControlName="email"
-       type="text"
-       placeholder="Email">
-       <mat-error *ngIf="form.get('email').invalid" > Please enter an email. </mat-error>
-    </mat-form-field>
-    <mat-form-field  class="col">
-      <mat-label>Role</mat-label>
-      <mat-select
-      formControlName="role">
-        <mat-option value="client">Client</mat-option>
-        <mat-option value="admin">Admin</mat-option>
-      </mat-select>
-      <mat-error *ngIf="form.get('role').invalid" > Please select a Role </mat-error>
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
+    <button [routerLink]="['/private/clients']" class="m-2" mat-raised-button color="warn">Back</button>
 
-    </mat-form-field>
-   </div>
-  
+    <form *ngIf="!isLoading" [formGroup]="form" (submit)="onSavePost()">
+      <div class="row">
+        <mat-form-field class="col" appearance="outline">
+          <mat-label>First Name</mat-label>
+
+          <input matInput formControlName="firstName" type="text" placeholder="First Name">
+          <mat-error *ngIf="form.get('firstName').invalid"> Please enter a first name. </mat-error>
+        </mat-form-field>
+        <mat-form-field class="col" appearance="outline">
+          <mat-label>Last Name</mat-label>
+
+          <input matInput formControlName="lastName" type="text" placeholder="last Name ">
+          <mat-error *ngIf="form.get('lastName').invalid"> Please enter a last name. </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field class="col" appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" tyepe="text" placeholder="Email">
+          <mat-error *ngIf="form.get('email').invalid"> Please enter an email. </mat-error>
+        </mat-form-field>
+        <mat-form-field class="col" appearance="outline">
+          <mat-label>Role</mat-label>
+          <mat-select formControlName="role">
+            <mat-option value="client">Client</mat-option>
+            <mat-option value="admin">Admin</mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.get('role').invalid"> Please select a Role </mat-error>
+
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <div class="col">
+
+          <mat-label>Personal Training Client</mat-label>
+          <mat-slide-toggle formControlName="personalTrainingClient"></mat-slide-toggle>
+        </div>
+
+        <div class="col">
+
+          <mat-label>Active</mat-label>
+          <mat-slide-toggle formControlName="active"></mat-slide-toggle>
+        </div>
+
+      </div>
 
 
-    <!-- <mat-form-field>
+
+      <!-- <mat-form-field>
       <input
       matInput
       type="text"
@@ -82,10 +91,11 @@
        placeholder="Role">
        <mat-error *ngIf="form.get('role').invalid" > Please enter email. </mat-error>
     </mat-form-field> -->
-    <h2>Update Client!</h2>
-    <button mat-raised-button
-    color="accent"
-    type="submit">Save Client</button>
-  </form>
-</mat-card-content>
+      <!-- <h2>Update Client!</h2> -->
+      <div>
+        <button mat-raised-button class="float-end" color="accent" type="submit">Save Client</button>
+      </div>
+
+    </form>
+  </mat-card-content>
 </mat-card>

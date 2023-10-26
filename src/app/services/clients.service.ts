@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Client,  } from './clients.model';
 import { last, map } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { Client } from '../models/clients.model';
 
 const url = environment.apiUrl + "/user/"
 
@@ -46,13 +46,22 @@ export class ClientsService {
       });
   }
 
-  updateUser(id: string, firstName: string, lastName: string, email: string, role: string, personalTrainingClient: boolean) {
-    const user: Client = {id: id, firstName: firstName, lastName: lastName, email: email, role: role, personalTrainingClient: personalTrainingClient }
+  updateUser(id: string, firstName: string, lastName: string, email: string, role: string, personalTrainingClient: boolean, active:boolean) {
+    const user: Client = {
+      id: id, 
+      firstName: firstName, 
+      lastName: lastName, 
+      email: email, 
+      role: role, 
+      personalTrainingClient: personalTrainingClient,
+      active: active
+     }
     console.error(user)
+    // return
     this.http.put(url + id, user)
       .subscribe(response => {
         console.error(response)
-        this.router.navigate(["/clients"])
+        this.router.navigate(["/private/clients"])
 
       })
   }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ProgramsService } from '../programs.service';
+import { ProgramsService } from '../../../services/programs.service';
 
 @Component({
   selector: 'app-program',

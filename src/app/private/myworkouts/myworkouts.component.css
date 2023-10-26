@@ -3,12 +3,12 @@ mat-spinner {
   }
 
 
-  mat-card{
+  /* mat-card{
     cursor: pointer;
     :hover{
         background-color: lightgray;
     }
-  }
+  } */
 
   /* mat-card:hover{
     cursor: pointer;

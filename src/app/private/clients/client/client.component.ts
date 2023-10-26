@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ClientsService } from '../clients.service';
 import { Subscription } from 'rxjs';
 
 import { Authdata } from 'src/app/auth/auth-data.model';
-import { Client } from '../clients.model';
+import { Client } from '../../../models/clients.model';
+import { ClientsService } from 'src/app/services/clients.service';
 
 @Component({
   selector: 'app-client',
@@ -43,6 +43,12 @@ export class ClientComponent implements OnInit {
       "role": new FormControl(null, {
         validators: [Validators.required]
       }),
+      "personalTrainingClient": new FormControl(null, {
+        // validators: [Validators.required]
+      }),
+      "active": new FormControl(null, {
+        // validators: [Validators.required]
+      }),
 
     });
     this.route.paramMap.subscribe((ParamMap: ParamMap) => {
@@ -68,7 +74,9 @@ export class ClientComponent implements OnInit {
             'firstName': this.user.firstName,
             'lastName': this.user.lastName,
             'email': this.user.email,
-            'role': this.user.role
+            'role': this.user.role,
+            'personalTrainingClient': this.user.personalTrainingClient,
+            'active': this.user.active
           });
         })
       } else {
@@ -79,6 +87,9 @@ export class ClientComponent implements OnInit {
   }
 
   onSavePost() {
+
+    console.error(this.form)
+    // return
     if (this.form.invalid) {
       console.error(this.form)
       return
@@ -91,7 +102,7 @@ export class ClientComponent implements OnInit {
       })
 
     } else {
-      this.clientService.updateUser(this.userId, this.form.value.firstName, this.form.value.lastName, this.form.value.email, this.form.value.role, this.form.value.personalTrainingClient)
+      this.clientService.updateUser(this.userId, this.form.value.firstName, this.form.value.lastName, this.form.value.email, this.form.value.role, this.form.value.personalTrainingClient, this.form.value.active)
     }
 
   }

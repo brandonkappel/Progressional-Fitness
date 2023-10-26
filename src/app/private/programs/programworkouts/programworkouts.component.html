@@ -1,19 +1,32 @@
 <mat-spinner *ngIf="isLoading"></mat-spinner>
 <div *ngIf="!isLoading">
-  <div class="m-2">
+  <div class="m-3">
     <button class=" float-start"  mat-raised-button color="warn" (click)="goBack()">Back</button>
     <button *ngIf="isUserAdmin" class=" float-end"  mat-raised-button color="primary" routerLink="/private/workout" [state]="{type: 'programs', id: program.id}" >Create Workout</button>
 
     <h2 class=" text-center"> {{program.name}} </h2>
   </div>
- 
-  <mat-card class="m-3" *ngFor="let workout of workouts" [routerLink]="['/private/workoutDisplay', workout['_id']]"  >
-    <mat-card-header>
-      <mat-card-title> {{workout.name}} </mat-card-title>
-      <mat-card-subtitle> {{workout.name}} </mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-      {{workout.date|date:'EEEE, MMMM d, y'}}
-    </mat-card-content>
+
+  <mat-card class="m-3" >
+     
+    <mat-nav-list *ngFor="let workout of workouts" class="p-0 " [routerLink]="['/private/workoutDisplay', workout['_id']]" >
+      <mat-list-item class="">
+  
+        <!-- <a [routerLink]="['/private/workoutDisplay', workout['_id']]">{{workout.name}}</a> -->
+        <!-- <p>{{workout.name}}</p> -->
+        <span matListItemTitle>{{workout.name}}</span>
+        <span matListItemLine>{{workout.date |date:'EEEE MMMM d y '}} </span>
+        <div matListItemMeta class="d-flex align-self-center">
+          <mat-icon  >open_in_new</mat-icon>
+  
+        </div>
+  
+      </mat-list-item>
+      <mat-divider ></mat-divider>
+  
+    </mat-nav-list>
+  
   </mat-card>
+ 
+
 </div>
