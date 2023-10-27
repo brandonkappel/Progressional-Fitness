@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { AuthService } from '../services/auth.service';
 import { Client } from '../models/clients.model';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-private',
@@ -17,6 +18,11 @@ export class PrivateComponent implements OnInit {
   isUserAdmin: boolean = false;
   user: Client
   page: String
+  private screenWidth$ = new BehaviorSubject<number>
+  (window.innerWidth);
+  mode: string;
+  openSidenav:boolean;
+  width: number;
 
   constructor(
     private authService: AuthService
@@ -29,6 +35,40 @@ export class PrivateComponent implements OnInit {
     this.user = JSON.parse(localStorage.getItem('user'))
     console.error('USER', this.user)
 
+    this.getScreenWidth().subscribe(width => {
+      this.width = width
+      if (width < 640) {
+      //  this.showToggle = 'show';
+       this.mode = 'over';
+       this.openSidenav = false;
+      //  this.isExpanded = false
+     }
+     else if (width > 640) {
+      //  this.showToggle = 'hide';
+       this.mode = 'side';
+       this.openSidenav = true;
+     }
+   });
+
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.screenWidth$.next(event.target.innerWidth);
+  }
+  getScreenWidth(): Observable<number> {
+    return this.screenWidth$.asObservable();
+  }
+
+  openNav(){
+    console.error('clicked')
+    if(this.width < 640){
+      this.openSidenav = !this.openSidenav
+      this.isExpanded = true
+
+    }  else if (this.width > 640) {
+      this.isExpanded = !this.isExpanded
+    }
 
   }
 

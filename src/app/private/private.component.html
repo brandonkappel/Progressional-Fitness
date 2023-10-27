@@ -1,13 +1,13 @@
 <!-- <div> -->
 
 <mat-toolbar color="primary" class="example-toolbar">
-	<button mat-icon-button (click)="isExpanded = !isExpanded"><mat-icon>menu</mat-icon></button>
+	<button mat-icon-button (click)="openNav()"><mat-icon>menu</mat-icon></button>
 	<h1 class="example-app-name">Progressional Fitness</h1>
 </mat-toolbar>
 <mat-sidenav-container class="example-container" autosize >
-	<mat-sidenav #sidenav class="example-sidenav" mode="side" opened="true" (mouseenter)="mouseenter()"
+	<mat-sidenav #sidenav class="example-sidenav" [mode]="mode" [opened]="openSidenav" (mouseenter)="mouseenter()"
 		(mouseleave)="mouseleave()">
-		<mat-nav-list>
+		<mat-nav-list (click)="openNav()">
 			<mat-list-item (click)="showSubmenu = !showSubmenu" routerLink="/private/dashboard" routerLinkActive="active" class="parent">
 				<mat-icon mat-list-icon>home</mat-icon>
 				<span class="full-width" *ngIf="isExpanded || isShowing">Home</span>
