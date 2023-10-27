@@ -4,7 +4,7 @@
     <button class="" mat-icon-button (click)="goBack()">
       <mat-icon>arrow_back</mat-icon>
     </button>
-    <button class="" mat-icon-button color="warn" (click)="openDeleteWorkout(workoutDelete)">
+    <button  *ngIf="mode == 'edit' " class="" mat-icon-button color="warn" (click)="openDeleteWorkout(workoutDelete)">
       <mat-icon>delete_outline</mat-icon>
     </button>
   </div>

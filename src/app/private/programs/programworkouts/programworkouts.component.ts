@@ -12,7 +12,7 @@ import { ProgramsService } from '../../../services/programs.service';
   styleUrls: ['./programworkouts.component.css']
 })
 export class ProgramworkoutsComponent implements OnInit {
-  workouts: Object;
+  workouts: any;
   program: Program;
   isLoading = false;
   isUserAdmin: boolean = false;

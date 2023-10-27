@@ -30,7 +30,7 @@ export class WorkoutsService {
   getWorkouts(workoutsPerPage: number, currentPage: number, search:any) {
     const queryParams = `?pagesize=${workoutsPerPage}&page=${currentPage}`;
     this.http.post<{ message: string, workouts: any, maxWorkouts: number }>(
-      url + '/getWorkouts/' + queryParams,search)
+      url + 'getWorkouts/' + queryParams,search)
       // .pipe(map((workoutData) => {
       //   // console.error(workoutData)
       //   return {
@@ -172,17 +172,17 @@ export class WorkoutsService {
       date: Date;
       creator: string;
       client: string;
-    }>(url + "/myWorkouts/" + id + queryParams);
+    }>(url + "myWorkouts/" + id + queryParams);3
   }
 
   getPersonalTrainingWorkouts(id, dateStart, dateEnd) {
     const queryParams = `?dateStart=${dateStart}&dateEnd=${dateEnd}`;
-    return this.http.get(url + "/personalTrainingWorkouts/" + id + queryParams );
+    return this.http.get(url + "personalTrainingWorkouts/" + id + queryParams );
   }
 
   getProgramWorkouts(id: string) {
     // console.error('program id:', id)
-    return this.http.get(url + "/programWorkouts/" + id);
+    return this.http.get(url + "programWorkouts/" + id);
   }
 
   deleteWorkout(workoutId: string) {

@@ -1,37 +1,51 @@
 <mat-spinner *ngIf="isLoading"></mat-spinner>
 <div *ngIf="!isLoading">
-  <div class="d-flex justify-content-between m-3 align-items-center">
-    <button class="" mat-icon-button (click)="goBack()"  >
-      <mat-icon>arrow_back</mat-icon>
-    </button>
-    <h2 class="m-0"> {{program.name}} </h2>
+  <div class="row align-items-center">
+    <div class="col">
+      <button class="" mat-icon-button (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+    </div>
+    <div class="col">
+      <h2 class="m-0 text-center"> {{program.name}} </h2>
 
-    <button *ngIf="isUserAdmin" class="d-none d-md-block"  mat-raised-button color="primary" routerLink="/private/workout" [state]="{type: 'programs', id: program.id}" >Create Workout</button>
-    <button mat-icon-button *ngIf="isUserAdmin"   class=" d-md-none " routerLink="/private/workout" [state]="{type: 'programs', id: program.id}"    routerLinkActive="mat-accent"> 
-      <mat-icon>add_circle_outline</mat-icon>
-    </button>
+    </div>
+
+    <div class="col">
+      <button *ngIf="isUserAdmin" class="d-none d-md-block" mat-raised-button color="primary"
+        routerLink="/private/workout" [state]="{type: 'programs', id: program.id}">Create Workout</button>
+      <button mat-icon-button *ngIf="isUserAdmin" class=" d-md-none " routerLink="/private/workout"
+        [state]="{type: 'programs', id: program.id}" routerLinkActive="mat-accent">
+        <mat-icon>add_circle_outline</mat-icon>
+      </button>
+    </div>
   </div>
 
-  <mat-card class="m-3" >
-     
-    <mat-nav-list *ngFor="let workout of workouts" class="p-0 " [routerLink]="['/private/workoutDisplay', workout['_id']]" >
+  <div *ngIf="!workouts.length  && !isLoading " class="d-flex justify-content-center">
+    <p> No workouts for this program</p>
+  </div>
+
+  <mat-card class="m-3">
+
+    <mat-nav-list *ngFor="let workout of workouts" class="p-0 "
+      [routerLink]="['/private/workoutDisplay', workout['_id']]">
       <mat-list-item class="">
-  
+
         <!-- <a [routerLink]="['/private/workoutDisplay', workout['_id']]">{{workout.name}}</a> -->
         <!-- <p>{{workout.name}}</p> -->
         <span matListItemTitle>{{workout.name}}</span>
         <span matListItemLine>{{workout.date |date:'EEEE MMMM d y '}} </span>
         <div matListItemMeta class="d-flex align-self-center">
-          <mat-icon  >open_in_new</mat-icon>
-  
+          <mat-icon>open_in_new</mat-icon>
+
         </div>
-  
+
       </mat-list-item>
-      <mat-divider ></mat-divider>
-  
+      <mat-divider></mat-divider>
+
     </mat-nav-list>
-  
+
   </mat-card>
- 
+
 
 </div>

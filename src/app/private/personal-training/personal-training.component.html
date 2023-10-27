@@ -1,12 +1,14 @@
-  <div class="d-flex   m-3">
+  <div class="d-flex justify-content-center   m-3">
     <!-- <button [routerLink]="['/fitness']" mat-raised-button color="warn">Back</button> -->
-    <h2  >Personal Training</h2>
+    <h2 >Personal Training</h2>
   </div>
-<div *ngIf="workouts && !isLoading">
+<div *ngIf="workouts && !isLoading"> 
 
+<div class="container">
 
-  <div class="d-flex justify-content-between m-2">
-    <div *ngIf="filterType != 'all'">
+</div>
+  <div class="row justify-content-center">
+    <div *ngIf="filterType != 'all'" class="col-sm-4 text-center align-self-center">
       <button mat-icon-button  (click)="changeDate('last')">
         <mat-icon>navigate_before</mat-icon>
       </button>
@@ -14,13 +16,14 @@
         <mat-icon>navigate_next</mat-icon>
       </button>
     </div>
-    <div>
+
+    <div class="col-sm-4 text-center align-self-center">
       <p *ngIf="filterType =='month'" > {{dateStart | date:'MMMM'}} </p>
       <p *ngIf="filterType =='week'" >{{dateStart | date:'MMM d'}} - {{dateEnd | date:'d, y'}}</p>
     </div>
 
-    <div >
-      <mat-chip-listbox >
+    <div class="col-sm-4 text-center align-self-center" >
+      <mat-chip-listbox style="width: fit-content; margin: auto;" >
         <mat-chip-option [selected]="filterType == 'week'" (click)="selectDate('week')" >Week</mat-chip-option>
         <mat-chip-option [selected]="filterType == 'month'" (click)="selectDate('month')" >Month</mat-chip-option>
         <mat-chip-option [selected]="filterType == 'all'" (click)="selectAll()" >All</mat-chip-option>
