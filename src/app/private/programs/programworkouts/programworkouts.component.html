@@ -1,10 +1,15 @@
 <mat-spinner *ngIf="isLoading"></mat-spinner>
 <div *ngIf="!isLoading">
-  <div class="m-3">
-    <button class=" float-start"  mat-raised-button color="warn" (click)="goBack()">Back</button>
-    <button *ngIf="isUserAdmin" class=" float-end"  mat-raised-button color="primary" routerLink="/private/workout" [state]="{type: 'programs', id: program.id}" >Create Workout</button>
+  <div class="d-flex justify-content-between m-3 align-items-center">
+    <button class="" mat-icon-button (click)="goBack()"  >
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <h2 class="m-0"> {{program.name}} </h2>
 
-    <h2 class=" text-center"> {{program.name}} </h2>
+    <button *ngIf="isUserAdmin" class="d-none d-md-block"  mat-raised-button color="primary" routerLink="/private/workout" [state]="{type: 'programs', id: program.id}" >Create Workout</button>
+    <button mat-icon-button *ngIf="isUserAdmin"   class=" d-md-none " routerLink="/private/workout" [state]="{type: 'programs', id: program.id}"    routerLinkActive="mat-accent"> 
+      <mat-icon>add_circle_outline</mat-icon>
+    </button>
   </div>
 
   <mat-card class="m-3" >

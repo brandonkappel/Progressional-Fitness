@@ -1,7 +1,10 @@
 <mat-spinner *ngIf="isLoading"></mat-spinner>
-<div  class="d-flex justify-content-between m-3">
-  <h2>Programs</h2>
-<button *ngIf="isUserAdmin"  mat-raised-button color="primary" routerLink="/private/program" routerLinkActive="mat-accent"> Create Program</button>
+<div  class="d-flex justify-content-between m-3 align-items-center">
+  <h2 class="m-0">Programs</h2>
+<button *ngIf="isUserAdmin"  mat-raised-button class="d-none d-md-block" color="primary" routerLink="/private/program" routerLinkActive="mat-accent"> Create Program</button>
+<button mat-icon-button  class=" d-md-none " routerLink="/private/program" routerLinkActive="mat-accent"> 
+  <mat-icon>add_circle_outline</mat-icon>
+</button>
 </div>
 
 

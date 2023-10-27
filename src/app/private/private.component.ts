@@ -67,7 +67,7 @@ export class PrivateComponent implements OnInit {
       this.isExpanded = true
 
     }  else if (this.width > 640) {
-      this.isExpanded = !this.isExpanded
+      // this.isExpanded = !this.isExpanded
     }
 
   }
