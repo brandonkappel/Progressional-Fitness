@@ -30,7 +30,7 @@ export class WorkoutsService {
   getWorkouts(workoutsPerPage: number, currentPage: number, search:any) {
     const queryParams = `?pagesize=${workoutsPerPage}&page=${currentPage}`;
     this.http.post<{ message: string, workouts: any, maxWorkouts: number }>(
-      url + 'getWorkouts' + queryParams,search)
+      url + '/getWorkouts/' + queryParams,search)
       // .pipe(map((workoutData) => {
       //   // console.error(workoutData)
       //   return {
