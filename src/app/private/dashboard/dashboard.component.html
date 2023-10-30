@@ -3,17 +3,67 @@
     <h2 class="m-2">
         Welcome {{user.firstName}}
     </h2>
+    <!-- <p> You have created {{reports.workoutNumber}} workouts </p> -->
 
-    <p> You have created {{reports.workoutNumber}} workouts </p>
+    <div class="row justify-content-center">
+        <div class="col-sm-4 text-center align-self-center">
+            <button mat-icon-button (click)="changeDate('last')">
+                <mat-icon>navigate_before</mat-icon>
+            </button>
+            <button mat-icon-button (click)="changeDate('next')">
+                <mat-icon>navigate_next</mat-icon>
+            </button>
 
-    <div class="cal">
+        </div>
+        <div class="col-sm-4 text-center align-self-center">
+            <p *ngIf="filterType =='month'" class="m-0"> {{dateStart | date:'MMMM'}} </p>
+            <p *ngIf="filterType =='week'" class="m-0">{{dateStart | date:'MMM d'}} - {{dateEnd | date:'d, y'}}</p>
+
+        </div>
+        <div class="col-sm-4 text-center align-self-center">
+            <mat-chip-listbox style="width: fit-content; margin: auto;">
+                <mat-chip-option [selected]="filterType == 'week'" (click)="getDates('week')">Week</mat-chip-option>
+                <mat-chip-option [selected]="filterType == 'month'" (click)="getDates('month')">Month</mat-chip-option>
+
+            </mat-chip-listbox>
+
+        </div>
+
+    </div>
+
+
+
+
+    <div *ngIf="filterType == 'week'" class="cal">
         <div class="week">
-            <div class="days" *ngFor="let day of dates">
-                <!-- <div class="content"> -->
-                    <span>{{day.date |date:'EEE d'}}</span>
-                    <p>{{day?.workout?.name}}</p>
-                    
-                <!-- </div> -->
+            <div class="days" *ngFor="let day of weekDates" (click)="openWorkout(day)"
+                [ngClass]="{ today: today == day.date}">
+                <span class="date">{{day.date |date:'EEE d'}}</span>
+                <div class="contents">
+                    <div class="content">
+                        <p class="text d-none d-md-block">{{day?.workout?.name}}</p>
+                        <mat-icon *ngIf="day.workout" class="icon d-md-none ">fitness_center</mat-icon>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="filterType == 'month'" class="cal">
+        <div *ngFor="let week of monthDates" class="week">
+            <div class="days" *ngFor="let day of week" (click)="openWorkout(day)"
+                [ngClass]="{notMonth: day.isCurrentMonth == false, today: today == day.date}">
+                <span class="date">{{day.date |date:'EEE d'}}</span>
+                <div class="contents">
+                    <div class="content">
+                        <p class="text d-none d-md-block">{{day?.workout?.name}}</p>
+                        <mat-icon *ngIf="day.workout" class=" icon d-md-none ">fitness_center</mat-icon>
+
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>

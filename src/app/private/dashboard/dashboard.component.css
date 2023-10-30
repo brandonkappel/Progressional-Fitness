@@ -13,7 +13,7 @@ mat-spinner {
         width: 100%;
         border-top: 1px solid black ;
         border-bottom: 1px solid black;
-        height: 12vw;
+        /* height: 12vw; */
         /* &:last-child {
             border-bottom: none;
         } */
@@ -28,17 +28,55 @@ mat-spinner {
         width: 14.2857%;
         overflow: auto;
         height: 100%;
-        /* padding-top: 14px; */
+        padding-top: 14px;
         &:first-child {
             /* border-left: none; */
         }
         &:last-child{
           border-right: 1px solid black;
         }
-        /* .content{
+        &.notMonth{
+          background-color: lightgray;
+        }
+        &.today{
+          background-color: lightblue;
+        }
+        .contents{
           position: relative;
           padding-bottom: 100%;
-        } */
+          .content {
+            position: absolute;
+            top:5%;
+            left:5%;
+            width:90%;
+            height: 90%;
+            display: flex;
+            /* align-items: center; */
+            /* justify-content: center; */
+            border-radius: 100%;
+            /* background-color: var(--ion-color-dark); */
+            /* color: var(--ion-color-light); */
+            text-align: center;
+            .text{
+              font-size: 1rem;
+            }
+            .icon{
+              margin: auto;
+            }
+        }
+        }
+        .date {
+          margin: 0;
+          padding: 0;
+          font-size: 10px;
+          line-height: 10px;
+          position:absolute;
+          /* right: 2px; */
+          top: 2px;
+          overflow: hidden;
+          border: none;
+          outline: none;
+      }
       }
     }
 

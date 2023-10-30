@@ -10,7 +10,7 @@
     <button *ngIf="workoutType == 'personal'" mat-raised-button color="primary" [routerLink]="['/editWorkout', workout['id']]" [queryParams]="{type: workoutType}"> Edit</button>
     </div>
   </div> -->
-  <div class="row align-items-center">
+  <div class="row align-items-center m-2">
     <div class="col">
       <button class="" mat-icon-button (click)="goBack()">
         <mat-icon>arrow_back</mat-icon>
@@ -22,7 +22,7 @@
       <p class="d-block  text-center m-0"> {{workout.date|date: 'EEEE MMMM d y'}}</p>
     </div>
     
-    <div class="col">
+    <div class="col d-flex justify-content-end">
       <button *ngIf="workoutType == 'personal' || isUserAdmin == true" class="d-none d-md-block" mat-raised-button
         color="primary" [routerLink]="['/private/editWorkout', workout['_id']]" [state]="{type: ''}"
         [queryParams]="{type: workoutType}"> Edit</button>

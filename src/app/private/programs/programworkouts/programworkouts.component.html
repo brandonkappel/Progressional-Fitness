@@ -1,6 +1,6 @@
 <mat-spinner *ngIf="isLoading"></mat-spinner>
 <div *ngIf="!isLoading">
-  <div class="row align-items-center">
+  <div class="row m-2 align-items-center">
     <div class="col">
       <button class="" mat-icon-button (click)="goBack()">
         <mat-icon>arrow_back</mat-icon>
@@ -11,7 +11,7 @@
 
     </div>
 
-    <div class="col">
+    <div class="col d-flex justify-content-end">
       <button *ngIf="isUserAdmin" class="d-none d-md-block" mat-raised-button color="primary"
         routerLink="/private/workout" [state]="{type: 'programs', id: program.id}">Create Workout</button>
       <button mat-icon-button *ngIf="isUserAdmin" class=" d-md-none " routerLink="/private/workout"
