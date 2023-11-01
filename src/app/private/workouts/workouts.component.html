@@ -109,7 +109,7 @@
     
        <!-- <p> <strong> Creator: </strong> {{workout.creator}}</p> -->
        <p> <strong> Date: </strong> {{workout.date | date:'EEEE, MMMM d, y'}}</p>
-       <p *ngIf="workout.client"> <strong> Client: </strong> {{workout.client}}</p>
+       <p *ngIf="workout.client"> <strong> Client: </strong> {{workout.client.firstName}} {{workout.client.lastName}}</p>
         <p *ngIf="workout.program"><strong> Program: </strong> {{workout.program}}</p>
 
 
@@ -119,7 +119,7 @@
 
 
       <mat-action-row>
-        <a mat-button color="primary" [routerLink]="['/private/editWorkout', workout['id']]">EDIT</a>
+        <a mat-button color="primary" [routerLink]="['/private/editWorkout', workout._id ]" [state]="{type: 'clients', id: workout?.client?._id}">EDIT</a>
         <button mat-button color="warn" (click)="onDelete(workout['id'])">DELETE</button>
       </mat-action-row>
     </mat-expansion-panel>

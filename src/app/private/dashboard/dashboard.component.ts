@@ -37,7 +37,7 @@ export class DashboardComponent implements OnInit {
     this.user = JSON.parse(localStorage.getItem('user'))
     // console.error('USER', this.user)
 
-  
+
 
     this.getDates(this.filterType);
 
@@ -45,14 +45,14 @@ export class DashboardComponent implements OnInit {
 
   getDates(type) {
     this.filterType = type
-    if(this.filterType != type){
+    if (this.filterType != type) {
       console.error('updating date')
       this.date = new Date()
     }
 
-    if(this.filterType == 'week'){
+    if (this.filterType == 'week') {
       this.weekDates = Array(7).fill(new Date(this.date)).map((el, idx) =>
-      ({ date: new Date(el.setDate(el.getDate() - el.getDay() + idx)).toISOString().split('T')[0] }))
+        ({ date: new Date(el.setDate(el.getDate() - el.getDay() + idx)).toISOString().split('T')[0] }))
 
       this.dateStart = new Date(this.date.getFullYear(), this.date.getMonth(), this.date.getDate() - this.date.getDay());
       this.dateEnd = new Date(this.dateStart.getFullYear(), this.dateStart.getMonth(), this.dateStart.getDate() + 6);
@@ -67,7 +67,7 @@ export class DashboardComponent implements OnInit {
     }
 
 
-   
+
     this.getData()
 
   }
@@ -85,24 +85,33 @@ export class DashboardComponent implements OnInit {
           })
 
           let workouts = this.reports.workouts
+          console.error('workouts', workouts)
           // console.error(workouts)
-          if(this.filterType == 'week'){
+          if (this.filterType == 'week') {
             this.weekDates.forEach((date, i) => {
               workouts.forEach(workout => {
                 if (workout.date) {
                   if (date.date == workout.date) {
-                    date.workout = workout
+                    if (date.workout) {
+                      date.workout.push(workout)
+                    } else {
+                      date.workout = [workout]
+                    }
                   }
                 }
               })
             })
           } else {
-            this.monthDates.forEach(week=> {
-              week.forEach(day=> {
-                workouts.forEach(workout=> {
-                  if(workout.date){
-                    if(day.date == workout.date){
-                      day.workout = workout
+            this.monthDates.forEach(week => {
+              week.forEach(day => {
+                workouts.forEach(workout => {
+                  if (workout.date) {
+                    if (day.date == workout.date) {
+                      if (day.workout) {
+                        day.workout.push(workout)
+                      } else {
+                        day.workout = [workout]
+                      }
                     }
                   }
                 })
@@ -110,9 +119,9 @@ export class DashboardComponent implements OnInit {
             })
           }
 
-         
+
         }
-        console.error(this.reports)
+        console.error(this.weekDates)
 
       }
       this.loaded = true
@@ -123,12 +132,12 @@ export class DashboardComponent implements OnInit {
     const weeks = [];
     this.dateStart = new Date(newDate.getFullYear(), newDate.getMonth(), 1);
 
-    this.dateEnd = new Date(newDate.getFullYear(), newDate.getMonth() +1 , 0); // Get the last day of the month
+    this.dateEnd = new Date(newDate.getFullYear(), newDate.getMonth() + 1, 0); // Get the last day of the month
 
     const daysInMonth = this.dateEnd.getDate();
-  
+
     let currentWeek = [];
-  
+
     // Add days from the previous month
     for (let i = this.dateStart.getDay(); i > 0; i--) {
       currentWeek.push({
@@ -136,31 +145,31 @@ export class DashboardComponent implements OnInit {
         isCurrentMonth: false,
       });
     }
-  
+
     for (let day = 1; day <= daysInMonth; day++) {
       currentWeek.push({
-        date: new Date(newDate.getFullYear(), newDate.getMonth(), day) .toISOString().split('T')[0],
+        date: new Date(newDate.getFullYear(), newDate.getMonth(), day).toISOString().split('T')[0],
         isCurrentMonth: true,
       });
-  
+
       if (currentWeek.length === 7) {
         weeks.push(currentWeek);
         currentWeek = [];
       }
     }
-  
+
     // Add days from the next month
     let nextMonthDay = 1;
     for (let i = currentWeek.length; i < 7; i++) {
       currentWeek.push({
-        date: new Date(newDate.getFullYear(), newDate.getMonth() + 1, nextMonthDay) .toISOString().split('T')[0],
+        date: new Date(newDate.getFullYear(), newDate.getMonth() + 1, nextMonthDay).toISOString().split('T')[0],
         isCurrentMonth: false,
       });
       nextMonthDay++;
     }
-  
+
     weeks.push(currentWeek); // Add the last week
-  
+
     return weeks;
   }
 
@@ -186,9 +195,10 @@ export class DashboardComponent implements OnInit {
 
   openWorkout(workout) {
     console.error(workout)
-   
-    if (workout.workout) {
-      this.router.navigate(['/private/workoutDisplay/' + workout.workout._id])
+    // return
+
+    if (workout._id) {
+      this.router.navigate(['/private/workoutDisplay/' + workout._id])
     } else {
       this.snackBar.open("No workout for selected date", "", { duration: 2000, verticalPosition: "top" })
 

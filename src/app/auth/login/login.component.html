@@ -3,20 +3,20 @@
   <h1 class="text-center p-5">Progressional Fitness</h1>
 </div>
 
-<mat-card class="m-3 align-middle " >
-  <form class="m-3 text-center" (submit)="onLogin(loginForm)" #loginForm="ngForm" *ngIf="!isLoading">
+<mat-card class="m-3 align-middle "  >
+  <form class="m-3 text-center" (submit)="onLogin()" [formGroup]="loginForm" *ngIf="!isLoading">
     <div>
       <mat-form-field appearance="outline">
-        <input matInput name="email" ngModel #emailInput="ngModel" type="email" required email placeholder="Email">
-        <mat-error *ngIf="emailInput.invalid"> Please enter valid Email. </mat-error>
+        <input matInput name="email" formControlName="email"  type="email" required email placeholder="Email">
+        <mat-error *ngIf="loginForm.get('email').invalid"> Please enter valid Email. </mat-error>
       </mat-form-field>
 
     </div>
     <div>
       <mat-form-field appearance="outline">
-        <input name="password" ngModel #passwordInput="ngModel" type="password" matInput placeholder="Password"
+        <input name="password" formControlName="password" type="password" matInput placeholder="Password"
           required>
-        <mat-error *ngIf="passwordInput.invalid"> Please valid Password. </mat-error>
+        <mat-error *ngIf="loginForm.get('password').invalid"> Please valid Password. </mat-error>
         <mat-hint align="end" > <a href="/forgotPassword"> Forgot Password </a></mat-hint>
       </mat-form-field>
     </div>

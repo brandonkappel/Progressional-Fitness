@@ -36,13 +36,17 @@
 
     <div *ngIf="filterType == 'week'" class="cal">
         <div class="week">
-            <div class="days" *ngFor="let day of weekDates" (click)="openWorkout(day)"
+            <div class="days" *ngFor="let day of weekDates" 
                 [ngClass]="{ today: today == day.date}">
                 <span class="date">{{day.date |date:'EEE d'}}</span>
                 <div class="contents">
                     <div class="content">
-                        <p class="text d-none d-md-block">{{day?.workout?.name}}</p>
+                        <div *ngFor="let workout of day?.workout" class="textHolder d-none d-md-block" (click)="openWorkout(workout)">
+                            <p class="text m-0">{{workout.name}}</p>
+                        </div>
+                        <div class="iconHolder">
                         <mat-icon *ngIf="day.workout" class="icon d-md-none ">fitness_center</mat-icon>
+                        </div>
 
                     </div>
 
@@ -53,12 +57,14 @@
 
     <div *ngIf="filterType == 'month'" class="cal">
         <div *ngFor="let week of monthDates" class="week">
-            <div class="days" *ngFor="let day of week" (click)="openWorkout(day)"
+            <div class="days" *ngFor="let day of week"
                 [ngClass]="{notMonth: day.isCurrentMonth == false, today: today == day.date}">
                 <span class="date">{{day.date |date:'EEE d'}}</span>
                 <div class="contents">
                     <div class="content">
-                        <p class="text d-none d-md-block">{{day?.workout?.name}}</p>
+                        <div *ngFor="let workout of day?.workout" class="textHolder d-none d-md-block" (click)="openWorkout(workout)">
+                            <p class="text m-0">{{workout.name}}</p>
+                        </div>
                         <mat-icon *ngIf="day.workout" class=" icon d-md-none ">fitness_center</mat-icon>
 
                     </div>
