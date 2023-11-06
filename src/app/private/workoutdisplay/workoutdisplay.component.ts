@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Workout } from '../../models/workout.model';
 import { WorkoutsService } from '../../services/workouts.service';
@@ -16,15 +16,23 @@ export class WorkoutdisplayComponent implements OnInit {
   public isLoading = false
   workoutType: string;
   isUserAdmin: boolean = false;
+  addResult:any = {}
+  addingResult: boolean = false;
+  newResult:any = {
+    comment: '',
+    date: new Date()
+  }
 
   constructor(
     private workoutService: WorkoutsService,
     public route: ActivatedRoute,
     private location: Location,
-    private authService: AuthService
+    private authService: AuthService,
+    private change: ChangeDetectorRef
     ) { }
 
   ngOnInit(): void {
+    console.error(this.addResult)
     this.isUserAdmin = this.authService.getIsAdmin()
 
 
@@ -46,6 +54,25 @@ export class WorkoutdisplayComponent implements OnInit {
       }
     })
 
+  }
+
+  addRes(workout, i){
+  // console.error(workout)
+  workout.clientComments.push(this.newResult)
+  // console.error(workout)
+  this.addResult[i] = !this.addResult[i]
+  this.workoutService.addResult( workout._id ,this.newResult).subscribe(res=> {
+    console.error(res)
+  })
+  // this.newResult = {
+  //   date: new Date(),
+  //   comment: ''
+  // }
+
+  }
+
+  cancelRes(){
+    this.addingResult = false
   }
 
   goBack(){

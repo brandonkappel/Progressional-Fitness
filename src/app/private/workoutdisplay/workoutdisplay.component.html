@@ -21,7 +21,7 @@
       <h2 class="d-block text-center">{{workout.name}} </h2>
       <p class="d-block  text-center m-0"> {{workout.date|date: 'EEEE MMMM d y'}}</p>
     </div>
-    
+
     <div class="col d-flex justify-content-end">
       <button *ngIf="workoutType == 'personal' || isUserAdmin == true" class="d-none d-md-block" mat-raised-button
         color="primary" [routerLink]="['/private/editWorkout', workout['_id']]" [state]="{type: ''}"
@@ -37,12 +37,46 @@
 
 
   <div *ngIf="workout.workoutItems">
-    <mat-card *ngFor="let w of workout.workoutItems" class="m-2">
+    <mat-card *ngFor="let w of workout.workoutItems; let i = index" class="m-2">
       <mat-card-header>
-        <mat-card-title> {{w.name}} </mat-card-title>
+        <mat-card-title> {{w.name | titlecase}} </mat-card-title>
       </mat-card-header>
       <mat-card-content style="white-space: pre-wrap;">
         {{w.description}}
+        <div *ngIf="w.comments">
+          <hr>
+          <p class="m-0"><b>Comments:</b> {{w.comments}}</p>
+        </div>
+        <hr >
+        <h5 *ngIf="w.clientComments.length > 0"> Results:</h5>
+          <div *ngFor="let res of w.clientComments" class="mx-3">
+            <p class="m-0" ><i>Date:</i> {{res.date | date:'EEE, MMM d, y'}} </p>
+            <p class="m-0"><i>Result:</i> {{res.comment}} </p>
+            <hr>
+          </div>
+        <!-- <button class="float-end" mat-raised-button [color]="!addResult[i]? 'primary': 'warn'" (click)="addRes(w,i)" (click)=" addResult[i] = !addResult[i]">  {{ !addResult[i]? 'Add Result': 'Cancel'}}</button> -->
+        <!-- <button *ngIf="addingResult" mat-raised-button color="primary" (click)="cancelRes()">Cancel</button> -->
+
+        <div *ngIf="addResult[i]">
+         <br>
+         <mat-form-field class="col-sm-6" appearance="outline">
+          <mat-label>Workout date</mat-label>
+          <input matInput [matDatepicker]="picker3" [(ngModel)]="newResult.date">
+          <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+          <mat-datepicker #picker3></mat-datepicker>
+        </mat-form-field>
+         <mat-form-field class="formText">
+          <textarea matInput rows="2" cols="40" [(ngModel)]="newResult.comment" placeholder="Results">
+          </textarea>
+         </mat-form-field>
+         
+          <br>
+        </div>
+        <button class="float-end" size="small" mat-stroked-button [color]="!addResult[i]? 'primary': 'warn'"  (click)=" addResult[i] = !addResult[i]">  {{ !addResult[i]? 'Add Result': 'Cancel'}}</button>
+
+          <button *ngIf="addResult[i]" mat-raised-button color="primary" (click)="addRes(w,i)" > Submit</button>
+
+
       </mat-card-content>
 
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
@@ -31,6 +32,7 @@ export class DashboardComponent implements OnInit {
     private reportsService: ReportsService,
     private router: Router,
     public snackBar: MatSnackBar,
+    public dialog: MatDialog,
   ) { }
 
   ngOnInit() {
@@ -44,11 +46,12 @@ export class DashboardComponent implements OnInit {
   }
 
   getDates(type) {
-    this.filterType = type
     if (this.filterType != type) {
-      console.error('updating date')
+      // console.error('updating date')
       this.date = new Date()
     }
+    this.filterType = type
+
 
     if (this.filterType == 'week') {
       this.weekDates = Array(7).fill(new Date(this.date)).map((el, idx) =>
@@ -121,7 +124,7 @@ export class DashboardComponent implements OnInit {
 
 
         }
-        console.error(this.weekDates)
+        // console.error(this.weekDates)
 
       }
       this.loaded = true
@@ -193,17 +196,28 @@ export class DashboardComponent implements OnInit {
     this.getDates(this.filterType)
   }
 
-  openWorkout(workout) {
+  openWorkout(workout, dialog:any = null) {
     console.error(workout)
-    // return
 
-    if (workout._id) {
-      this.router.navigate(['/private/workoutDisplay/' + workout._id])
+    if(workout.workout && workout.workout.length > 1) {
+      //open a modal to select the workout
+       this.dialog.open(dialog, {
+        data: {
+          workouts: workout.workout,
+        }
+      })
+
     } else {
-      this.snackBar.open("No workout for selected date", "", { duration: 2000, verticalPosition: "top" })
+      if(workout.workout){
+        this.router.navigate(['/private/workoutDisplay/' + workout.workout[0]._id])
+      } else if (workout._id){
+        this.router.navigate(['/private/workoutDisplay/' + workout._id])
+      } else {
+        this.snackBar.open("No workout for selected date", "", { duration: 2000, verticalPosition: "top" })
 
+      }
     }
-    // [routerLink]="['/private/workoutDisplay', workout['_id']]"
+   
   }
 
 

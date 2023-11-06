@@ -36,16 +36,16 @@
 
     <div *ngIf="filterType == 'week'" class="cal">
         <div class="week">
-            <div class="days" *ngFor="let day of weekDates" 
-                [ngClass]="{ today: today == day.date}">
+            <div class="days" *ngFor="let day of weekDates" [ngClass]="{ today: today == day.date}">
                 <span class="date">{{day.date |date:'EEE d'}}</span>
                 <div class="contents">
                     <div class="content">
-                        <div *ngFor="let workout of day?.workout" class="textHolder d-none d-md-block" (click)="openWorkout(workout)">
-                            <p class="text m-0">{{workout.name}}</p>
+                        <div *ngFor="let workout of day?.workout" class="textHolder d-none d-md-block"
+                           [ngClass]="{personal:workout.personalWorkout == true, pt: workout.client != null}" (click)="openWorkout(workout)">
+                            <p class="text m-0">{{workout.name | titlecase}}</p>
                         </div>
-                        <div class="iconHolder">
-                        <mat-icon *ngIf="day.workout" class="icon d-md-none ">fitness_center</mat-icon>
+                        <div class="iconHolder  d-md-none " (click)="openWorkout(day, workoutsDialog)" >
+                            <mat-icon *ngIf="day.workout" class="icon">fitness_center</mat-icon>
                         </div>
 
                     </div>
@@ -62,10 +62,13 @@
                 <span class="date">{{day.date |date:'EEE d'}}</span>
                 <div class="contents">
                     <div class="content">
-                        <div *ngFor="let workout of day?.workout" class="textHolder d-none d-md-block" (click)="openWorkout(workout)">
-                            <p class="text m-0">{{workout.name}}</p>
+                        <div *ngFor="let workout of day?.workout" class="textHolder d-none d-md-block"
+                        [ngClass]="{personal:workout.personalWorkout == true, pt: workout.client != null}" (click)="openWorkout(workout)">
+                            <p class="text m-0">{{workout.name | titlecase}}</p>
                         </div>
-                        <mat-icon *ngIf="day.workout" class=" icon d-md-none ">fitness_center</mat-icon>
+                        <div class="iconHolder  d-md-none" (click)="openWorkout(day, workoutsDialog)" >
+                            <mat-icon *ngIf="day.workout" class=" icon">fitness_center</mat-icon>
+                        </div>
 
                     </div>
 
@@ -75,3 +78,32 @@
     </div>
 
 </div>
+
+<ng-template #workoutsDialog let-data>
+    <div class="m-2">
+  
+      <h3 class="text-center"> Select Workout </h3>
+      <mat-nav-list *ngFor="let workout of data.workouts" class="p-0 " (click)="dialog.closeAll()" [routerLink]="['/private/workoutDisplay', workout['_id']]" >
+        <mat-list-item class="">
+    
+          <!-- <a [routerLink]="['/private/workoutDisplay', workout['_id']]">{{workout.name}}</a> -->
+          <!-- <p>{{workout.name}}</p> -->
+          <span matListItemTitle>{{workout.name}}</span>
+          <span matListItemLine>{{workout.date |date:'EEEE MMMM d y '}} </span>
+          <div matListItemMeta class="d-flex align-self-center">
+            <mat-icon  >open_in_new</mat-icon>
+    
+          </div>
+    
+        </mat-list-item>
+        <mat-divider ></mat-divider>
+    
+      </mat-nav-list>
+      <div class="d-flex m-2 justify-content-end">
+        <button mat-raised-button mat-dialog-close color="warn">Cancel</button>
+        <!-- <button mat-raised-button color="danger" color="warn"
+          (click)="deleteWorkout()">Delete</button> -->
+      </div>
+    </div>
+  
+  </ng-template>

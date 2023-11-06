@@ -9,7 +9,6 @@ import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 
 const url = environment.apiUrl + "/workouts/"
-const itemUrl = environment.apiUrl + "/workoutItems/"
 
 
 
@@ -61,29 +60,10 @@ export class WorkoutsService {
   //     url + 'workouts' + queryParams, search)
   // }
 
-  getWorkoutItems(id: string) {
-    return this.http.get<{ message: string, workoutItem: any }>(itemUrl + id)
-      .pipe(map((itemData) => {
-        return {
-          workoutItems: itemData.workoutItem.map(item => {
-            return {
-              name: item.name,
-              description: item.description,
-              comments: item.comments,
-            }
-          })
-        }
-      })).subscribe((transformedItemData) => {
-        // this.workoutItems = transformedItemData.workoutItems;
-      })
-  }
-
-  getWorkoutI(id: string) {
-    return this.http.get(itemUrl + id)
-  }
 
   updateWorkout(id, workout, workoutType) { 
     console.error('w:',workout)
+    // return
     // const w: Workout = { 
     //   id: id, name: workout.name, 
     //   date: workout.date, 
@@ -108,11 +88,10 @@ export class WorkoutsService {
       })
   }
 
-  updateWorkoutItem(item) {
-    // console.error(item)
-    this.http.put(itemUrl, item).subscribe(response => {
-      // console.error('ITEM UPDATED', response)
-    })
+  addResult(id, newRes) {
+    console.error(newRes)
+    // return
+   return this.http.put(url + 'clientComment/' + id, newRes)
   }
 
   addWorkout(workout, workoutType) {
@@ -133,17 +112,6 @@ export class WorkoutsService {
         }
       });
   }
-
-  addWorkoutItem(workoutItem) {
-    // console.error('ADDED WORKOUT ITEM :', workoutItem)
-    // const itemData = {name: name, description: description, comments: comments, workout: workout}
-    // console.error(itemData)
-    this.http.post<{ message: string, workoutItemId: any }>(itemUrl, workoutItem)
-      .subscribe((response) => {
-        // console.error('workout Item RETURN:', response)
-      })
-  }
-
 
 
   getWorkoutUpdatedListener() {
@@ -189,9 +157,7 @@ export class WorkoutsService {
     return this.http.delete(url + workoutId)
   }
 
-  deleteWorkoutItem(itemId: string) {
-    return this.http.delete(itemUrl + itemId)
-  }
+
 
 
 }
