@@ -48,8 +48,8 @@
           <p class="m-0"><b>Comments:</b> {{w.comments}}</p>
         </div>
         <hr >
-        <h5 *ngIf="w.clientComments.length > 0"> Results:</h5>
-          <div *ngFor="let res of w.clientComments" class="mx-3">
+        <h5 *ngIf="w.workoutResults.length > 0"> Results:</h5>
+          <div *ngFor="let res of w.workoutResults" class="mx-3">
             <p class="m-0" ><i>Date:</i> {{res.date | date:'EEE, MMM d, y'}} </p>
             <p class="m-0"><i>Result:</i> {{res.comment}} </p>
             <hr>

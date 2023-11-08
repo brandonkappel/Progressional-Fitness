@@ -16,7 +16,7 @@
 
         </div>
         <div class="col-sm-4 text-center align-self-center">
-            <p *ngIf="filterType =='month'" class="m-0"> {{dateStart | date:'MMMM'}} </p>
+            <p *ngIf="filterType =='month'" class="m-0"> {{date | date:'MMMM'}} </p>
             <p *ngIf="filterType =='week'" class="m-0">{{dateStart | date:'MMM d'}} - {{dateEnd | date:'d, y'}}</p>
 
         </div>

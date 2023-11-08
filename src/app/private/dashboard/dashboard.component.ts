@@ -59,24 +59,24 @@ export class DashboardComponent implements OnInit {
 
       this.dateStart = new Date(this.date.getFullYear(), this.date.getMonth(), this.date.getDate() - this.date.getDay());
       this.dateEnd = new Date(this.dateStart.getFullYear(), this.dateStart.getMonth(), this.dateStart.getDate() + 6);
+      // console.error('start',this.dateStart)
+      // console.error('end',this.dateEnd)
 
       // console.error('week',this.weekDates)
 
     } else {
       // console.error(this.date)
-      let date = new Date()
+
       this.monthDates = this.getWeeksOfMonth(this.date)
-      console.error('month', this.monthDates);
+      // console.error('month', this.monthDates);
     }
-
-
 
     this.getData()
 
   }
 
   getData() {
-    this.reportsService.getreports(this.user._id).subscribe((reports: any) => {
+    this.reportsService.getreports(this.user._id, this.dateStart, this.dateEnd).subscribe((reports: any) => {
       // console.error(reports)
       if (reports) {
         this.reports = reports
@@ -121,10 +121,7 @@ export class DashboardComponent implements OnInit {
               })
             })
           }
-
-
         }
-        // console.error(this.weekDates)
 
       }
       this.loaded = true
@@ -134,6 +131,7 @@ export class DashboardComponent implements OnInit {
   getWeeksOfMonth(newDate) {
     const weeks = [];
     this.dateStart = new Date(newDate.getFullYear(), newDate.getMonth(), 1);
+
 
     this.dateEnd = new Date(newDate.getFullYear(), newDate.getMonth() + 1, 0); // Get the last day of the month
 
@@ -148,6 +146,10 @@ export class DashboardComponent implements OnInit {
         isCurrentMonth: false,
       });
     }
+    if (currentWeek.length != 0) {
+      this.dateStart = currentWeek[0].date
+    }
+
 
     for (let day = 1; day <= daysInMonth; day++) {
       currentWeek.push({
@@ -169,6 +171,10 @@ export class DashboardComponent implements OnInit {
         isCurrentMonth: false,
       });
       nextMonthDay++;
+    }
+    if (currentWeek.length != 0) {
+      let lastDay = currentWeek.slice(-1)
+      this.dateEnd = lastDay[0].date
     }
 
     weeks.push(currentWeek); // Add the last week
@@ -196,28 +202,28 @@ export class DashboardComponent implements OnInit {
     this.getDates(this.filterType)
   }
 
-  openWorkout(workout, dialog:any = null) {
+  openWorkout(workout, dialog: any = null) {
     console.error(workout)
 
-    if(workout.workout && workout.workout.length > 1) {
+    if (workout.workout && workout.workout.length > 1) {
       //open a modal to select the workout
-       this.dialog.open(dialog, {
+      this.dialog.open(dialog, {
         data: {
           workouts: workout.workout,
         }
       })
 
     } else {
-      if(workout.workout){
+      if (workout.workout) {
         this.router.navigate(['/private/workoutDisplay/' + workout.workout[0]._id])
-      } else if (workout._id){
+      } else if (workout._id) {
         this.router.navigate(['/private/workoutDisplay/' + workout._id])
       } else {
         this.snackBar.open("No workout for selected date", "", { duration: 2000, verticalPosition: "top" })
 
       }
     }
-   
+
   }
 
 

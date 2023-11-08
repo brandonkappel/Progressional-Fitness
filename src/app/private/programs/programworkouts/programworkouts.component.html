@@ -7,15 +7,15 @@
       </button>
     </div>
     <div class="col">
-      <h2 class="m-0 text-center"> {{program.name}} </h2>
+      <h2 class="m-0 text-center"> {{program?.name}} </h2>
 
     </div>
 
     <div class="col d-flex justify-content-end">
       <button *ngIf="isUserAdmin" class="d-none d-md-block" mat-raised-button color="primary"
-        routerLink="/private/workout" [state]="{type: 'programs', id: program.id}">Create Workout</button>
+        routerLink="/private/workout" [state]="{type: 'programs', id: program?.id}">Create Workout</button>
       <button mat-icon-button *ngIf="isUserAdmin" class=" d-md-none " routerLink="/private/workout"
-        [state]="{type: 'programs', id: program.id}" routerLinkActive="mat-accent">
+        [state]="{type: 'programs', id: program?.id}" routerLinkActive="mat-accent">
         <mat-icon>add_circle_outline</mat-icon>
       </button>
     </div>
@@ -25,7 +25,7 @@
     <p> No workouts for this program</p>
   </div>
 
-  <mat-card class="m-3">
+  <mat-card class="m-3" *ngIf="workouts.length > 0 && !isLoading">
 
     <mat-nav-list *ngFor="let workout of workouts" class="p-0 "
       [routerLink]="['/private/workoutDisplay', workout['_id']]">

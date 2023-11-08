@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 // import { identifierModuleUrl } from '@angular/compiler';
 // import { SELECT_ITEM_HEIGHT_EM } from '@angular/material/select';
 import { environment } from 'src/environments/environment';
+import { AuthService } from './auth.service';
 
 const url = environment.apiUrl + "/workouts/"
 
@@ -22,7 +23,11 @@ export class WorkoutsService {
   // private workoutItems: WorkoutItem[] = [];
 
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(
+    private http: HttpClient,
+     private router: Router,
+     private authService: AuthService
+     ) { }
 
 
 
@@ -88,10 +93,13 @@ export class WorkoutsService {
       })
   }
 
-  addResult(id, newRes) {
+  addResult(newRes) {
+    let userId = this.authService.getUserId()
+    newRes.client = userId
     console.error(newRes)
+
     // return
-   return this.http.put(url + 'clientComment/' + id, newRes)
+   return this.http.post(url + 'workoutResults/', newRes)
   }
 
   addWorkout(workout, workoutType) {
@@ -119,6 +127,9 @@ export class WorkoutsService {
   }
 
   getWorkout(id: string) {
+    let clientId = this.authService.getUserId()
+
+    const queryParams = `?clientId=${clientId}`;
     return this.http.get<{
       // _id: string;
       // name: string
@@ -127,7 +138,7 @@ export class WorkoutsService {
       // client: string;
       // program: string;
       // workoutItems: Array<any>
-    }>(url + id);
+    }>(url + id + queryParams);
   }
 
   getMyWorkouts(id: string, dateStart, dateEnd) {

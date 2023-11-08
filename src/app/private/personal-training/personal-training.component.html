@@ -35,8 +35,17 @@
 
 <mat-spinner *ngIf="isLoading"></mat-spinner>
 
-  <div *ngIf="!workouts.length  && !isLoading" class="text-center" >
-    No Workouts 
+  <div *ngIf="!workouts.length  && !isLoading" class="text-center mt-3" >
+    <!-- No Workouts  -->
+    <div *ngIf="filterType == 'week'">
+      <h3>No Workouts this week</h3>
+    </div>
+    <div *ngIf="filterType== 'month'">
+      <h3>No Workouts this month</h3>
+    </div>
+    <div *ngIf="filterType== 'all'">
+      <h3>No Workouts created</h3>
+    </div>
   </div>
 
 

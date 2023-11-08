@@ -30,11 +30,7 @@ export class MyworkoutsComponent implements OnInit {
   constructor(private authService: AuthService, private workoutService: WorkoutsService, private route: ActivatedRoute) {
     this.userId = this.authService.getUserId()
     // console.error(this.userId)
-    this.route.queryParams.subscribe(param => {
-      console.error(param)
-      this.workoutType = param.type
-
-    })
+ 
   }
 
   ngOnInit(): void {
@@ -64,8 +60,8 @@ export class MyworkoutsComponent implements OnInit {
     } else {
       this.dateStart = new Date(this.date.getFullYear(), this.date.getMonth(), 1)
       this.dateEnd = new Date(this.date.getFullYear(), this.date.getMonth() + 1, 0)
-      console.error(this.dateStart)
-      console.error(this.dateEnd)
+      // console.error(this.dateStart)
+      // console.error(this.dateEnd)
 
     }
     this.getData();
@@ -85,7 +81,7 @@ export class MyworkoutsComponent implements OnInit {
       } else {
         //month
         this.date = new Date(this.date.getFullYear(), this.date.getMonth() + 1)
-        console.error(this.date)
+        // console.error(this.date)
       }
 
     } else {
@@ -93,7 +89,7 @@ export class MyworkoutsComponent implements OnInit {
         this.date = new Date(this.date.getFullYear(), this.date.getMonth(), this.date.getDate() - 7)
       } else {
         this.date = new Date(this.date.getFullYear(), this.date.getMonth() - 1)
-        console.error(this.date)
+        // console.error(this.date)
 
       }
 

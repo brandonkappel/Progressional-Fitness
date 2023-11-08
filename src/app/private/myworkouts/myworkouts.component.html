@@ -36,8 +36,17 @@
 </div>
 
  
-  <div *ngIf="!workouts.length  && !isLoading " class="text-center" >
-    No Workouts created yet
+  <div *ngIf="!workouts.length  && !isLoading " class="text-center mt-3" >
+    <!-- No Workouts created yet -->
+    <div *ngIf="filterType == 'week'">
+      <h3>No Workouts created this week</h3>
+    </div>
+    <div *ngIf="filterType== 'month'">
+      <h3>No Workouts created this month</h3>
+    </div>
+    <div *ngIf="filterType== 'all'">
+      <h3>No Workouts created</h3>
+    </div>
   </div>
 
 <!-- 

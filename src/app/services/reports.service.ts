@@ -16,9 +16,10 @@ export class ReportsService {
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  getreports(id: string) {
+  getreports(id: string, dateStart, dateEnd) {
+    const queryParams = `?dateStart=${dateStart}&dateEnd=${dateEnd}`;
     // console.error('userId', id)
-    return this.http.get(url + id);
+    return this.http.get(url + id + queryParams);
   }
 
 

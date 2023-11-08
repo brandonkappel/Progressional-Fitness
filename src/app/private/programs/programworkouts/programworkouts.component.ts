@@ -40,7 +40,15 @@ export class ProgramworkoutsComponent implements OnInit {
         this.isLoading = true
         this.workoutService.getProgramWorkouts(programId).subscribe(workoutData => {
           // console.error(workoutData)
+          if(workoutData){
           this.workouts = workoutData
+          console.error('workouts', this.workouts)
+
+          } else {
+            this.workouts = []
+          }
+          this.isLoading = false
+
         })
         this.programService.getProgram(programId).subscribe(programData => {
           // console.error(programData)
@@ -50,7 +58,6 @@ export class ProgramworkoutsComponent implements OnInit {
             description: programData.description,
             creator: programData.creator
           }
-        this.isLoading = false
 
         })
       }

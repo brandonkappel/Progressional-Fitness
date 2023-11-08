@@ -30,7 +30,7 @@ export class PrivateComponent implements OnInit {
   
 
   ngOnInit(){
-    console.error('private')
+    // console.error('private')
     this.isUserAdmin = this.authService.getIsAdmin()
     this.user = JSON.parse(localStorage.getItem('user'))
     console.error('USER', this.user)
@@ -61,7 +61,7 @@ export class PrivateComponent implements OnInit {
   }
 
   openNav(){
-    console.error('clicked')
+    // console.error('clicked')
     if(this.width < 640){
       this.openSidenav = !this.openSidenav
       this.isExpanded = true

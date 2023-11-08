@@ -90,7 +90,6 @@ export class AuthService {
   }
 
   logIn(email: string, password: string) {
-    console.error('here?')
     const authData = { email: email, password: password }
     this.http.post<{ token: string, expiresIn: number, userId: string, role: string, active: boolean }>(url+"login", authData)
       .subscribe((response: any )=> {
@@ -105,11 +104,11 @@ export class AuthService {
           this.isAuthenticated = true;
           this.userId = response.userId
           if (role == 'admin') {
-            console.error('ADMIN')
+            // console.error('ADMIN')
             this.isAdmin = true
             this.adminStatusListener.next(true)
           }
-          console.error('AFTER ADMIN ')
+          // console.error('AFTER ADMIN ')
           this.authStatusListener.next(true);
           const now = new Date()
           const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);

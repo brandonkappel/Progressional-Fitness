@@ -12,7 +12,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class WorkoutdisplayComponent implements OnInit {
 
-  workout: Workout 
+  workout: any
   public isLoading = false
   workoutType: string;
   isUserAdmin: boolean = false;
@@ -32,7 +32,7 @@ export class WorkoutdisplayComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    console.error(this.addResult)
+    // console.error(this.addResult)
     this.isUserAdmin = this.authService.getIsAdmin()
 
 
@@ -56,12 +56,13 @@ export class WorkoutdisplayComponent implements OnInit {
 
   }
 
-  addRes(workout, i){
+  addRes(workoutItem, i){
   // console.error(workout)
-  workout.clientComments.push(this.newResult)
+  workoutItem.clientComments.push(this.newResult)
   // console.error(workout)
+  this.newResult.workout = workoutItem._id
   this.addResult[i] = !this.addResult[i]
-  this.workoutService.addResult( workout._id ,this.newResult).subscribe(res=> {
+  this.workoutService.addResult( this.newResult).subscribe(res=> {
     console.error(res)
   })
   // this.newResult = {
