@@ -5,3 +5,7 @@ mat-spinner {
   .formText{
     width: 100%;
 }
+
+.resultsCard{
+  background-color: lightgray;
+}

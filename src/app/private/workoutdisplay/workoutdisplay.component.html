@@ -49,11 +49,19 @@
         </div>
         <hr >
         <h5 *ngIf="w.workoutResults.length > 0"> Results:</h5>
-          <div *ngFor="let res of w.workoutResults" class="mx-3">
+
+        <mat-card *ngFor="let res of w.workoutResults" class="m-1 resultsCard">
+          <div  class="m-2">
+
+
             <p class="m-0" ><i>Date:</i> {{res.date | date:'EEE, MMM d, y'}} </p>
             <p class="m-0"><i>Result:</i> {{res.comment}} </p>
-            <hr>
+            <!-- <hr> -->
           </div>
+
+        </mat-card>
+
+
         <!-- <button class="float-end" mat-raised-button [color]="!addResult[i]? 'primary': 'warn'" (click)="addRes(w,i)" (click)=" addResult[i] = !addResult[i]">  {{ !addResult[i]? 'Add Result': 'Cancel'}}</button> -->
         <!-- <button *ngIf="addingResult" mat-raised-button color="primary" (click)="cancelRes()">Cancel</button> -->
 
