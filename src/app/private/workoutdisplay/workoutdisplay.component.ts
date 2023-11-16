@@ -58,17 +58,18 @@ export class WorkoutdisplayComponent implements OnInit {
 
   addRes(workoutItem, i){
   // console.error(workout)
-  workoutItem.clientComments.push(this.newResult)
+  workoutItem.workoutResults.push(this.newResult)
   // console.error(workout)
   this.newResult.workout = workoutItem._id
   this.addResult[i] = !this.addResult[i]
   this.workoutService.addResult( this.newResult).subscribe(res=> {
     console.error(res)
+     this.newResult = {
+    date: new Date(),
+    comment: ''
+  }
   })
-  // this.newResult = {
-  //   date: new Date(),
-  //   comment: ''
-  // }
+ 
 
   }
 
