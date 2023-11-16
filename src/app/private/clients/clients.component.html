@@ -4,7 +4,7 @@
 
   <button mat-raised-button color="primary" routerLink="/private/client" routerLinkActive="mat-accent"> Create Client</button>
 </div>
-<mat-accordion multi="true" *ngIf="users.length > 0 && !isLoading">
+<!-- <mat-accordion multi="true" *ngIf="users.length > 0 && !isLoading">
   <mat-expansion-panel *ngFor="let user of users">
     <mat-expansion-panel-header>
       {{user.firstName}} {{user.lastName}}
@@ -24,11 +24,49 @@
     </mat-action-row>
   </mat-expansion-panel> 
 </mat-accordion>
+
 <mat-paginator [length]="totalUsers" [pageSize]="usersPerPage" [pageSizeOptions]="pageSizeOptions"
   (page)="onChangedPage($event)" *ngIf="users.length > 0 "></mat-paginator>
-<p class="info-text mat-body-1" *ngIf="users.length <= 0 && !isLoading">No Posts Added Yet</p>
+<p class="info-text mat-body-1" *ngIf="users.length <= 0 && !isLoading">No Posts Added Yet</p> -->
+
+<div class="m-3">
 
 
+<table mat-table [dataSource]="users" class="mat-elevation-z8 ">
+
+  <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+  <!-- Position Column -->
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef> Name </th>
+    <td mat-cell *matCellDef="let element"> {{element.firstName | titlecase}} {{element.lastName |titlecase}}  </td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="ptClient">
+    <th mat-header-cell *matHeaderCellDef> PT Client </th>
+    <td mat-cell *matCellDef="let element"> {{element?.personalTrainingClient}} </td>
+  </ng-container>
+
+  <!-- Weight Column -->
+  <ng-container matColumnDef="active">
+    <th mat-header-cell *matHeaderCellDef> Active </th>
+    <td mat-cell *matCellDef="let element"> {{element?.active}} </td>
+  </ng-container>
+
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="role">
+    <th mat-header-cell *matHeaderCellDef> Role </th>
+    <td mat-cell *matCellDef="let element"> {{element?.role}} </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;" [routerLink]="['/private/editClient', row._id]" ></tr>
+</table>
+<mat-paginator [length]="totalUsers" [pageSize]="usersPerPage" [pageSizeOptions]="pageSizeOptions"
+  (page)="onChangedPage($event)" *ngIf="users.length > 0 "></mat-paginator>
+</div>
 <ng-template #template let-data>
   <h1> Delete {{data.user.firstName}} {{data.user.lastName}} </h1>
   <p> Are you sure you want to delete this Client?</p>

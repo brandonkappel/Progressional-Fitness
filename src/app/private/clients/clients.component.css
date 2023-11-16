@@ -1,0 +1,4 @@
+.mat-mdc-table .mdc-data-table__row:hover {
+    background-color: lightgray;
+    cursor: pointer;
+  }

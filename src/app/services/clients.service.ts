@@ -26,20 +26,21 @@ export class ClientsService {
     const queryParams = `?pagesize=${usersPerPage}&page=${currentPage}`;
     this.http.get<{ message: string, users: any, maxUsers: number }>(
       url + queryParams)
-      .pipe(map((userData) => {
-        return {
-          users: userData.users.map(user => {
-            return {
-              firstName: user.firstName,
-              lastName: user.lastName,
-              role: user.role,
-              email: user.email,
-              id: user._id,
-              creator: user.creator
-            };
-          }), maxUsers: userData.maxUsers
-        };
-      }))
+      // .pipe(map((userData) => {
+      //   console.error('User:',userData)
+      //   return {
+      //     users: userData.users.map(user => {
+      //       return {
+      //         firstName: user.firstName,
+      //         lastName: user.lastName,
+      //         role: user.role,
+      //         email: user.email,
+      //         id: user._id,
+      //         creator: user.creator
+      //       };
+      //     }), maxUsers: userData.maxUsers
+      //   };
+      // }))
       .subscribe((transformedUserData) => {
         this.users = transformedUserData.users;
         this.usersUpdated.next({ users: [...this.users], userCount: transformedUserData.maxUsers });

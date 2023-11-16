@@ -33,6 +33,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import {MatTableModule} from '@angular/material/table';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -44,6 +45,7 @@ import { PrivateComponent } from './private.component';
 import { PersonalTrainingComponent } from './personal-training/personal-training.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SettingsComponent } from './settings/settings.component';
+
 
 
 @NgModule({
@@ -93,6 +95,7 @@ import { SettingsComponent } from './settings/settings.component';
     MatIconModule,
     MatListModule,
     MatChipsModule,
+    MatTableModule,
     // NgbModule,
   ],
 

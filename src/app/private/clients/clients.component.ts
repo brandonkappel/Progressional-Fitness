@@ -5,6 +5,7 @@ import { Client } from '../../models/clients.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ClientsService } from 'src/app/services/clients.service';
+import {MatTableModule} from '@angular/material/table';
 
 
 @Component({
@@ -18,13 +19,14 @@ export class ClientsComponent implements OnInit {
 
   isLoading = false
   totalUsers = 0
-  usersPerPage = 5
+  usersPerPage = 15
   currentPage = 1;
-  pageSizeOptions = [1, 2, 5, 10]
+  pageSizeOptions = [15, 25, 50]
   public userIsAuthenticated = false
   public userIsAdmin = false
   private usersSub: Subscription;
   private authStatusSub: Subscription
+  displayedColumns: string[] = ['name', 'ptClient', 'active', 'role'];
 
 
   userId: string
@@ -41,6 +43,7 @@ export class ClientsComponent implements OnInit {
         this.isLoading = false
         this.totalUsers = userData.userCount
         this.users = userData.users;
+        // console.error('clients', this.users)
       });
       this.userIsAuthenticated = this.authService.getIsAuth()
       this.authStatusSub = this.authService.getAuthStatusListener().subscribe(isAuthenticated =>{
@@ -78,6 +81,10 @@ export class ClientsComponent implements OnInit {
       this.clientService.getUsers(this.usersPerPage, this.currentPage)
       this.dialog.closeAll()
     });
+  }
+
+  openClient(c){
+    console.error(c)
   }
 
 }
