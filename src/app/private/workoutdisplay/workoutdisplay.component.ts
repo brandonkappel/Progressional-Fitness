@@ -41,7 +41,7 @@ export class WorkoutdisplayComponent implements OnInit {
         this.isLoading = true
         let workoutId = ParamMap.get('workoutId')
         this.workoutService.getWorkout(workoutId).subscribe((workout:any) => {
-          console.error('Workout:',workout)
+          console.error('Workout hello:',workout)
 
           this.workout = workout.workout
           this.isLoading = false
