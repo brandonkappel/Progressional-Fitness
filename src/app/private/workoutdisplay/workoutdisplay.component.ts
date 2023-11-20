@@ -70,7 +70,13 @@ export class WorkoutdisplayComponent implements OnInit {
   }
   })
  
+  }
 
+  addFavorite(){
+    this.workout.favorite == true ? this.workout.favorite = false : this.workout.favorite = true
+    this.workoutService.addFavorite(this.workout._id, {favorite:this.workout.favorite}).subscribe(res=> {
+      console.error(res)
+    })
   }
 
   cancelRes(){

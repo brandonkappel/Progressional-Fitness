@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ProgramsService } from '../../../services/programs.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-program',
@@ -12,7 +13,12 @@ export class ProgramComponent implements OnInit {
   programForm: FormGroup;
   private mode = 'create';
   isLoading = false;
-  constructor(private programService: ProgramsService, private formbuilder: FormBuilder, public snackBar: MatSnackBar) { }
+  constructor(
+    private programService: ProgramsService,
+     private formbuilder: FormBuilder, 
+     public snackBar: MatSnackBar,
+     private location: Location,
+     ) { }
 
   ngOnInit(): void {
     this.programForm = this.formbuilder.group({
@@ -37,6 +43,10 @@ export class ProgramComponent implements OnInit {
     //   this.workoutService.updateUser(this.userId, this.form.value.firstName, this.form.value.lastName, this.form.value.email, this.form.value.role)
     // }
 
+  }
+
+  goBack(){
+    this.location.back()
   }
 
 

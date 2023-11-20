@@ -35,6 +35,12 @@
     </div>
   </div>
 
+  <p *ngIf="workout.personalWorkout"> personal</p>
+  <button class="" mat-icon-button (click)="addFavorite()"  >
+    <mat-icon> {{ workout.favorite == true ? 'star': 'star_outline' }}</mat-icon>
+  </button>
+
+
 
   <div *ngIf="workout.workoutItems">
     <mat-card *ngFor="let w of workout.workoutItems; let i = index" class="m-2">
@@ -48,7 +54,7 @@
           <p class="m-0"><b>Comments:</b> {{w.comments}}</p>
         </div>
         <hr >
-        <h5 *ngIf="w.workoutResults.length > 0"> Results:</h5>
+        <!-- <h5 *ngIf="w.workoutResults.length > 0"> Results:</h5>
 
         <mat-card *ngFor="let res of w.workoutResults" class="m-1 resultsCard">
           <div  class="m-2">
@@ -56,14 +62,9 @@
 
             <p class="m-0" ><i>Date:</i> {{res.date | date:'EEE, MMM d, y'}} </p>
             <p class="m-0"><i>Result:</i> {{res.comment}} </p>
-            <!-- <hr> -->
           </div>
 
         </mat-card>
-
-
-        <!-- <button class="float-end" mat-raised-button [color]="!addResult[i]? 'primary': 'warn'" (click)="addRes(w,i)" (click)=" addResult[i] = !addResult[i]">  {{ !addResult[i]? 'Add Result': 'Cancel'}}</button> -->
-        <!-- <button *ngIf="addingResult" mat-raised-button color="primary" (click)="cancelRes()">Cancel</button> -->
 
         <div *ngIf="addResult[i]">
          <br>
@@ -82,7 +83,7 @@
         </div>
         <button class="float-end" size="small" mat-stroked-button [color]="!addResult[i]? 'primary': 'warn'"  (click)=" addResult[i] = !addResult[i]">  {{ !addResult[i]? 'Add Result': 'Cancel'}}</button>
 
-          <button *ngIf="addResult[i]" mat-raised-button color="primary" (click)="addRes(w,i)" > Submit</button>
+          <button *ngIf="addResult[i]" mat-raised-button color="primary" (click)="addRes(w,i)" > Submit</button> -->
 
 
       </mat-card-content>

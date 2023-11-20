@@ -1,26 +1,30 @@
-<mat-card>
-  <mat-spinner *ngIf="isLoading"></mat-spinner>
-<button [routerLink]="['/private/programs']" class="m-2" mat-raised-button color="warn" >Back</button>
 
-  <form *ngIf="!isLoading" [formGroup]="programForm" (submit)="onSavePost()">
-    <mat-form-field>
+<div class="m-2">
+  <button class="" mat-icon-button (click)="goBack()">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+
+</div>
+
+
+<mat-card class="m-3">
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+
+  <form class="row m-3" *ngIf="!isLoading" [formGroup]="programForm" (submit)="onSavePost()">
+    <mat-form-field class="col-sm-6">
       <input matInput formControlName="name" type="text" placeholder="Program Name">
       <mat-error *ngIf="programForm.get('name').invalid"> Please enter a program name. </mat-error>
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field class="col-sm-6">
       <input matInput formControlName="description" type="text" placeholder="Description ">
       <mat-error *ngIf="programForm.get('description').invalid"> description </mat-error>
-    </mat-form-field>
+    </mat-form-field> 
     <!-- <mat-form-field>
       <input matInput formControlName="client" type="text" placeholder="Client">
       <mat-error *ngIf="form.get('client').invalid"> Please enter a Client. </mat-error>
     </mat-form-field> -->
 
-
-
-
-    <h2>Create Program!</h2>
-    <button mat-raised-button color="accent" type="submit">Save Program</button>
+    <button mat-raised-button color="primary" type="submit">Create Program</button>
   </form>
 
 </mat-card>

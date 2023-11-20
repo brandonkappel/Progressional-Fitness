@@ -222,6 +222,7 @@ export class WorkoutComponent implements OnInit {
 
     if (this.workoutForm.invalid) {
       console.error('ERROR ON FORM', this.workoutForm)
+      this.snackBar.open("Workout Name is Requird", "", { duration: 2000, verticalPosition: "top" })
       return
     }
     let workout = {

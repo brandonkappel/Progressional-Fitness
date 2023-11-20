@@ -121,6 +121,11 @@ export class WorkoutsService {
       });
   }
 
+  addFavorite(id,favorite){
+    console.error(id, favorite)
+   return  this.http.put(url + 'addFavorite/' + id, favorite)
+  }
+
 
   getWorkoutUpdatedListener() {
     return this.workoutsUpdated.asObservable();
