@@ -41,8 +41,9 @@ export class WorkoutdisplayComponent implements OnInit {
         this.isLoading = true
         let workoutId = ParamMap.get('workoutId')
         this.workoutService.getWorkout(workoutId).subscribe((workout:any) => {
-          this.workout = workout
-          console.error('Workout:',this.workout)
+          console.error('Workout:',workout)
+
+          this.workout = workout.workout
           this.isLoading = false
           if(this.workout.personalWorkout == true){
             this.workoutType = 'personal'

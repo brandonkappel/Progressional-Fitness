@@ -54,7 +54,7 @@
           <p class="m-0"><b>Comments:</b> {{w.comments}}</p>
         </div>
         <hr >
-        <!-- <h5 *ngIf="w.workoutResults.length > 0"> Results:</h5>
+        <h5 *ngIf="w.workoutResults.length > 0"> Results:</h5>
 
         <mat-card *ngFor="let res of w.workoutResults" class="m-1 resultsCard">
           <div  class="m-2">
@@ -83,7 +83,7 @@
         </div>
         <button class="float-end" size="small" mat-stroked-button [color]="!addResult[i]? 'primary': 'warn'"  (click)=" addResult[i] = !addResult[i]">  {{ !addResult[i]? 'Add Result': 'Cancel'}}</button>
 
-          <button *ngIf="addResult[i]" mat-raised-button color="primary" (click)="addRes(w,i)" > Submit</button> -->
+          <button *ngIf="addResult[i]" mat-raised-button color="primary" (click)="addRes(w,i)" > Submit</button>
 
 
       </mat-card-content>
