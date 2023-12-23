@@ -16,14 +16,14 @@
 
         </div>
         <div class="col-sm-4 text-center align-self-center">
-            <p *ngIf="filterType =='month'" class="m-0"> {{date | date:'MMMM'}} </p>
-            <p *ngIf="filterType =='week'" class="m-0">{{dateStart | date:'MMM d'}} - {{dateEnd | date:'d, y'}}</p>
+            <p *ngIf="reportsService.calendarFilter =='month'" class="m-0"> {{date | date:'MMMM'}} </p>
+            <p *ngIf="reportsService.calendarFilter =='week'" class="m-0">{{dateStart | date:'MMM d'}} - {{dateEnd | date:'d, y'}}</p>
 
         </div>
         <div class="col-sm-4 text-center align-self-center">
             <mat-chip-listbox style="width: fit-content; margin: auto;">
-                <mat-chip-option [selected]="filterType == 'week'" (click)="getDates('week')">Week</mat-chip-option>
-                <mat-chip-option [selected]="filterType == 'month'" (click)="getDates('month')">Month</mat-chip-option>
+                <mat-chip-option [selected]="reportsService.calendarFilter == 'week'" (click)="getDates('week')">Week</mat-chip-option>
+                <mat-chip-option [selected]="reportsService.calendarFilter == 'month'" (click)="getDates('month')">Month</mat-chip-option>
 
             </mat-chip-listbox>
 
@@ -34,7 +34,7 @@
 
 
 
-    <div *ngIf="filterType == 'week'" class="cal">
+    <div *ngIf="reportsService.calendarFilter == 'week'" class="cal">
         <div class="week">
             <div class="days" *ngFor="let day of weekDates" [ngClass]="{ today: today == day.date}">
                 <span class="date">{{day.date |date:'EEE d'}}</span>
@@ -55,7 +55,7 @@
         </div>
     </div>
 
-    <div *ngIf="filterType == 'month'" class="cal">
+    <div *ngIf="reportsService.calendarFilter == 'month'" class="cal">
         <div *ngFor="let week of monthDates" class="week">
             <div class="days" *ngFor="let day of week"
                 [ngClass]="{notMonth: day.isCurrentMonth == false, today: today == day.date}">

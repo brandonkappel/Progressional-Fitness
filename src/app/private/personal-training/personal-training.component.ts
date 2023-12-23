@@ -29,7 +29,15 @@ export class PersonalTrainingComponent implements OnInit {
 
   ngOnInit(){
     // this.searchWorkouts()
+    this.filterType = this.workoutService.ptFilter
+    if(this.filterType == 'all'){
+      this.dateStart = "",
+      this.dateEnd = ""
+      this.searchWorkouts()
+    } else {
     this.selectDate(this.filterType)
+
+    }
   }
 
   selectDate(type) {
@@ -76,6 +84,7 @@ export class PersonalTrainingComponent implements OnInit {
   }
 
   selectAll(){
+    this.workoutService.ptFilter = 'all'
     this.filterType = 'all'
     this.dateStart = "",
     this.dateEnd = ""

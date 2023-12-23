@@ -4,6 +4,8 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Workout } from '../../models/workout.model';
 import { WorkoutsService } from '../../services/workouts.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { FavoriteWorkoutService } from 'src/app/services/favoriteWorkout.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-workoutdisplay',
@@ -25,14 +27,16 @@ export class WorkoutdisplayComponent implements OnInit {
 
   constructor(
     private workoutService: WorkoutsService,
+    private favWorkoutService: FavoriteWorkoutService,
     public route: ActivatedRoute,
     private location: Location,
     private authService: AuthService,
-    private change: ChangeDetectorRef
+    private change: ChangeDetectorRef,
+    private snackBar: MatSnackBar
     ) { }
 
   ngOnInit(): void {
-    // console.error(this.addResult)
+    console.error(this.authService)
     this.isUserAdmin = this.authService.getIsAdmin()
 
 
@@ -43,7 +47,7 @@ export class WorkoutdisplayComponent implements OnInit {
         this.workoutService.getWorkout(workoutId).subscribe((workout:any) => {
           console.error('Workout hello:',workout)
 
-          this.workout = workout.workout
+          this.workout = workout
           this.isLoading = false
           if(this.workout.personalWorkout == true){
             this.workoutType = 'personal'
@@ -74,10 +78,24 @@ export class WorkoutdisplayComponent implements OnInit {
   }
 
   addFavorite(){
+    let userId = this.authService.getUserId()
     this.workout.favorite == true ? this.workout.favorite = false : this.workout.favorite = true
-    this.workoutService.addFavorite(this.workout._id, {favorite:this.workout.favorite}).subscribe(res=> {
-      console.error(res)
-    })
+    if(this.workout.favorite == true){
+      this.favWorkoutService.addfavoriteWorkout(userId,this.workout._id).subscribe(res=> {
+        console.error(res)
+        this.snackBar.open("Workout added to favorites", "", { duration: 2000, verticalPosition: "top" })
+
+      })
+    } else {
+      //delete favorite
+      this.favWorkoutService.deleteFavorite(userId, this.workout._id).subscribe(res=> {
+        console.error(res)
+      this.snackBar.open("Workout removed from favorites", "", { duration: 2000, verticalPosition: "top" })
+
+      })
+
+    }
+  
   }
 
   cancelRes(){

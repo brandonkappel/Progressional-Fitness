@@ -15,26 +15,33 @@ import { PrivateComponent } from './private.component';
 import { PersonalTrainingComponent } from './personal-training/personal-training.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SettingsComponent } from './settings/settings.component';
+import { FavoritesComponent } from './favorites/favorites.component';
 
 const routes: Routes = [
-  {path: '', component: PrivateComponent, children:[
-    {path: 'clients', component: ClientsComponent, canActivate: [AuthGuard, RoleGuard] ,   }  ,
-    {path: 'workouts', component: WorkoutsComponent, canActivate: [AuthGuard]},
-    {path: 'editWorkout/:id', component: WorkoutComponent, canActivate: [AuthGuard]},
-    {path: 'workout', component: WorkoutComponent},
-    {path: 'myworkouts', component: MyworkoutsComponent, canActivate: [AuthGuard] },
-    {path: 'workoutDisplay/:workoutId', component: WorkoutdisplayComponent},
-  
-    {path: 'program', component: ProgramComponent, canActivate: [AuthGuard, RoleGuard] },
-    {path: 'programs', component: ProgramsComponent, canActivate: [AuthGuard] },
-    {path: 'programWorkout/:programId', component: ProgramworkoutsComponent},
-    {path: 'client', component: ClientComponent, canActivate: [AuthGuard] },
-    {path: 'editClient/:userId', component: ClientComponent},
-    {path: 'personalTraining', component: PersonalTrainingComponent},
-    {path: 'dashboard', component: DashboardComponent},
-    {path: 'settings', component: SettingsComponent},
+  {
+    path: '', component: PrivateComponent, children: [
+      { path: 'clients', component: ClientsComponent, canActivate: [AuthGuard, RoleGuard], },
+      { path: 'workouts', component: WorkoutsComponent, canActivate: [AuthGuard] },
+      { path: 'editWorkout/:id', component: WorkoutComponent, canActivate: [AuthGuard] },
+      { path: 'workout', component: WorkoutComponent },
+      { path: 'myworkouts', component: MyworkoutsComponent, canActivate: [AuthGuard] },
 
-  ] } 
+      { path: 'workoutDisplay/:workoutId', component: WorkoutdisplayComponent },
+
+      { path: 'program', component: ProgramComponent, canActivate: [AuthGuard, RoleGuard] },
+      { path: 'programs', component: ProgramsComponent, canActivate: [AuthGuard] },
+      { path: 'programWorkout/:programId', component: ProgramworkoutsComponent },
+      { path: 'client', component: ClientComponent, canActivate: [AuthGuard] },
+      { path: 'editClient/:userId', component: ClientComponent },
+      { path: 'personalTraining', component: PersonalTrainingComponent },
+      { path: 'dashboard', component: DashboardComponent,},
+      { path: 'favorites', component: FavoritesComponent,},
+  
+
+      { path: 'settings', component: SettingsComponent },
+
+    ]
+  }
 
 
 ];

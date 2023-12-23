@@ -45,6 +45,7 @@ import { PrivateComponent } from './private.component';
 import { PersonalTrainingComponent } from './personal-training/personal-training.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SettingsComponent } from './settings/settings.component';
+import { FavoritesComponent } from './favorites/favorites.component';
 
 
 
@@ -64,7 +65,8 @@ import { SettingsComponent } from './settings/settings.component';
     PrivateComponent,
     PersonalTrainingComponent,
     DashboardComponent,
-    SettingsComponent
+    SettingsComponent,
+    FavoritesComponent
   ],
   imports: [
     PrivateRoutingModule,

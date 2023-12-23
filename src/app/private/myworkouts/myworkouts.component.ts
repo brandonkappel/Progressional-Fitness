@@ -25,17 +25,27 @@ export class MyworkoutsComponent implements OnInit {
   dates: Date[];
 
 
-  filterType: String = 'week'
+  filterType: String 
 
-  constructor(private authService: AuthService, private workoutService: WorkoutsService, private route: ActivatedRoute) {
+  constructor(
+    private authService: AuthService, 
+    private workoutService: WorkoutsService, 
+    private route: ActivatedRoute) {
     this.userId = this.authService.getUserId()
     // console.error(this.userId)
  
   }
 
   ngOnInit(): void {
-    this.selectDate(this.filterType)
-    // console.error(this.dates)
+    this.filterType = this.workoutService.myWorkoutFilter
+    if(this.filterType == 'all'){
+      this.dateStart = "",
+      this.dateEnd = ""
+      this.getData()
+    } else {
+      this.selectDate(this.filterType)
+
+    }
 
 
   }
@@ -45,6 +55,7 @@ export class MyworkoutsComponent implements OnInit {
 
   selectDate(type) {
     this.isLoading = true;
+   
     if(this.filterType != type){
       this.date = new Date()
     }
@@ -68,6 +79,7 @@ export class MyworkoutsComponent implements OnInit {
   }
 
   selectAll(){
+    this.workoutService.myWorkoutFilter = 'all'
     this.filterType = 'all'
     this.dateStart = "",
     this.dateEnd = ""

@@ -17,7 +17,8 @@ const url = environment.apiUrl + "/workouts/"
   providedIn: 'root'
 })
 export class WorkoutsService {
-
+  ptFilter = 'week'
+  myWorkoutFilter = 'week'
   private workouts: Workout[] = []
   private workoutsUpdated = new Subject<{ workouts: Workout[], workoutCount: number }>()
   // private workoutItems: WorkoutItem[] = [];

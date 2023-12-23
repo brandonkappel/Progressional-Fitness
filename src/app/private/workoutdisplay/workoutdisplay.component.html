@@ -36,7 +36,7 @@
   </div>
 
   <p *ngIf="workout.personalWorkout"> personal</p>
-  <button *ngIf="workout.personalWorkout" class="" mat-icon-button (click)="addFavorite()"  >
+  <button class="" mat-icon-button (click)="addFavorite()"  >
     <mat-icon> {{ workout.favorite == true ? 'star': 'star_outline' }}</mat-icon>
   </button>
 

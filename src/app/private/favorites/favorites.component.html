@@ -1,0 +1,24 @@
+<mat-spinner *ngIf="!loaded"></mat-spinner>
+<div *ngIf="workouts && loaded">
+    <div class="m-3">
+        <h2 class="m-0">Favorite Workouts</h2>
+    </div>
+
+    <mat-nav-list *ngFor="let workout of workouts" class="p-0 " [routerLink]="['/private/workoutDisplay', workout['_id']]">
+        <mat-list-item class="">
+    
+          <!-- <a [routerLink]="['/private/workoutDisplay', workout['_id']]">{{workout.name}}</a> -->
+          <!-- <p>{{workout.name}}</p> -->
+          <span matListItemTitle>{{workout.name}}</span>
+          <span matListItemLine>{{workout.date |date:'EEEE MMMM d y '}} </span>
+          <div matListItemMeta class="d-flex align-self-center">
+            <mat-icon  >open_in_new</mat-icon>
+    
+          </div>
+    
+        </mat-list-item>
+        <mat-divider ></mat-divider>
+    
+      </mat-nav-list>
+
+</div>

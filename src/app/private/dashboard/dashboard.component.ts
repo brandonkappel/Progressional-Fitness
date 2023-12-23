@@ -29,7 +29,7 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private reportsService: ReportsService,
+    public reportsService: ReportsService,
     private router: Router,
     public snackBar: MatSnackBar,
     public dialog: MatDialog,
@@ -41,19 +41,19 @@ export class DashboardComponent implements OnInit {
 
 
 
-    this.getDates(this.filterType);
+    this.getDates(this.reportsService.calendarFilter);
 
   }
 
   getDates(type) {
-    if (this.filterType != type) {
+    if (this.reportsService.calendarFilter != type) {
       // console.error('updating date')
       this.date = new Date()
     }
-    this.filterType = type
+    this.reportsService.calendarFilter = type
 
 
-    if (this.filterType == 'week') {
+    if (this.reportsService.calendarFilter == 'week') {
       this.weekDates = Array(7).fill(new Date(this.date)).map((el, idx) =>
         ({ date: new Date(el.setDate(el.getDate() - el.getDay() + idx)).toISOString().split('T')[0] }))
 
@@ -90,7 +90,7 @@ export class DashboardComponent implements OnInit {
           let workouts = this.reports.workouts
           console.error('workouts', workouts)
           // console.error(workouts)
-          if (this.filterType == 'week') {
+          if (this.reportsService.calendarFilter == 'week') {
             this.weekDates.forEach((date, i) => {
               workouts.forEach(workout => {
                 if (workout.date) {
@@ -184,7 +184,7 @@ export class DashboardComponent implements OnInit {
 
   changeDate(type) {
     if (type == 'next') {
-      if (this.filterType == 'week') {
+      if (this.reportsService.calendarFilter == 'week') {
         this.date = new Date(this.date.getFullYear(), this.date.getMonth(), this.date.getDate() + 7)
       } else {
         //month
@@ -192,14 +192,14 @@ export class DashboardComponent implements OnInit {
         // console.error(this.date)
       }
     } else {
-      if (this.filterType == 'week') {
+      if (this.reportsService.calendarFilter == 'week') {
         this.date = new Date(this.date.getFullYear(), this.date.getMonth(), this.date.getDate() - 7)
       } else {
         this.date = new Date(this.date.getFullYear(), this.date.getMonth() - 1)
         // console.error(this.date)
       }
     }
-    this.getDates(this.filterType)
+    this.getDates(this.reportsService.calendarFilter)
   }
 
   openWorkout(workout, dialog: any = null) {

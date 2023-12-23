@@ -22,6 +22,10 @@
 				<mat-icon mat-list-icon>directions_run</mat-icon>
 				<span class="full-width" *ngIf="isExpanded || isShowing">Personal Traning</span>
 			</mat-list-item>
+			<mat-list-item  routerLink="/private/favorites" routerLinkActive="active" (click)="page = 'My Workouts'" class="parent">
+				<mat-icon mat-list-icon>favorite</mat-icon>
+				<span class="full-width" *ngIf="isExpanded || isShowing">Favorite Workouts</span>
+			</mat-list-item>
 			<mat-list-item  class="parent" routerLinkActive="active" (click)="page = 'Programs'" routerLink="/private/programs">
 				<mat-icon mat-list-icon>list alt</mat-icon>
 

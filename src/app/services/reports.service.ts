@@ -12,6 +12,7 @@ const url = environment.apiUrl + "/reports/"
   providedIn: 'root'
 })
 export class ReportsService {
+  calendarFilter = 'week'
 
 
   constructor(private http: HttpClient, private router: Router) { }
