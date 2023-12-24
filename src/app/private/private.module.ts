@@ -109,7 +109,6 @@ import { FavoritesComponent } from './favorites/favorites.component';
 
   ],
   bootstrap: [AppComponent],
-  entryComponents: [ErrorComponent],
 
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

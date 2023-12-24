@@ -119,7 +119,6 @@ import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.
 
   ],
   bootstrap: [AppComponent],
-  entryComponents: [ErrorComponent],
 
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

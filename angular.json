@@ -154,7 +154,6 @@
       }
     }
   },
-  "defaultProject": "life-app",
   "cli": {
     "analytics": "fb57c34f-78d7-4ba5-8f9a-75298a290a79"
   }
