@@ -85,21 +85,21 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "life-app:build"
+            "buildTarget": "life-app:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "life-app:build:production"
+              "buildTarget": "life-app:build:production"
             },
             "dev": {
-              "browserTarget": "life-app:build:dev"
+              "buildTarget": "life-app:build:dev"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "life-app:build"
+            "buildTarget": "life-app:build"
           }
         },
         "test": {
