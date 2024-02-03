@@ -1,7 +1,7 @@
 <mat-spinner *ngIf="!loaded"></mat-spinner>
 <div *ngIf="workouts && loaded">
     <div class="m-3">
-        <h2 class="m-0">Favorite Workouts</h2>
+        <h2 class="m-0">Favorite Workoutss</h2>
     </div>
 
     <mat-nav-list *ngFor="let workout of workouts" class="p-0 " [routerLink]="['/private/workoutDisplay', workout['_id']]">

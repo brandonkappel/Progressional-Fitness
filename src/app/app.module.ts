@@ -48,7 +48,6 @@ import { WorkoutComponent } from './private/create-workout/workout.component';
 import { WorkoutdisplayComponent } from './private/workoutdisplay/workoutdisplay.component';
 import { WorkoutsComponent } from './private/workouts/workouts.component';
 import { VerifyComponent } from './auth/verify/verify.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 
 
@@ -107,7 +106,6 @@ import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.
     MatSidenavModule,
     MatIconModule,
     MatListModule,
-    NgbModule,
     MatSidenavModule
   ],
 
@@ -119,7 +117,6 @@ import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.
 
   ],
   bootstrap: [AppComponent],
-  entryComponents: [ErrorComponent],
 
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

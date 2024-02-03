@@ -13,6 +13,7 @@
      user-select: none;
   }
   .full-width {
+    margin-left: 10px;
     /* width: 100%; */
   }
   .menu-button {
@@ -42,7 +43,7 @@
   }
 
   mat-icon{
-    margin: 5px;
+    /* margin: 5px; */
   }
   .active{
     background-color: lightgray;
