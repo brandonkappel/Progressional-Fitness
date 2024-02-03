@@ -6,6 +6,8 @@ import { WorkoutsService } from '../../services/workouts.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { FavoriteWorkoutService } from 'src/app/services/favoriteWorkout.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { CreateWorkoutModalComponent } from '../create-workout-modal/create-workout-modal.component';
 
 @Component({
   selector: 'app-workoutdisplay',
@@ -18,9 +20,9 @@ export class WorkoutdisplayComponent implements OnInit {
   public isLoading = false
   workoutType: string;
   isUserAdmin: boolean = false;
-  addResult:any = {}
+  addResult: any = {}
   addingResult: boolean = false;
-  newResult:any = {
+  newResult: any = {
     comment: '',
     date: new Date()
   }
@@ -32,80 +34,91 @@ export class WorkoutdisplayComponent implements OnInit {
     private location: Location,
     private authService: AuthService,
     private change: ChangeDetectorRef,
-    private snackBar: MatSnackBar
-    ) { }
+    private snackBar: MatSnackBar,
+    public dialog: MatDialog,
+  ) { }
 
   ngOnInit(): void {
     console.error(this.authService)
     this.isUserAdmin = this.authService.getIsAdmin()
 
 
-    this.route.paramMap.subscribe((ParamMap: ParamMap)=> {
-      if (ParamMap.has('workoutId')){
+    this.route.paramMap.subscribe((ParamMap: ParamMap) => {
+      if (ParamMap.has('workoutId')) {
         this.isLoading = true
         let workoutId = ParamMap.get('workoutId')
-        this.workoutService.getWorkout(workoutId).subscribe((workout:any) => {
-          console.error('Workout hello:',workout)
+        this.workoutService.getWorkout(workoutId).subscribe((workout: any) => {
+          console.error('Workout hello:', workout)
 
           this.workout = workout
           this.isLoading = false
-          if(this.workout.personalWorkout == true){
+          if (this.workout.personalWorkout == true) {
             this.workoutType = 'personal'
           }
-          if(this.workout.program != null) this.workoutType = 'program'
+          if (this.workout.program != null) this.workoutType = 'program'
           console.error(this.workoutType)
         })
-       
+
       }
     })
 
   }
 
-  addRes(workoutItem, i){
-  // console.error(workout)
-  workoutItem.workoutResults.push(this.newResult)
-  // console.error(workout)
-  this.newResult.workout = workoutItem._id
-  this.addResult[i] = !this.addResult[i]
-  this.workoutService.addResult( this.newResult).subscribe(res=> {
-    console.error(res)
-     this.newResult = {
-    date: new Date(),
-    comment: ''
-  }
-  })
- 
+  addRes(workoutItem, i) {
+    // console.error(workout)
+    workoutItem.workoutResults.push(this.newResult)
+    // console.error(workout)
+    this.newResult.workout = workoutItem._id
+    this.addResult[i] = !this.addResult[i]
+    this.workoutService.addResult(this.newResult).subscribe(res => {
+      console.error(res)
+      this.newResult = {
+        date: new Date(),
+        comment: ''
+      }
+    })
+
   }
 
-  addFavorite(){
+  editItem(item){
+    const dialogRef = this.dialog.open(CreateWorkoutModalComponent, {
+      data:{workout: item}
+    })
+    dialogRef.afterClosed().subscribe(res=> {
+      this.workout.workoutItems.push(res)
+    })
+
+  }
+
+  addFavorite() {
     let userId = this.authService.getUserId()
     this.workout.favorite == true ? this.workout.favorite = false : this.workout.favorite = true
-    if(this.workout.favorite == true){
-      this.favWorkoutService.addfavoriteWorkout(userId,this.workout._id).subscribe(res=> {
+    if (this.workout.favorite == true) {
+      this.favWorkoutService.addfavoriteWorkout(userId, this.workout._id).subscribe(res => {
         console.error(res)
         this.snackBar.open("Workout added to favorites", "", { duration: 2000, verticalPosition: "top" })
 
       })
     } else {
       //delete favorite
-      this.favWorkoutService.deleteFavorite(userId, this.workout._id).subscribe(res=> {
+      this.favWorkoutService.deleteFavorite(userId, this.workout._id).subscribe(res => {
         console.error(res)
-      this.snackBar.open("Workout removed from favorites", "", { duration: 2000, verticalPosition: "top" })
+        this.snackBar.open("Workout removed from favorites", "", { duration: 2000, verticalPosition: "top" })
 
       })
 
     }
-  
+
   }
 
-  cancelRes(){
+  cancelRes() {
     this.addingResult = false
   }
 
-  goBack(){
+  goBack() {
     this.location.back()
   }
 
-  
+
 
 }

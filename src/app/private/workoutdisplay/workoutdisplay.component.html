@@ -43,8 +43,14 @@
 
   <div *ngIf="workout.workoutItems">
     <mat-card *ngFor="let w of workout.workoutItems; let i = index" class="m-2">
-      <mat-card-header>
-        <mat-card-title> {{w.name | titlecase}} </mat-card-title>
+      <mat-card-header class="d-flex justify-content-between">
+     
+          <mat-card-title> {{w.name | titlecase}} </mat-card-title>
+          <!-- <button class="" mat-icon-button (click)="editItem(w)">
+            <mat-icon>edit</mat-icon>
+          </button> -->
+    
+       
       </mat-card-header>
       <mat-card-content style="white-space: pre-wrap;">
         {{w.description}}

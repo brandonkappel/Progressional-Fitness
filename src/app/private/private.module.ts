@@ -36,7 +36,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import {MatTableModule} from '@angular/material/table';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from '../app-routing.module';
 import { AppComponent } from '../app.component';
 import { AuthInterceptor } from '../auth/auth-interceptor';
