@@ -78,6 +78,7 @@ export class WorkoutComponent implements OnInit {
           this.isLoading = false;
           this.totalUsers = userData.userCount;
           this.users = userData.users;
+          console.error(this.users)
         });
       this.programService.getPrograms();
       this.programService.getProgramUpdatedListener()

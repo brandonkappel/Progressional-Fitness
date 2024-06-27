@@ -119,7 +119,8 @@
 
 
       <mat-action-row>
-        <a mat-button color="primary" [routerLink]="['/private/editWorkout', workout._id ]" [state]="{type: 'clients', id: workout?.client?._id}">EDIT</a>
+        <a mat-button color="primary" [routerLink]="['/private/workoutDisplay', workout._id ]" [state]="{type: 'clients', id: workout?.client?._id}">View</a>
+        <a mat-button color="primary" [routerLink]="['/private/editWorkout', workout._id ]" [state]="{type: 'clients', id: workout?.client?._id}">Edit</a>
         <button mat-button color="warn" (click)="onDelete(workout['id'])">DELETE</button>
       </mat-action-row>
     </mat-expansion-panel>
